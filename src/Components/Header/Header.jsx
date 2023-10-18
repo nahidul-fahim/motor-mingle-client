@@ -7,9 +7,9 @@ const Header = () => {
     const websiteLogo = 'https://i.ibb.co/M5GYjtf/website-logo.png';
 
     const links = <>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/addProduct">Add a Product</NavLink>
-        <NavLink to="/myCart">My Cart</NavLink>
+        <NavLink to="/" className="hover:text-main duration-200">Home</NavLink>
+        <NavLink to="/addProduct" className="hover:text-main duration-200">Add a Product</NavLink>
+        <NavLink to="/myCart" className="hover:text-main duration-200">My Cart</NavLink>
     </>
 
 
