@@ -1,11 +1,15 @@
 import BannerCarousel from "./BannerCarousel";
+import CarBrands from "./CarBrands";
+
 
 
 const Home = () => {
+
+
     return (
         <div>
             <BannerCarousel />
-            <h2 className="text-2xl font-bold font-heading">Homepage</h2>
+            <CarBrands />
         </div>
     );
 };
