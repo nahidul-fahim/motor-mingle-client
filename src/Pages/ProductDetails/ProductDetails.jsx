@@ -20,7 +20,7 @@ const ProductDetails = () => {
         const cartInfo = { productName, brandName, carType, productPrice, description, photo, currentUserEmail };
 
         // Send the cart info to the database
-        fetch('http://localhost:5000/productsOnCart', {
+        fetch('https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/productsOnCart', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

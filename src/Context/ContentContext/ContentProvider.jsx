@@ -11,7 +11,7 @@ const ContentProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/brands')
+        fetch('https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/brands')
             .then(res => res.json())
             .then(data => {
                 setCarBrands(data);

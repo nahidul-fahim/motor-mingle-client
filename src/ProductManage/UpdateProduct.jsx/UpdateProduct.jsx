@@ -24,7 +24,7 @@ const UpdateProduct = () => {
 
         console.log(currentProductId);
 
-        fetch(`http://localhost:5000/updateProducts/${currentProductId}`, {
+        fetch(`https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/updateProducts/${currentProductId}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

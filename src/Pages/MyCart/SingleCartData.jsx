@@ -8,7 +8,7 @@ const SingleCartData = ({ singleCart, remainingProducts }) => {
     const handleRemoveProduct = id => {
         const productId = _id;
 
-        fetch(`http://localhost:5000/productsOnCart/${productId}`, {
+        fetch(`https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/productsOnCart/${productId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
