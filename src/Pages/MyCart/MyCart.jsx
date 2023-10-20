@@ -8,6 +8,7 @@ const MyCart = () => {
 
     const { currentUser } = useContext(AuthContext);
     const [cartData, setCartData] = useState([]);
+    // const [remainingData, setRemainingData] = useState(cartData);
 
     useEffect(() => {
 
@@ -20,6 +21,12 @@ const MyCart = () => {
             });
     }, [currentUser.email]);
 
+    
+    const remainingProducts = id => {
+        const remainingAfterDelete = cartData.filter(singleCart => singleCart._id !== id);
+        setCartData(remainingAfterDelete);
+    };
+
 
 
     return (
@@ -29,7 +36,8 @@ const MyCart = () => {
                 {
                     cartData.map(singleCart => <SingleCartData
                         key={singleCart._id}
-                        singleCart={singleCart}></SingleCartData>)
+                        singleCart={singleCart}
+                        remainingProducts={remainingProducts}></SingleCartData>)
                 }
             </div>
         </div>
