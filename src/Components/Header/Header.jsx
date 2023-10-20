@@ -1,8 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext/AuthProvider";
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Header = () => {
+
+    const { signOutUser, currentUser } = useContext(AuthContext);
 
     const websiteLogo = 'https://i.ibb.co/M5GYjtf/website-logo.png';
 
@@ -11,6 +17,45 @@ const Header = () => {
         <NavLink to="/addProduct" className="hover:text-main duration-200">Add a Product</NavLink>
         <NavLink to="/myCart" className="hover:text-main duration-200">My Cart</NavLink>
     </>
+
+
+    const handleLogOut = () => {
+        signOutUser()
+            .then(() => {
+                successNotify();
+            })
+            .catch(() => {
+                failedNotify();
+            })
+    }
+
+
+    // signout notify
+    const successNotify = () => toast.success('Logged out!', {
+        position: "top-right",
+        autoClose: 300,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+    });
+
+
+    // Fail notify
+    const failedNotify = () => toast.error('Could not log out', {
+        position: "top-right",
+        autoClose: 300,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+    });
 
 
     return (
@@ -35,15 +80,32 @@ const Header = () => {
                         {links}
                     </ul>
                 </div>
+
+
                 <div className="navbar-end flex justify-end items-center gap-4">
-                    <FaUserAlt className="text-main"/>
-                    <Link to="/login">
-                        <button className="text-base font-body font-bold hover:text-main duration-300">Login</button>
-                    </Link>
-                    <p className="text-black font-bold">|</p>
-                    <Link to="/signup">
-                        <button className="text-base font-body font-bold hover:text-main duration-300">Sign up</button>
-                    </Link>
+                    <ToastContainer closeButton={false} />
+
+                    {/* Navbar users info based on logged in/out  */}
+
+                    {
+                        currentUser ? <div className="flex justify-end items-center gap-3 lg:gap-5">
+                            <img src={currentUser?.photoURL} alt="" className="w-[35px] h-[35px] rounded-full bg-cover" />
+                            <p className="text-[12px] md:text-[13px] lg:text-[14px] font-semibold text-[gray]">{currentUser?.displayName}</p>
+                            <button onClick={handleLogOut} className="text-base font-body font-bold hover:text-main duration-300">Log out</button>
+                        </div>
+                            :
+                            <div className="flex justify-end items-center gap-4">
+                                <FaUserAlt className="text-main" />
+                                <Link to="/login">
+                                    <button className="text-base font-body font-bold hover:text-main duration-300">Login</button>
+                                </Link>
+                                <p className="text-black font-bold">|</p>
+                                <Link to="/signup">
+                                    <button className="text-base font-body font-bold hover:text-main duration-300">Sign up</button>
+                                </Link>
+                            </div>
+                    }
+
                 </div>
             </div>
 
