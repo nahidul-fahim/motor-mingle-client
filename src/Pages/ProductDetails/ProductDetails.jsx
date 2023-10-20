@@ -1,15 +1,73 @@
-// import { useState } from "react";
-// import { useParams } from "react-router-dom";
-
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext/AuthProvider";
+import { Flip, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductDetails = () => {
 
     const singleProduct = useLoaderData();
-    console.log(singleProduct)
-
     const { productName, brandName, carType, productPrice, description, photo } = singleProduct;
+
+    //Get the current user email
+    const { currentUser } = useContext(AuthContext);
+    const currentUserEmail = currentUser.email;
+
+
+    const handleAddToCart = () => {
+        // e.preventDefault();
+        const cartInfo = { productName, brandName, carType, productPrice, description, photo, currentUserEmail };
+
+        // Send the cart info to the database
+        fetch('http://localhost:5000/productsOnCart', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(cartInfo),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    successNotify()
+                }
+                else {
+                    failureNotify()
+                }
+            })
+    }
+
+
+
+    // Successful product adding message
+    const successNotify = () => toast.success('Product added to cart successfully!', {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+    });
+
+
+    // Failed product adding message
+    const failureNotify = () => toast.error('Failed to add to the cart.', {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+    });
+
 
 
     return (
@@ -62,9 +120,10 @@ const ProductDetails = () => {
                 <div className="flex flex-col text-center justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain py-8 px-5 font-medium text-[gray]">
                     <img src={photo} alt="" />
                     <p>{description}</p>
-                    <button className="bg-main px-5 py-3 text-base font-heading font-semibold text-white hover:bg-sub rounded-md duration-300 mt-8">Add to Cart</button>
+                    <button onClick={handleAddToCart} className="bg-main px-5 py-3 text-base font-heading font-semibold text-white hover:bg-sub rounded-md duration-300 mt-8">Add to Cart</button>
                 </div>
 
+                <ToastContainer closeButton={false} />
 
 
             </div>
