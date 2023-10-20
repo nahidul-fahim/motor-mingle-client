@@ -27,7 +27,7 @@ const BannerCarousel = () => {
                     backgroundSize: 'cover',
                 }}>
                 <div className='container mx-auto p-5'>
-                    <h1 className='text-4xl md:text-6xl font-extrabold font-heading text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Dive into the Thrilling World of Cars</h1>
+                    <h1 className='text-4xl md:text-6xl font-extrabold  text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Dive into the Thrilling World of Cars</h1>
                 </div>
             </SwiperSlide>
 
@@ -40,7 +40,7 @@ const BannerCarousel = () => {
                     backgroundSize: 'cover',
                 }}>
                 <div className='container mx-auto p-5'>
-                    <h1 className='text-4xl md:text-6xl font-extrabold font-heading text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Explore the World of Wheels</h1>
+                    <h1 className='text-4xl md:text-6xl font-extrabold  text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Explore the World of Wheels</h1>
                 </div>
             </SwiperSlide>
         </Swiper>

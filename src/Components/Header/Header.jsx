@@ -60,7 +60,28 @@ const Header = () => {
 
 
     return (
-        <div className="container mx-auto px-5">
+        <div className="mx-auto">
+
+            <div className="py-2 pr-5 bg-main">
+                {
+                    currentUser ? <div className="flex justify-end items-center gap-3 lg:gap-5">
+                        <img src={currentUser?.photoURL} alt="" className="w-[35px] h-[35px] rounded-full bg-cover" />
+                        <p className="text-[12px] md:text-[13px] lg:text-[14px] font-semibold text-[#ffffff] ">{currentUser?.displayName}</p>
+                        <button onClick={handleLogOut} className="text-white bg-[#00000044] px-2 py-1 rounded  font-bold hover:text-sub hover:bg-white duration-300">Log out</button>
+                    </div>
+                        :
+                        <div className="flex justify-end items-center gap-4">
+                            <FaUserAlt className="text-main" />
+                            <Link to="/login">
+                                <button className="text-white bg-[#00000044] px-2 py-1 rounded  font-bold hover:text-sub hover:bg-white duration-300">Login</button>
+                            </Link>
+                            
+                            <Link to="/signup">
+                                <button className="text-white bg-[#00000044] px-2 py-1 rounded  font-bold hover:text-sub hover:bg-white duration-300">Sign up</button>
+                            </Link>
+                        </div>
+                }
+            </div>
 
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
@@ -68,46 +89,27 @@ const Header = () => {
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-5 shadow bg-base-100 rounded-box w-52 font-body text-base font-semibold space-y-4">
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-5 shadow bg-base-100 rounded-box w-52  text-base font-semibold space-y-4">
                             {links}
                         </ul>
                     </div>
-                    <a>
+                    <Link to="/">
                         <img src={websiteLogo} alt="Website Logo" className="w-2/3" />
-                    </a>
-                </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 font-body text-base font-bold space-x-10">
-                        {links}
-                    </ul>
+                    </Link>
                 </div>
 
 
                 <div className="navbar-end flex justify-end items-center gap-4">
+
+                    <div className="navbar-center hidden lg:flex">
+                        <ul className="menu menu-horizontal px-1  text-base font-bold space-x-10">
+                            {links}
+                        </ul>
+                    </div>
                     <ToastContainer closeButton={false} />
 
-                    {/* Navbar users info based on logged in/out  */}
-
-                    {
-                        currentUser ? <div className="flex justify-end items-center gap-3 lg:gap-5">
-                            <img src={currentUser?.photoURL} alt="" className="w-[35px] h-[35px] rounded-full bg-cover" />
-                            <p className="text-[12px] md:text-[13px] lg:text-[14px] font-semibold text-[gray]">{currentUser?.displayName}</p>
-                            <button onClick={handleLogOut} className="text-base font-body font-bold hover:text-main duration-300">Log out</button>
-                        </div>
-                            :
-                            <div className="flex justify-end items-center gap-4">
-                                <FaUserAlt className="text-main" />
-                                <Link to="/login">
-                                    <button className="text-base font-body font-bold hover:text-main duration-300">Login</button>
-                                </Link>
-                                <p className="text-black font-bold">|</p>
-                                <Link to="/signup">
-                                    <button className="text-base font-body font-bold hover:text-main duration-300">Sign up</button>
-                                </Link>
-                            </div>
-                    }
-
                 </div>
+
             </div>
 
         </div>

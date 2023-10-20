@@ -58,9 +58,9 @@ const UpdateProduct = () => {
 
     return (
         <div className="container mx-auto p-5 mt-[70px] md:mt-[80px]">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main font-heading uppercase">Update the product</h2>
+            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">Update the product</h2>
             <form onSubmit={handleUpdateProduct}
-                className="flex flex-col justify-center items-center gap-14 mt-[70px] md:mt-[80px] font-body text-[18px] font-medium">
+                className="flex flex-col justify-center items-center gap-14 mt-[70px] md:mt-[80px]  text-[18px] font-medium">
 
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-[40px] lg:gap-[100px] w-full lg:w-2/3 lg:p-0">
                     <input required type="text" name="productName" id="productName" placeholder="Enter car name" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={productName} />
@@ -75,7 +75,7 @@ const UpdateProduct = () => {
 
                 <input required type="text" name="photo" id="photo" placeholder="Enter car photo URL" className="w-full lg:w-2/3 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={photo} />
 
-                <input type="submit" value="Update the Product" className="w-full lg:w-2/3 px-5 py-3 bg-sub mt-5 rounded-md text-white hover:bg-main duration-300 font-heading font-semibold text-xl cursor-pointer" />
+                <input type="submit" value="Update the Product" className="w-full lg:w-2/3 px-5 py-3 bg-sub mt-5 rounded-md text-white hover:bg-main duration-300  font-semibold text-xl cursor-pointer" />
             </form>
 
             <ToastContainer closeButton={false} />

@@ -43,8 +43,8 @@ const ProductDetails = () => {
 
     // Successful product adding message
     const successNotify = () => toast.success('Product added to cart successfully!', {
-        position: "top-center",
-        autoClose: 1800,
+        position: "top-right",
+        autoClose: 200,
         hideProgressBar: true,
         closeOnClick: false,
         pauseOnHover: false,
@@ -57,8 +57,8 @@ const ProductDetails = () => {
 
     // Failed product adding message
     const failureNotify = () => toast.error('Failed to add to the cart.', {
-        position: "top-center",
-        autoClose: 1800,
+        position: "top-right",
+        autoClose: 200,
         hideProgressBar: true,
         closeOnClick: false,
         pauseOnHover: false,
@@ -76,10 +76,10 @@ const ProductDetails = () => {
 
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto">
                     <div className="px-10 py-3 border-y-2 border-l-2 border-lightMain w-full md:w-1/2">
-                        <h3 className="text-xl font-bold font-body text-sub">Car name</h3>
+                        <h3 className="text-xl font-bold  text-sub">Car name</h3>
                     </div>
                     <div className="px-10 py-3 border-y-2 border-x-2 border-lightMain w-full md:w-1/2">
-                        <h3 className="text-xl font-bold font-body text-main ">{productName}</h3>
+                        <h3 className="text-xl font-bold  text-main ">{productName}</h3>
                     </div>
                 </div>
 
@@ -87,10 +87,10 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2">
-                        <h3 className="text-xl font-bold font-body text-sub">Brand name</h3>
+                        <h3 className="text-xl font-bold  text-sub">Brand name</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
-                        <h3 className="text-xl font-bold font-body text-main">{brandName}</h3>
+                        <h3 className="text-xl font-bold  text-main">{brandName}</h3>
                     </div>
 
                 </div>
@@ -98,10 +98,10 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2 ">
-                        <h3 className="text-xl font-bold font-body text-sub">Car type</h3>
+                        <h3 className="text-xl font-bold  text-sub">Car type</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
-                        <h3 className="text-xl font-bold font-body text-main">{carType}</h3>
+                        <h3 className="text-xl font-bold  text-main">{carType}</h3>
                     </div>
 
                 </div>
@@ -109,10 +109,10 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2">
-                        <h3 className="text-xl font-bold font-body text-sub">Price</h3>
+                        <h3 className="text-xl font-bold  text-sub">Price</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
-                        <h3 className="text-xl font-bold font-body text-main">${productPrice}</h3>
+                        <h3 className="text-xl font-bold  text-main">${productPrice}</h3>
                     </div>
 
                 </div>
@@ -120,7 +120,7 @@ const ProductDetails = () => {
                 <div className="flex flex-col text-center justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain py-8 px-5 font-medium text-[gray]">
                     <img src={photo} alt="" />
                     <p>{description}</p>
-                    <button onClick={handleAddToCart} className="bg-main px-5 py-3 text-base font-heading font-semibold text-white hover:bg-sub rounded-md duration-300 mt-8">Add to Cart</button>
+                    <button onClick={handleAddToCart} className="bg-main px-5 py-3 text-base  font-semibold text-white hover:bg-sub rounded-md duration-300 mt-8">Add to Cart</button>
                 </div>
 
                 <ToastContainer closeButton={false} />

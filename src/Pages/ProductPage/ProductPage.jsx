@@ -16,7 +16,7 @@ const ProductPage = () => {
                     allCarsByCategory.length === 0 ?
                         <div className="flex flex-col justify-center items-center h-full mt-[5rem]">
                             <img src="https://i.ibb.co/bsZ94bt/oops.png" alt="" className="lg:w-1/3" />
-                            <h1 className="font-extrabold text-2xl md:text-4xl font-heading text-main text-center uppercase">No product available!</h1>
+                            <h1 className="font-extrabold text-2xl md:text-4xl  text-main text-center uppercase">No product available!</h1>
                         </div>
                         :
                         <div className="grid grid-cols-1 gap-[80px]">

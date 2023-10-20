@@ -13,7 +13,7 @@ const CarBrands = () => {
 
     return (
         <div className="container mx-auto p-5 mt-[5rem]">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-center text-main uppercase mb-[4rem]">Choose your brand</h1>
+            <h1 className="text-4xl md:text-5xl font-bold  text-center text-main uppercase mb-[4rem]">Choose your brand</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {
                     carBrands.map(carBrand => <SingleCarBrand

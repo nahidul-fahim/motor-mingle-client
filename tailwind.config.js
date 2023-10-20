@@ -16,7 +16,7 @@ export default {
     extend: {
       fontFamily: {
         heading: "'Montserrat', sans-serif",
-        body: "'Assistant', sans-serif",
+        body: "'Montserrat', sans-serif",
       }
     },
   },

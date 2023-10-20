@@ -13,7 +13,7 @@ const Logos = () => {
 
     return (
         <div className="container mx-auto p-5 mt-[3rem] lg:mt-[5rem]">
-            <h2 className="text-3xl md:text-5xl uppercase text-main font-extrabold font-heading text-center">Our Alliances</h2>
+            <h2 className="text-3xl md:text-5xl uppercase text-main font-extrabold  text-center">Our Alliances</h2>
             <Marquee className="mt-[4rem] space-y-10" 
             speed={120}>
                 <img src={logo1} alt="" className="w-[80%]"/>

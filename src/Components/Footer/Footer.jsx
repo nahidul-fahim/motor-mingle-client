@@ -6,7 +6,7 @@ const Footer = () => {
             <footer className="footer footer-center p-10 bg-sub text-primary-content">
                 <aside>
                     <img src="https://i.ibb.co/M5GYjtf/website-logo.png" alt="" />
-                    <p className="font-bold text-xl font-heading">
+                    <p className="font-bold text-xl ">
                         Motor Mingle
                     </p>
                     <p className="font-semibold text-[14px]">Copyright © 2023 - All right reserved</p>
