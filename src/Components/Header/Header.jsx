@@ -37,12 +37,12 @@ const Header = () => {
                 </div>
                 <div className="navbar-end flex justify-end items-center gap-4">
                     <FaUserAlt className="text-main"/>
-                    <Link>
-                        <button className="text-base font-body font-semibold hover:text-main duration-300">Login</button>
+                    <Link to="/login">
+                        <button className="text-base font-body font-bold hover:text-main duration-300">Login</button>
                     </Link>
                     <p className="text-black font-bold">|</p>
-                    <Link>
-                        <button className="text-base font-body font-semibold hover:text-main duration-300">Sign up</button>
+                    <Link to="/signup">
+                        <button className="text-base font-body font-bold hover:text-main duration-300">Sign up</button>
                     </Link>
                 </div>
             </div>

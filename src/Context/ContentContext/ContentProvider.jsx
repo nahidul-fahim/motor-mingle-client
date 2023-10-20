@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from "react";
 
 
@@ -29,3 +30,8 @@ const ContentProvider = ({children}) => {
 };
 
 export default ContentProvider;
+
+
+ContentProvider.propTypes = {
+    children: PropTypes.object,
+}
