@@ -21,7 +21,7 @@ const AddProduct = () => {
         const addingForm = document.getElementById('productAddingForm')
 
         // Send the data to the server and databse
-        fetch('https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/products', {
+        fetch('https://motor-mingle-server.vercel.app/products', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -84,7 +84,7 @@ const AddProduct = () => {
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-[40px] lg:gap-[100px] w-full lg:w-2/3 lg:p-0">
                     <input required type="text" name="carType" id="carType" placeholder="Enter car type" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />
                     <input required type="number" name="productPrice" id="productPrice" min="1000" placeholder="Price ($)" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />
-                    <input required type="number" name="rating" id="rating" min="1" max="5" step=".01" placeholder="Rating" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />
+                    <input required type="number" name="rating" id="rating" min="1" max="5" step=".01" placeholder="Rating (out of 5)" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />
                 </div>
 
                 <textarea required rows="2" name="description" id="description" placeholder="Enter short description about the car" className="w-full lg:w-2/3 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />

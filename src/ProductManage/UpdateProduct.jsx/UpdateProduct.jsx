@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const UpdateProduct = () => {
 
     const singleProduct = useLoaderData();
-    const { _id, productName, brandName, carType, productPrice, description, photo } = singleProduct;
+    const { _id, productName, brandName, carType, productPrice, description, photo, rating } = singleProduct;
     const currentProductId = _id;
 
     const handleUpdateProduct = e => {
@@ -24,7 +24,7 @@ const UpdateProduct = () => {
 
         console.log(currentProductId);
 
-        fetch(`https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/updateProducts/${currentProductId}`, {
+        fetch(`https://motor-mingle-server.vercel.app/updateProducts/${currentProductId}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -36,6 +36,9 @@ const UpdateProduct = () => {
                 if (data.modifiedCount > 0) {
                     successNotify()
                 }
+                else {
+                    failureNotify()
+                }
             })
 
     }
@@ -43,6 +46,19 @@ const UpdateProduct = () => {
 
     // Successful product adding message
     const successNotify = () => toast.success('Product updated successfully!', {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+    });
+
+    // Failed product adding message
+    const failureNotify = () => toast.error('Failed to update.', {
         position: "top-center",
         autoClose: 1800,
         hideProgressBar: true,
@@ -70,7 +86,7 @@ const UpdateProduct = () => {
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-[40px] lg:gap-[100px] w-full lg:w-2/3 lg:p-0">
                     <input required type="text" name="carType" id="carType" placeholder="Enter car type" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={carType} />
                     <input required type="number" name="productPrice" id="productPrice" min="1000" placeholder="Price ($)" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={productPrice} />
-                    <input required type="number" name="rating" id="rating" min="1" max="5" step=".01" placeholder="Rating" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" />
+                    <input required type="number" name="rating" id="rating" min="1" max="5" step=".01" placeholder="Rating" className="w-full lg:w-1/2 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={rating} />
                 </div>
 
                 <input required type="text" name="photo" id="photo" placeholder="Enter car photo URL" className="w-full lg:w-2/3 px-5 py-3 border-b-[1px] border-[#ff2c8f38] focus:outline-none focus:border-[#ff2c8ff6]" defaultValue={photo} />

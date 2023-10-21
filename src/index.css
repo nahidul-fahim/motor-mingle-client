@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --second_color: #060045;
+}
+
+[data-theme="dark"] {
+  --second_color: cyan;
+}
+
 * {
   margin: 0;
   padding: 0;

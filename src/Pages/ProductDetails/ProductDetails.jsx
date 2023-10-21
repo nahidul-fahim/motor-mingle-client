@@ -20,7 +20,7 @@ const ProductDetails = () => {
         const cartInfo = { productName, brandName, carType, productPrice, description, photo, currentUserEmail };
 
         // Send the cart info to the database
-        fetch('https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/productsOnCart', {
+        fetch('https://motor-mingle-server.vercel.app/productsOnCart', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -76,7 +76,7 @@ const ProductDetails = () => {
 
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto">
                     <div className="px-10 py-3 border-y-2 border-l-2 border-lightMain w-full md:w-1/2">
-                        <h3 className="text-xl font-bold  text-sub">Car name</h3>
+                        <h3 className="text-xl font-bold  text-second">Car name</h3>
                     </div>
                     <div className="px-10 py-3 border-y-2 border-x-2 border-lightMain w-full md:w-1/2">
                         <h3 className="text-xl font-bold  text-main ">{productName}</h3>
@@ -87,7 +87,7 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2">
-                        <h3 className="text-xl font-bold  text-sub">Brand name</h3>
+                        <h3 className="text-xl font-bold  text-second">Brand name</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
                         <h3 className="text-xl font-bold  text-main">{brandName}</h3>
@@ -98,7 +98,7 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2 ">
-                        <h3 className="text-xl font-bold  text-sub">Car type</h3>
+                        <h3 className="text-xl font-bold  text-second">Car type</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
                         <h3 className="text-xl font-bold  text-main">{carType}</h3>
@@ -109,7 +109,7 @@ const ProductDetails = () => {
                 <div className="flex justify-center items-center w-full lg:w-2/3 mx-auto border-b-2 border-x-2 border-lightMain">
 
                     <div className="px-10 py-3 w-1/2">
-                        <h3 className="text-xl font-bold  text-sub">Price</h3>
+                        <h3 className="text-xl font-bold  text-second">Price</h3>
                     </div>
                     <div className="px-10 py-3 w-1/2 border-l-2 border-lightMain">
                         <h3 className="text-xl font-bold  text-main">${productPrice}</h3>

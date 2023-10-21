@@ -27,7 +27,7 @@ const BannerCarousel = () => {
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                 }}>
-                <div className='container mx-auto p-5'>
+                <div className='container mx-auto p-5 flex flex-col justify-center items-center lg:items-start'>
                     <h1 className='text-4xl md:text-6xl font-extrabold  text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Dive into the Thrilling World of Cars</h1>
                     <Link to="/allProducts"><button className='mt-8 bg-main text-white px-4 font-semibold rounded hover:bg-sub duration-500 py-2'>All Products</button></Link>
                 </div>
@@ -41,7 +41,7 @@ const BannerCarousel = () => {
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                 }}>
-                <div className='container mx-auto p-5'>
+                <div className='container mx-auto p-5 flex flex-col justify-center items-center lg:items-start'>
                     <h1 className='text-4xl md:text-6xl font-extrabold  text-center lg:text-left lg:w-[50%] text-sub leading-snug uppercase'>Explore the World of Wheels</h1>
                     <Link to="/allProducts"><button className='mt-8 bg-main text-white px-4 font-semibold rounded hover:bg-sub duration-500 py-2'>All Products</button></Link>
                 </div>

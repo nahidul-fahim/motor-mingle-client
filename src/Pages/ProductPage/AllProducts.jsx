@@ -6,10 +6,8 @@ const AllProducts = () => {
 
     const allProducts = useLoaderData();
 
-    console.log(allProducts);
-
     return (
-        <div>
+        <div className="grid grid-cols-1 gap-[50px] lg:gap-[80px] mt-[1rem] lg:mt-[4rem]">
             {
                 allProducts.map(singleCategoryCar => <SingleProductPage
                 key={singleCategoryCar._id}

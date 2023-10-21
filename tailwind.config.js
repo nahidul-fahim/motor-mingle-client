@@ -10,6 +10,7 @@ export default {
       black: '#000',
       main: '#ff0062',
       sub: '#0a0140',
+      second: 'var(--second_color)',
       gray: '#d1d1d1',
       lightMain: '#ff2c8f38'
     },
@@ -21,4 +22,7 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["light", "dark"],
+  },
 }
