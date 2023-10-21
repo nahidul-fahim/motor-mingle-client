@@ -94,7 +94,7 @@ const Header = () => {
                         </ul>
                     </div>
                     <Link to="/">
-                        <img src={websiteLogo} alt="Website Logo" className="w-2/3 hover:scale-125 duration-300" />
+                        <img src={websiteLogo} alt="Website Logo" className="w-2/3 hover:scale-125  duration-500" />
                     </Link>
                 </div>
 

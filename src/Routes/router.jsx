@@ -10,6 +10,7 @@ import SignUp from "../Authentication/SignUp/SignUp";
 import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import UpdateProduct from "../ProductManage/UpdateProduct.jsx/UpdateProduct";
+import AllProducts from "../Pages/ProductPage/AllProducts";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         path: "/products/:brandName",
         element: <ProductPage />,
         loader: ({ params }) => fetch(`https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/products/${params.brandName}`)
+      },
+      {
+        path: "/allProducts",
+        element: <AllProducts />,
+        loader: () => fetch ('https://motor-mingle-server-j07tt86md-nahidul-islams-projects.vercel.app/products')
       },
       {
         path: "/productDetails/:_id",
