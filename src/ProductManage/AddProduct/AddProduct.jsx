@@ -1,5 +1,7 @@
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const AddProduct = () => {
 
@@ -70,9 +72,20 @@ const AddProduct = () => {
     });
 
 
+    AOS.init({
+        offset: 120,
+        duration: 1500,
+        easing: 'ease',
+        delay: 50,
+    });
+
     return (
         <div className="container mx-auto p-5 mt-[70px] md:mt-[80px]">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">Add a new product</h2>
+            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase"
+                data-aos="slide-right"
+                data-aos-mirror="true"
+                data-aos-once="false"
+                data-aos-anchor-placement="top-bottom">Add a new product</h2>
             <form id='productAddingForm' onSubmit={handleAddProduct}
                 className="flex flex-col justify-center items-center gap-14 mt-[70px] md:mt-[80px]  text-[18px] font-medium">
 

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { Rating, StickerStar } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const SingleProductPage = ({ singleCategoryCar }) => {
@@ -13,6 +15,13 @@ const SingleProductPage = ({ singleCategoryCar }) => {
         activeFillColor: '#FF0062',
         inactiveFillColor: '#FFC2D9FF'
     }
+
+    AOS.init({
+        offset: 120,
+        duration: 1100,
+        easing: 'ease',
+        delay: 50,
+    });
 
     return (
         <div className="w-full lg:w-2/3 mx-auto p-5">
@@ -30,7 +39,11 @@ const SingleProductPage = ({ singleCategoryCar }) => {
                         <Link to={`/productUpdate/${_id}`}><button className="bg-sub px-4 py-1 text-base  font-semibold rounded text-white hover:bg-main duration-300">Update Product</button></Link>
                     </div>
                 </div>
-                <img src={photo} alt="" />
+                <img src={photo} alt=""
+                    data-aos="fade-left"
+                    data-aos-mirror="true"
+                    data-aos-once="false"
+                    data-aos-anchor-placement="top-bottom" />
 
             </div>
             <div className="px-[50px] md:px-[100px] py-10 bg-sub flex flex-col justify-center items-start text-left gap-5 rounded-b-lg">
@@ -39,7 +52,7 @@ const SingleProductPage = ({ singleCategoryCar }) => {
                     style={{ maxWidth: 150 }}
                     itemStyles={ratingStyles}
                     readOnly={true}
-                    value={rating}/>
+                    value={rating} />
             </div>
         </div>
     );

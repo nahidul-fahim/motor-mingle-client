@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import SingleCartData from "./SingleCartData";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -27,11 +29,21 @@ const MyCart = () => {
         setCartData(remainingAfterDelete);
     };
 
+    AOS.init({
+        offset: 120,
+        duration: 1500,
+        easing: 'ease',
+        delay: 50,
+    });
 
 
     return (
         <div className="container mx-auto p-5 mt-[4rem]">
-            <h2 className="text-5xl font-extrabold  text-center uppercase text-main">My Cart</h2>
+            <h2 className="text-5xl font-extrabold  text-center uppercase text-main"
+                data-aos="slide-right"
+                data-aos-mirror="true"
+                data-aos-once="false"
+                data-aos-anchor-placement="top-bottom">My Cart</h2>
             <div>
 
                 {
