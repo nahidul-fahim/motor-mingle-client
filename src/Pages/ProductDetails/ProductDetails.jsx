@@ -79,7 +79,7 @@ const ProductDetails = () => {
                         <h3 className="text-xl font-bold  text-second">Car name</h3>
                     </div>
                     <div className="px-10 py-3 border-y-2 border-x-2 border-lightMain w-full md:w-1/2">
-                        <h3 className="text-xl font-bold  text-main ">{productName}</h3>
+                        <h3 className="text-xl font-bold text-main ">{productName}</h3>
                     </div>
                 </div>
 

@@ -24,7 +24,7 @@ const SingleProductPage = ({ singleCategoryCar }) => {
     });
 
     return (
-        <div className="w-full lg:w-2/3 mx-auto p-5">
+        <div className="w-full lg:w-2/3 mx-auto">
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-10 h-[500px] md:h-[380px] bg-[#e7e7e7fb] rounded-t-lg p-10 lg:p-0">
                 <div className="flex flex-col justify-center items-start gap-2">

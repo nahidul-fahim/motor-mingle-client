@@ -68,7 +68,7 @@ const Header = () => {
 
 
     return (
-        <div className="mx-auto">
+        <div className="mx-auto z-50">
 
             <div className="py-2 pr-5 bg-main">
                 {
