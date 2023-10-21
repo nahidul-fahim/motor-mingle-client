@@ -22,29 +22,9 @@ const ContentProvider = ({ children }) => {
     }, [])
 
 
-    // Dark-light theme toggling function
-    const [isLightMode, setIsLightMode] = useState(true);
-
-    const toggleTheme = () => {
-        setIsLightMode(!isLightMode);
-    };
-
-
-    const setDarkMode = () => {
-        document.querySelector("html").setAttribute('data-theme', 'dark');
-    }
-    const setLightMode = () => {
-        document.querySelector("html").setAttribute('data-theme', 'light');
-    }
-
-
-    isLightMode ? setLightMode() : setDarkMode();
-
-
-
 
     // Send props to children
-    const allContentInfo = { carBrands, loading, toggleTheme };
+    const allContentInfo = { carBrands, loading };
 
     return (
         <websiteContentContext.Provider value={allContentInfo}>
