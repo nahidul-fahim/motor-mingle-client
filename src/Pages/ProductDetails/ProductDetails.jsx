@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import { Flip, ToastContainer, toast } from 'react-toastify';
@@ -13,6 +13,12 @@ const ProductDetails = () => {
     //Get the current user email
     const { currentUser } = useContext(AuthContext);
     const currentUserEmail = currentUser.email;
+
+
+    // scroll to top when loaded
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
 
     const handleAddToCart = () => {

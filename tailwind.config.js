@@ -8,11 +8,11 @@ export default {
     colors: {
       white: '#fff',
       black: '#000',
-      main: '#ff0062',
+      main: '#2c0b87',
       sub: '#0a0140',
       second: 'var(--second_color)',
       gray: '#d1d1d1',
-      lightMain: '#ff2c8f38'
+      lightMain: '#8D5EE2'
     },
     extend: {
       fontFamily: {
