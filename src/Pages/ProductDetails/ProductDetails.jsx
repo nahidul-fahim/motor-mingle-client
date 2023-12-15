@@ -1,26 +1,53 @@
 import { useContext, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
+import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 
 
 const ProductDetails = () => {
 
-    const singleProduct = useLoaderData();
-    const { productName, brandName, carType, productPrice, description, photo } = singleProduct;
-
+    // hooks and custom hooks
+    const scrollToTop = useScrollToTop()
+    const axiosPublic = useAxiosPublic();
+    const { _id } = useParams();
     //Get the current user email
     const { currentUser } = useContext(AuthContext);
-    const currentUserEmail = currentUser.email;
 
 
     // scroll to top when loaded
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+        scrollToTop();
+    }, [scrollToTop])
 
 
+    // fetching data using axios and tanstack
+    const { isPending: productPending, data: singleProduct } = useQuery({
+        queryKey: ["single-product", _id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/brandProducts/${_id}`)
+            return res.data;
+        }
+    })
+
+
+    if (productPending) {
+        return <LoadingAnimation />
+    }
+
+    // get the current user mail
+    const currentUserEmail = currentUser.email;
+
+
+    const { productName, brandName, carType, productPrice, description, photo } = singleProduct;
+
+
+
+    // add to cart functionality
     const handleAddToCart = () => {
         // e.preventDefault();
         const cartInfo = { productName, brandName, carType, productPrice, description, photo, currentUserEmail };
