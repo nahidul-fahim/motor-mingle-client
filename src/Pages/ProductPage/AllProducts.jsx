@@ -7,6 +7,8 @@ const AllProducts = () => {
 
     const allProducts = useLoaderData();
 
+    console.log("hey how are you doing?")
+
     return (
         <div className="mt-[4rem]">
             <h2 className="text-5xl font-extrabold text-center uppercase text-main"

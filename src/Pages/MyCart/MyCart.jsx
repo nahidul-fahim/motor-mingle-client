@@ -16,7 +16,7 @@ const MyCart = () => {
 
         const userEmail = currentUser.email;
 
-        fetch(`https://motor-mingle-server.vercel.app/productsOnCart/${userEmail}`)
+        fetch(`http://localhost:5000/productsOnCart/${userEmail}`)
             .then(res => res.json())
             .then(data => {
                 setCartData(data);

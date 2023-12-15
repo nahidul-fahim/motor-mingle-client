@@ -13,7 +13,7 @@ const ContentProvider = ({ children }) => {
 
     //Load all the brands
     useEffect(() => {
-        fetch('https://motor-mingle-server.vercel.app/brands')
+        fetch('http://localhost:5000/brands')
             .then(res => res.json())
             .then(data => {
                 setCarBrands(data);

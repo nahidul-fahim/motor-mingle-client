@@ -26,7 +26,7 @@ const UpdateProduct = () => {
 
         console.log(currentProductId);
 
-        fetch(`https://motor-mingle-server.vercel.app/updateProducts/${currentProductId}`, {
+        fetch(`http://localhost:5000/updateProducts/${currentProductId}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

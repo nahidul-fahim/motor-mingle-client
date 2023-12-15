@@ -23,7 +23,7 @@ const AddProduct = () => {
         const addingForm = document.getElementById('productAddingForm')
 
         // Send the data to the server and databse
-        fetch('https://motor-mingle-server.vercel.app/products', {
+        fetch('http://localhost:5000/products', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

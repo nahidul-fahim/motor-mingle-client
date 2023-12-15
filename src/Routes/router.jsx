@@ -29,27 +29,26 @@ const router = createBrowserRouter([
       {
         path: "/myCart",
         element: <PrivateRoute><MyCart /></PrivateRoute>,
-        // loader: ({ params }) => fetch(`https://motor-mingle-server.vercel.app/productsOnCart/${params.id}`)
       },
       {
         path: "/products/:brandName",
         element: <ProductPage />,
-        loader: ({ params }) => fetch(`https://motor-mingle-server.vercel.app/products/${params.brandName}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/products/${params.brandName}`)
       },
       {
         path: "/allProducts",
         element: <AllProducts />,
-        loader: () => fetch ('https://motor-mingle-server.vercel.app/products')
+        loader: () => fetch ('http://localhost:5000/products')
       },
       {
         path: "/productDetails/:_id",
         element: <PrivateRoute><ProductDetails /></PrivateRoute>,
-        loader: ({ params }) => fetch(`https://motor-mingle-server.vercel.app/brandProducts/${params._id}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/brandProducts/${params._id}`)
       },
       {
         path: "/productUpdate/:_id",
         element: <PrivateRoute><UpdateProduct /> </PrivateRoute>,
-        loader: ({ params }) => fetch(`https://motor-mingle-server.vercel.app/updateProducts/${params._id}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/updateProducts/${params._id}`)
       },
       {
         path: "/signup",
