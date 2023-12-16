@@ -2,23 +2,23 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PropTypes from 'prop-types';
 
-const SingleCartData = ({ singleCart, remainingProducts }) => {
+const SingleCartData = ({ singleCart, handleDelete }) => {
 
     const { photo, productName, productPrice, _id } = singleCart;
 
-    const handleRemoveProduct = id => {
-        const productId = _id;
 
-        fetch(`http://localhost:5000/productsOnCart/${productId}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    remainingProducts(id);
-                }
-            })
-    }
+    // remove item from cart data
+    // const handleRemoveProduct = id => {
+    //     const productId = _id;
+
+    //     fetch(`http://localhost:5000/productsOnCart/${productId}`, {
+    //         method: 'DELETE',
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data)
+    //         })
+    // }
 
     AOS.init({
         offset: 120,
@@ -32,7 +32,7 @@ const SingleCartData = ({ singleCart, remainingProducts }) => {
             <img src={photo} alt="" />
             <h2 className='text-3xl uppercase font-bold font-boby text-second text-center'>{productName}</h2>
             <h3 className='text-xl font-bold  text-main'>${productPrice}</h3>
-            <button onClick={() => handleRemoveProduct(_id)} className='bg-main px-4 py-2  font-semibold text-white mt-[1rem] hover:shadow-[0_60px_40px_#FF8FB2FF] rounded duration-300'
+            <button onClick={() => handleDelete(_id)} className='bg-main px-4 py-2  font-semibold text-white mt-[1rem] hover:shadow-[0_60px_40px_#FF8FB2FF] rounded duration-300'
                 data-aos="fade"
                 data-aos-mirror="true"
                 data-aos-once="false"
