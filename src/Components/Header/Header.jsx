@@ -36,7 +36,7 @@ const Header = () => {
         }
     };
 
-    const websiteLogo = 'https://i.ibb.co/M5GYjtf/website-logo.png';
+    const websiteLogo = 'https://i.ibb.co/7zM3tq9/website-logo.png';
 
     const links = <>
         <NavLink to="/" className="hover:text-main duration-200">Home</NavLink>

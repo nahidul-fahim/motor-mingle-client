@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
-import { Flip, ToastContainer, toast } from 'react-toastify';
+import { Zoom, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
+import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
 const ProductDetails = () => {
@@ -14,7 +15,9 @@ const ProductDetails = () => {
     // hooks and custom hooks
     const scrollToTop = useScrollToTop()
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { _id } = useParams();
+    // const successNotify = useSuccessMessage();
     //Get the current user email
     const { currentUser } = useContext(AuthContext);
 
@@ -34,40 +37,57 @@ const ProductDetails = () => {
         }
     })
 
-
+    // coditional loading when data is not ready
     if (productPending) {
         return <LoadingAnimation />
     }
 
     // get the current user mail
-    const currentUserEmail = currentUser.email;
+    const currentUserEmail = currentUser?.email;
+    const currentUserName = currentUser?.displayName;
 
 
-    const { productName, brandName, carType, productPrice, description, photo } = singleProduct;
+    // get every single key from object
+    const { productName, brandName, carType, productPrice: prodcutPriceString, description, photo } = singleProduct;
+
+    // convert product price to number
+    const productPrice = parseInt(prodcutPriceString);
+
+
+
+    // get todays date
+    const todayDate = new Date().toISOString().split("T")[0];
+
+    // get current time
+    const currentDate = new Date();
+    const currentHours = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
+    const currentSeconds = currentDate.getSeconds();
+
+    const currentTime = `${currentHours}:${currentMinutes}:${currentSeconds}`;
 
 
 
     // add to cart functionality
     const handleAddToCart = () => {
-        // e.preventDefault();
-        const cartInfo = { productName, brandName, carType, productPrice, description, photo, currentUserEmail };
 
-        // Send the cart info to the database
-        fetch('http://localhost:5000/productsOnCart', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(cartInfo),
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
+
+
+        // data to save to the cart info
+        const cartInfo = { productName, brandName, carType, productPrice, description, photo, todayDate, currentTime, currentUserName, currentUserEmail };
+
+
+        // send new cart data to database
+        axiosSecure.post("/productsOnCart", cartInfo)
+            .then(res => {
+                const data = res.data;
                 if (data.insertedId) {
-                    successNotify()
+                    successNotify("Product added to cart!")
                 }
-                else {
-                    failureNotify()
+            })
+            .catch(err => {
+                if (err) {
+                    failureNotify(err.code)
                 }
             })
     }
@@ -84,12 +104,12 @@ const ProductDetails = () => {
         draggable: false,
         progress: undefined,
         theme: "colored",
-        transition: Flip,
+        transition: Zoom,
     });
 
 
     // Failed product adding message
-    const failureNotify = () => toast.error('Failed to add to the cart.', {
+    const failureNotify = (errorMessage) => toast.error(`${errorMessage}`, {
         position: "top-right",
         autoClose: 200,
         hideProgressBar: true,
@@ -98,7 +118,7 @@ const ProductDetails = () => {
         draggable: false,
         progress: undefined,
         theme: "colored",
-        transition: Flip,
+        transition: Zoom,
     });
 
 
