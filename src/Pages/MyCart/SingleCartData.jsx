@@ -1,24 +1,10 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import PropTypes from 'prop-types';
 
 const SingleCartData = ({ singleCart, handleDelete }) => {
 
     const { photo, productName, productPrice, _id } = singleCart;
 
-
-    // remove item from cart data
-    // const handleRemoveProduct = id => {
-    //     const productId = _id;
-
-    //     fetch(`http://localhost:5000/productsOnCart/${productId}`, {
-    //         method: 'DELETE',
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data)
-    //         })
-    // }
 
     AOS.init({
         offset: 120,
@@ -42,9 +28,3 @@ const SingleCartData = ({ singleCart, handleDelete }) => {
 };
 
 export default SingleCartData;
-
-
-SingleCartData.propTypes = {
-    singleCart: PropTypes.object,
-    remainingProducts: PropTypes.func,
-}

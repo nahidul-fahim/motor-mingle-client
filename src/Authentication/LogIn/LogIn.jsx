@@ -14,7 +14,6 @@ const LogIn = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const location = useLocation();
-    console.log(location);
     const navigate = useNavigate()
 
 
@@ -32,11 +31,8 @@ const LogIn = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         accessExistingUser(email, password)
-            .then(result => {
-                const successfulLogin = result.user;
+            .then(() => {
                 successNotify();
-                console.log(successfulLogin);
-
                 // Redirect to path after login
                 navigate(location?.state ? location.state : "/")
             })

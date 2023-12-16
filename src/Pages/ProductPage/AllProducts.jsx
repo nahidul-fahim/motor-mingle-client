@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-// import SingleProductPage from "./SingleProductPage";
 import ShortViewProduct from "./ShortViewProduct";
 
 

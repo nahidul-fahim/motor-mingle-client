@@ -1,22 +1,22 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types';
 import app from "../../Firebase/Firebase.config";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 
-
+// create auth export authcontext, and get google provider
 const auth = getAuth(app);
-
 export const AuthContext = createContext('');
-
 const googleProvider = new GoogleAuthProvider();
 
 
 
 const AuthProvider = ({ children }) => {
 
+    // hooks
     const [currentUser, setCurrentUser] = useState('')
     const [authLoading, setAuthLoading] = useState(true);
+    const axiosPublic = useAxiosPublic();
 
 
     // email-password sign up function
@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
 
 
     // Email-password sign up profile info update
-
     const updateProfileInfo = (currentUsersInfo, username, photo) => {
         updateProfile(currentUsersInfo, {
             displayName: username, photoURL: photo
@@ -43,7 +42,6 @@ const AuthProvider = ({ children }) => {
 
 
     // email-password log in function
-
     const accessExistingUser = (email, password) => {
         setAuthLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
@@ -51,7 +49,6 @@ const AuthProvider = ({ children }) => {
 
 
     //Google sign up function
-
     const createNewUserByGoogle = () => {
         setAuthLoading(true);
         return signInWithPopup(auth, googleProvider);
@@ -59,7 +56,6 @@ const AuthProvider = ({ children }) => {
 
 
     //Sign out
-
     const signOutUser = () => {
         setAuthLoading(true);
         return signOut(auth);
@@ -67,19 +63,36 @@ const AuthProvider = ({ children }) => {
 
 
     //keep trace on logged in user
-
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, user => {
             setCurrentUser(user);
             setAuthLoading(false);
+            // if user is available, send the user email to backend
+            if (user) {
+                const userInfo = { email: user?.email }
+                axiosPublic.post("/jwt", userInfo)
+                    .then(res => {
+                        const token = res.data?.token
+                        if (token) {
+                            console.log(token);
+                            localStorage.setItem('access-token', token);
+                        }
+                    })
+            }
+            // if user is not available remove the access token
+            else {
+                localStorage.removeItem('access-token')
+            }
         });
         return () => {
             unSubscribe();
         }
-    }, [])
+    }, [axiosPublic])
 
 
+    // send the info to conext
     const authInfo = { createNewUser, createNewUserByGoogle, signOutUser, currentUser, accessExistingUser, updateProfileInfo, authLoading };
+
 
     return (
         <AuthContext.Provider value={authInfo}>
@@ -89,7 +102,3 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-
-AuthProvider.propTypes = {
-    children: PropTypes.node,
-}

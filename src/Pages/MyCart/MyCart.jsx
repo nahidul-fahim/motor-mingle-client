@@ -31,13 +31,12 @@ const MyCart = () => {
 
     // delete an item from cart
     const handleDelete = id => {
-        console.log(id);
 
         axiosSecure.delete(`/productsOnCart/${id}`)
             .then(res => {
                 const data = res.data;
                 if (data.deletedCount > 0) {
-                    refetch()
+                    refetch();
                     console.log("product deleted from cart")
                 }
             })
