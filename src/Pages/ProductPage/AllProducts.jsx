@@ -1,10 +1,18 @@
-import { useLoaderData } from "react-router-dom";
 import ShortViewProduct from "./ShortViewProduct";
+import useAllProducts from "../../Hooks/useAllProducts/useAllProducts";
+import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 
 
 const AllProducts = () => {
 
-    const allProducts = useLoaderData();
+    // get all the products from all products custom hook
+    const { allProductsPending, allProducts } = useAllProducts();
+
+
+    // condtional loading for all products
+    if (allProductsPending) {
+        return <LoadingAnimation />
+    }
 
 
     return (
