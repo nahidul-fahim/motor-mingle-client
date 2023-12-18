@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaUserAlt } from "react-icons/fa";
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useAuthContext from "../../Hooks/useAuthContext/useAuthContext";
