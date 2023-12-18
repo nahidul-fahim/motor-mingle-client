@@ -39,9 +39,9 @@ const Header = () => {
     const websiteLogo = 'https://i.ibb.co/7zM3tq9/website-logo.png';
 
     const links = <>
-        <NavLink to="/" className="hover:text-main duration-200">Home</NavLink>
-        <NavLink to="/addProduct" className="hover:text-main duration-200">Add a Product</NavLink>
-        <NavLink to="/myCart" className="hover:text-main duration-200">My Cart</NavLink>
+        <NavLink to="/" className="hover:text-sub duration-200">Home</NavLink>
+        <NavLink to="/addProduct" className="hover:text-sub duration-200">Add a Product</NavLink>
+        <NavLink to="/myCart" className="hover:text-sub duration-200">My Cart</NavLink>
     </>
 
 
@@ -148,7 +148,6 @@ const Header = () => {
                     <div className="navbar-center hidden lg:flex justify-end items-center">
 
                         {/* Links for desktop version */}
-
                         <ul className="menu menu-horizontal px-1  text-base font-bold space-x-10">
                             {links}
                         </ul>

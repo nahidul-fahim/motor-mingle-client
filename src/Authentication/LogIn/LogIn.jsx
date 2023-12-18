@@ -5,17 +5,23 @@ import { useContext, useState } from "react";
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 
 
 const LogIn = () => {
 
+
+    // hooks and custom hooks
     const { createNewUserByGoogle, accessExistingUser } = useContext(AuthContext);
-
     const [showPassword, setShowPassword] = useState(false);
-
     const location = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+
+
+    // get todays date
+    const todayDate = new Date().toISOString().split('T')[0];
 
 
     // Toggle between show password and hide password
@@ -26,7 +32,6 @@ const LogIn = () => {
 
 
     //Login using email-password
-
     const handleLogIn = e => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -40,32 +45,57 @@ const LogIn = () => {
             .catch(error => {
                 const errorMessage = error.message;
                 const errorCode = error.code;
-                failedNotify();
-                console.log(errorMessage, errorCode)
+                failedNotify(errorCode + "|" + errorMessage);
             })
     }
 
 
-    //Sign in using Google 
-
+    //log in using Google 
     const handleGoogleSignIn = () => {
         createNewUserByGoogle()
             .then(result => {
-                successNotify();
-                console.log(result.user)
+                if (result) {
 
-                // Redirect to path after login
-                navigate(location?.state ? location.state : "/")
+                    const data = result?.user;
+
+                    // get the user info from google login
+                    const name = data?.displayName;
+                    const email = data?.email;
+                    const userName = data?.displayName;
+                    const photo = data?.photoURL;
+                    const userCreationDate = todayDate;
+                    const userType = "user";
+                    const newUserInfo = { name, email, userName, photo, userCreationDate, userType }
+
+
+                    // post the new user data to database
+                    axiosPublic.post("/newuser", newUserInfo)
+                        .then(() => {
+                            //
+                        })
+                        // database post error
+                        .catch(err => {
+                            const error = err.code + "-" + err.message;
+                            failedNotify(error);
+                        })
+                    successNotify();
+                    navigate(location?.state ? location.state : "/")
+
+                    successNotify();
+                    // Redirect to path after login
+                    navigate(location?.state ? location.state : "/")
+                }
+
             })
+            // firebase google-login error
             .catch(error => {
-                googleFailedNotify();
-                console.log(error.code)
+                failedNotify(error.code);
             })
     };
 
 
-    // Success message for successful login
 
+    // Success message for successful login
     const successNotify = () => toast.success('Login successful!', {
         position: "top-center",
         autoClose: 1500,
@@ -79,25 +109,9 @@ const LogIn = () => {
     });
 
 
+
     // Failed notification for failed login (email-password)
-
-    const failedNotify = () => toast.error('Your email and password do not match. Please try again.', {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-        transition: Zoom,
-    });
-
-
-
-    // Failed notification for Google sign in
-
-    const googleFailedNotify = () => toast.error('Something went wrong. Please try again..', {
+    const failedNotify = (errorMessage) => toast.error(`${errorMessage}`, {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: true,

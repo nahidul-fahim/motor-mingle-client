@@ -108,7 +108,7 @@ const AddProduct = () => {
 
                 <input required type="text" name="photo" id="photo" placeholder="Enter car photo URL" className="w-full px-5 py-3 border-b-[1px] border-lightMain focus:outline-none focus:border-sub" />
 
-                <input type="submit" value="Add the Product" className="w-full lg:w-2/3 px-5 py-3 bg-main mt-5 rounded-md text-white hover:bg-sub duration-300  font-semibold text-xl  cursor-pointer" />
+                <input type="submit" value="Add the Product" className="w-full lg:w-2/3 px-5 py-3 bg-sub mt-5 rounded-md text-white hover:bg-main duration-300  font-semibold text-xl  cursor-pointer" />
             </form>
 
             <ToastContainer closeButton={false} />
