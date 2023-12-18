@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsFillEyeFill, BsFillEyeSlashFill, BsGoogle } from 'react-icons/bs';
+import { MdHome } from "react-icons/md";
 import { useContext, useState } from "react";
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -112,9 +113,9 @@ const LogIn = () => {
 
     return (
         <div>
-            <div className="container mx-auto p-5">
+            <div className="container mx-auto p-5 min-h-[100vh] flex flex-col justify-center items-center relative">
 
-                <div className="space-y-14 flex flex-col justify-center items-center">
+                <div className="space-y-14 flex flex-col justify-center items-center w-full font-heading">
                     <h2 className="text-3xl text-main font-bold  text-center">Login to your account</h2>
 
                     <form onSubmit={handleLogIn} className="flex flex-col justify-center items-center w-full md:w-2/3 lg:w-1/3 space-y-7 lg:space-y-10 px-10  font-medium">
@@ -131,10 +132,14 @@ const LogIn = () => {
                         <ToastContainer closeButton={false} />
 
                     </form>
+
+                    {/* back to homepage button */}
+                    <Link to="/" className="absolute top-0 left-5 flex justify-center items-center gap-2 text-[18px] font-semibold hover:text-main duration-500 hover:scale-105"><MdHome /> Back to Home</Link>
+
                 </div>
 
 
-                <div className="mt-10 flex justify-center items-center flex-col">
+                <div className="mt-10 flex justify-center items-center flex-col w-full font-heading">
                     <button onClick={handleGoogleSignIn} className="bg-[#1fb3f8] px-4 py-2 rounded text-white  font-semibold hover:bg-sub duration-300 flex justify-center items-center gap-2"><BsGoogle /> Sign in using Google</button>
                     <div className="mt-5 flex justify-center items-center gap-1">
                         <p className="text-center  font-medium">{'Dont\'t'} have an account?</p>

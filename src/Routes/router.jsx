@@ -11,6 +11,8 @@ import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import UpdateProduct from "../ProductManage/UpdateProduct.jsx/UpdateProduct";
 import AllProducts from "../Pages/ProductPage/AllProducts";
+import Dashboard from "../Root/Dashboard/Dashboard";
+import Statistics from "../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -21,10 +23,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
-      },
-      {
-        path: "/addProduct",
-        element: <PrivateRoute><AddProduct /></PrivateRoute>
       },
       {
         path: "/myCart",
@@ -41,22 +39,39 @@ const router = createBrowserRouter([
       {
         path: "/productDetails/:_id",
         element: <PrivateRoute><ProductDetails /></PrivateRoute>,
-      },
-      {
-        path: "/productUpdate/:_id",
-        element: <PrivateRoute><UpdateProduct /> </PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/updateProducts/${params._id}`)
-      },
-      {
-        path: "/signup",
-        element: <SignUp />,
-      },
-      {
-        path: "/login",
-        element: <LogIn />
       }
     ]
   },
+  // sign up and login route
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/login",
+    element: <LogIn />
+  },
+
+  // dashboard router
+  {
+    path: "dashboard",
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    children: [
+      {
+        path: "statistics",
+        element: <Statistics />
+      },
+      {
+        path: "addProduct",
+        element: <AddProduct />
+      },
+      {
+        path: "productUpdate/:_id",
+        element: <UpdateProduct />,
+        loader: ({ params }) => fetch(`http://localhost:5000/updateProducts/${params._id}`)
+      }
+    ]
+  }
 ]);
 
 export default router;

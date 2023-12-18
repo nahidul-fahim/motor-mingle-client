@@ -9,10 +9,10 @@ export default {
       white: '#fff',
       black: '#000',
       main: '#2c0b87',
-      sub: '#17ffdb',
+      sub: '#DE2262',
       second: 'var(--second_color)',
       gray: '#d1d1d1',
-      lightMain: '#8D5EE2'
+      lightMain: '#c0a5f0'
     },
     extend: {
       fontFamily: {
