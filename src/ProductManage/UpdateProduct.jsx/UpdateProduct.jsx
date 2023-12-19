@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AOS from 'aos';
@@ -6,6 +6,12 @@ import 'aos/dist/aos.css';
 
 
 const UpdateProduct = () => {
+
+
+    // hooks and custom hooks
+    const { path } = useParams();
+
+
 
     const singleProduct = useLoaderData();
     const { _id, productName, brandName, carType, productPrice, description, photo, rating } = singleProduct;
