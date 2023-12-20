@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import useSingleProduct from "../../../../Hooks/useSingleProduct/useSingleProduct";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
 
@@ -14,17 +15,26 @@ const UpdateProduct = () => {
     // hooks and custom hooks
     const productToUpdate = useParams();
     const { singleProductPending, singleProduct } = useSingleProduct(productToUpdate.id)
+    const axiosSecure = useAxiosSecure();
 
 
+    // codtional loading if singleProduct is not loaded
     if (singleProductPending) {
         return <LoadingAnimation />
     }
 
 
+    // get todays date
+    const todayDate = new Date().toISOString().split('T')[0];
 
+
+
+    // get the product details
     const { _id, productName, brandName, carType, productPrice, description, photo, rating } = singleProduct;
     const currentProductId = _id;
 
+
+    // handle product update
     const handleUpdateProduct = e => {
         e.preventDefault();
         const form = e.target;
@@ -34,27 +44,22 @@ const UpdateProduct = () => {
         const productPrice = form.productPrice.value;
         const rating = form.rating.value;
         const photo = form.photo.value;
+        const updateDate = todayDate;
 
-        const updateUser = { productName, brandName, carType, productPrice, rating, description, photo }
+        const updateProductInfo = { productName, brandName, carType, productPrice, rating, description, photo, updateDate }
 
 
-        fetch(`http://localhost:5000/updateProducts/${currentProductId}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(updateUser),
-        })
-            .then(res => res.json())
-            .then(data => {
+        // send the updated data to server side
+        axiosSecure.put(`/updateProduct/${currentProductId}`, updateProductInfo)
+            .then(res => {
+                const data = res.data;
                 if (data.modifiedCount > 0) {
                     successNotify()
                 }
-                else {
-                    failureNotify()
-                }
             })
-
+            .catch(err => {
+                failureNotify(err.code + "|" + err.message)
+            })
     }
 
 
@@ -72,7 +77,7 @@ const UpdateProduct = () => {
     });
 
     // Failed product adding message
-    const failureNotify = () => toast.error('Failed to update.', {
+    const failureNotify = (errorMessage) => toast.error(`${errorMessage}`, {
         position: "top-center",
         autoClose: 1800,
         hideProgressBar: true,
