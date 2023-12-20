@@ -1,19 +1,27 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import useSingleProduct from "../../../../Hooks/useSingleProduct/useSingleProduct";
+import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
+
 
 
 const UpdateProduct = () => {
 
 
     // hooks and custom hooks
-    const { path } = useParams();
+    const productToUpdate = useParams();
+    const { singleProductPending, singleProduct } = useSingleProduct(productToUpdate.id)
+
+
+    if (singleProductPending) {
+        return <LoadingAnimation />
+    }
 
 
 
-    const singleProduct = useLoaderData();
     const { _id, productName, brandName, carType, productPrice, description, photo, rating } = singleProduct;
     const currentProductId = _id;
 
@@ -29,8 +37,6 @@ const UpdateProduct = () => {
 
         const updateUser = { productName, brandName, carType, productPrice, rating, description, photo }
 
-
-        console.log(currentProductId);
 
         fetch(`http://localhost:5000/updateProducts/${currentProductId}`, {
             method: 'PUT',
@@ -92,7 +98,7 @@ const UpdateProduct = () => {
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"
-                data-aos-anchor-placement="top-bottom">Update the product</h2>
+                data-aos-anchor-placement="top-bottom">Update product</h2>
             <form onSubmit={handleUpdateProduct}
                 className="flex flex-col justify-center items-center gap-14 mt-[70px] md:mt-[80px]  text-[18px] font-medium">
 

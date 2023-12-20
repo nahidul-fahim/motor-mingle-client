@@ -45,12 +45,12 @@ const Dashboard = () => {
         </NavLink>
 
         {/* update a product product */}
-        <NavLink to="/dashboard/updateProduct"
+        {/* <NavLink to="/dashboard/updateProduct"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
             Update a product
-        </NavLink>
+        </NavLink> */}
     </>
 
 

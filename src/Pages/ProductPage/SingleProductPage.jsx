@@ -36,7 +36,7 @@ const SingleProductPage = ({ singleCategoryCar }) => {
                     <h3 className="text-2xl text-main  font-bold">${productPrice}</h3>
                     <div className="flex justify-center items-start gap-3">
                         <Link to={`/productDetails/${_id}`}><button className="bg-sub px-4 py-1 text-base font-semibold rounded text-white hover:bg-main duration-300">See Details</button></Link>
-                        <Link to={`/productUpdate/${_id}`}><button className="bg-sub px-4 py-1 text-base  font-semibold rounded text-white hover:bg-main duration-300">Update Product</button></Link>
+                        <Link to={`/dashboard/updateProduct/${_id}`}><button className="bg-sub px-4 py-1 text-base  font-semibold rounded text-white hover:bg-main duration-300">Update Product</button></Link>
                     </div>
                 </div>
                 <img src={photo} alt=""
