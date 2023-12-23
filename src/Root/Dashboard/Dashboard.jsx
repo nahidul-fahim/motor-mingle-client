@@ -19,8 +19,8 @@ const Dashboard = () => {
 
     // webstie navigation links
     const navbarLinks = <>
-        <Link to="/" className="link-style flex justify-start items-center gap-2"><MdHome className="text-xl"/> Home</Link>
-        <button onClick={() => signOutUser()} className="link-style flex justify-start items-start gap-2"><BiLogOut className="text-xl"/> Log out</button>
+        <Link to="/" className="link-style flex justify-start items-center gap-2"><MdHome className="text-xl" /> Home</Link>
+        <button onClick={() => signOutUser()} className="link-style flex justify-start items-start gap-2"><BiLogOut className="text-xl" /> Log out</button>
     </>
 
 
@@ -34,6 +34,22 @@ const Dashboard = () => {
             }}>
             Statiscs
         </NavLink>
+        <NavLink to="/dashboard/statistics"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            Statiscs
+        </NavLink>
+
+
+        {/* all products */}
+        <NavLink to="/dashboard/adminallproducts"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            All Products
+        </NavLink>
+
 
         {/* add new product */}
         <NavLink to="/dashboard/addProduct"
@@ -43,14 +59,6 @@ const Dashboard = () => {
         >
             Add new product
         </NavLink>
-
-        {/* update a product product */}
-        {/* <NavLink to="/dashboard/updateProduct"
-            className={({ isActive }) => {
-                return isActive ? "active-link-style" : "link-style"
-            }}>
-            Update a product
-        </NavLink> */}
     </>
 
 

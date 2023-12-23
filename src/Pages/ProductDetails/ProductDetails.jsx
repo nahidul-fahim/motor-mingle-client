@@ -43,8 +43,8 @@ const ProductDetails = () => {
     }
 
     // get the current user mail
-    const currentUserEmail = currentUser?.email;
-    const currentUserName = currentUser?.displayName;
+    const userEmail = currentUser?.email;
+    const userName = currentUser?.displayName;
 
 
     // get every single key from object
@@ -56,7 +56,7 @@ const ProductDetails = () => {
 
 
     // get todays date
-    const todayDate = new Date().toISOString().split("T")[0];
+    const purchasedDate = new Date().toISOString().split("T")[0];
 
     // get current time
     const currentDate = new Date();
@@ -64,7 +64,7 @@ const ProductDetails = () => {
     const currentMinutes = currentDate.getMinutes();
     const currentSeconds = currentDate.getSeconds();
 
-    const currentTime = `${currentHours}:${currentMinutes}:${currentSeconds}`;
+    const purchasedTime = `${currentHours}:${currentMinutes}:${currentSeconds}`;
 
 
 
@@ -72,9 +72,8 @@ const ProductDetails = () => {
     const handleAddToCart = () => {
 
 
-
         // data to save to the cart info
-        const cartInfo = { productName, brandName, carType, productPrice, description, photo, todayDate, currentTime, currentUserName, currentUserEmail };
+        const cartInfo = { productName, brandName, carType, productPrice, description, photo, purchasedDate, purchasedTime, userName, userEmail };
 
 
         // send new cart data to database

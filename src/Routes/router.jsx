@@ -13,6 +13,7 @@ import UpdateProduct from "../Pages/DashboardPages/AdminDashboardPages/UpdatePro
 import AllProducts from "../Pages/ProductPage/AllProducts";
 import Dashboard from "../Root/Dashboard/Dashboard";
 import Statistics from "../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics";
+import AdminAllProducts from "../Pages/DashboardPages/AdminDashboardPages/AdminAllProducts/AdminAllProducts";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "statistics",
         element: <Statistics />
+      },
+      {
+        path: "adminallproducts",
+        element: <AdminAllProducts />
       },
       {
         path: "addProduct",
