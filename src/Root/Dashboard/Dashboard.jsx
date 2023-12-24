@@ -34,12 +34,6 @@ const Dashboard = () => {
             }}>
             Statiscs
         </NavLink>
-        <NavLink to="/dashboard/statistics"
-            className={({ isActive }) => {
-                return isActive ? "active-link-style" : "link-style"
-            }}>
-            Statiscs
-        </NavLink>
 
 
         {/* all products */}
@@ -98,11 +92,7 @@ const Dashboard = () => {
                             <div className="w-full flex flex-col justify-start items-start gap-2">
                                 {navbarLinks}
                             </div>
-
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
