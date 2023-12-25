@@ -11,43 +11,42 @@ const AdminAllProducts = () => {
     const { allProductsPending, allProducts, refetch } = useAllProducts();
 
 
-    const columns = useMemo(
-        () => [
-            {
-                accessorKey: "_id",
-                header: "ID"
-            },
-            {
-                accessorKey: "productName",
-                header: "Product Name"
-            },
-            {
-                accessorKey: "photo",
-                header: "Image",
-                cell: row => <div className="flex w-full justify-center items-center">
-                    <img src={row.row.original.photo} alt="product image" className="w-2/6" />
-                </div>
-            },
-            {
-                accessorKey: "",
-                header: "Update",
-                cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
-                    onClick={() => console.log(row.row.original._id)}
-                >Update</button>
-            },
-            {
-                accessorKey: "",
-                header: "Delete",
-                cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
-                    onClick={() => console.log(row.row.original._id)}
-                >Delete</button>
-            },
-        ], []
-    )
+    const columns = [
+        {
+            accessorKey: "_id",
+            header: "ID"
+        },
+        {
+            accessorKey: "productName",
+            header: "Product Name"
+        },
+        {
+            accessorKey: "photo",
+            header: "Image",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <img src={row.row.original.photo} alt="product image" className="w-2/6" />
+            </div>
+        },
+        {
+            accessorKey: "",
+            header: "Update",
+            cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
+                onClick={() => console.log(row.row.original._id)}
+            >Update</button>
+        },
+        {
+            accessorKey: "",
+            header: "Delete",
+            cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
+                onClick={() => console.log(row.row.original._id)}
+            >Delete</button>
+        },
+    ]
 
 
     // get the data
-    const data = useMemo(() => allProducts ?? [], [allProducts]);
+    const data = useMemo(() => allProducts ?? [], [allProducts]); // '??' - this is called a coalescing operator. Where, if allProducts is null or undefined then the default value will be []. And if allProducts is availbe the value will be it. I can use ternary opeator also insteady of coalescing operator.
+
 
 
 
@@ -112,5 +111,6 @@ const AdminAllProducts = () => {
         </div>
     );
 };
+
 
 export default AdminAllProducts;
