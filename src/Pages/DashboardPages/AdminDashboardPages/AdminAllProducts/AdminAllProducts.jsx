@@ -23,21 +23,21 @@ const AdminAllProducts = () => {
         {
             accessorKey: "photo",
             header: "Image",
-            cell: row => <div className="flex w-full justify-center items-center">
+            cell: row => <div className="flex max-w-fit justify-center items-center">
                 <img src={row.row.original.photo} alt="product image" className="w-2/6" />
             </div>
         },
         {
             accessorKey: "",
             header: "Update",
-            cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
+            cell: row => <button className="bg-main px-2 py-1 mr-3 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium"
                 onClick={() => console.log(row.row.original._id)}
             >Update</button>
         },
         {
             accessorKey: "",
             header: "Delete",
-            cell: row => <button className="bg-main px-2 py-1 text-[14px] rounded-[5px] text-white"
+            cell: row => <button className="bg-sub px-2 py-1 hover:bg-main duration-300 text-[14px] rounded-[2px] text-white font-medium"
                 onClick={() => console.log(row.row.original._id)}
             >Delete</button>
         },
@@ -98,14 +98,13 @@ const AdminAllProducts = () => {
                                 <tr key={index}>
                                     {
                                         row.getVisibleCells().map((cell, index) =>
-                                            <td key={index}>
+                                            <td key={index} className="text-center border-[1px] border-lightMain">
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </td>)
                                     }
                                 </tr>)
                         }
                     </tbody>
-
                 </table>
             </div>
         </div>
