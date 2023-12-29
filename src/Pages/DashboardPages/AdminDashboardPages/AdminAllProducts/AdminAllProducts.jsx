@@ -24,13 +24,13 @@ const AdminAllProducts = () => {
             accessorKey: "photo",
             header: "Image",
             cell: row => <div className="flex max-w-fit justify-center items-center">
-                <img src={row.row.original.photo} alt="product image" className="w-2/6" />
+                <img src={row.row.original.photo} alt="product image" className="w-full lg:w-2/6" />
             </div>
         },
         {
             accessorKey: "",
             header: "Update",
-            cell: row => <button className="bg-main px-2 py-1 mr-3 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium"
+            cell: row => <button className="bg-main px-2 py-1 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium"
                 onClick={() => console.log(row.row.original._id)}
             >Update</button>
         },
@@ -46,7 +46,6 @@ const AdminAllProducts = () => {
 
     // get the data
     const data = useMemo(() => allProducts ?? [], [allProducts]); // '??' - this is called a coalescing operator. Where, if allProducts is null or undefined then the default value will be []. And if allProducts is availbe the value will be it. I can use ternary opeator also insteady of coalescing operator.
-
 
 
 
@@ -76,29 +75,29 @@ const AdminAllProducts = () => {
             <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">All products</h2>
 
             {/* table to show all the products */}
-            <div className="w-full">
+            <div className="w-full mt-10">
                 <table>
                     <thead>
                         {
                             table.getHeaderGroups().map((headerGroup, index) =>
-                                <tr key={index}>
+                                <tr key={index} className="table-row">
                                     {headerGroup.headers.map(header =>
-                                        <th key={header?.id}>
+                                        <th key={header?.id} className="table-description text-sub">
                                             {
                                                 flexRender(header.column.columnDef.header, header.getContext())
                                             }
                                         </th>)}
-                                </tr>)
-                        }
+                                </tr>
+                            )}
                     </thead>
 
                     <tbody>
                         {
                             table.getRowModel().rows.map((row, index) =>
-                                <tr key={index}>
+                                <tr key={index} className="table-row">
                                     {
                                         row.getVisibleCells().map((cell, index) =>
-                                            <td key={index} className="text-center border-[1px] border-lightMain">
+                                            <td key={index} className="text-center table-description">
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </td>)
                                     }

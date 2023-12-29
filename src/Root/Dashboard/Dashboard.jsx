@@ -67,13 +67,13 @@ const Dashboard = () => {
                 <div className="drawer-content flex flex-col items-center justify-center p-5">
                     {/* Page content here */}
                     <Outlet />
-                    <label htmlFor="my-drawer-2" className="drawer-button glass-background p-3 rounded-full text-white text-2xl lg:hidden"><FaBars /></label>
+                    <label htmlFor="my-drawer-2" className="drawer-button glass-background p-3 rounded-full text-white text-xl lg:hidden absolute top-4 left-5"><FaBars /></label>
                 </div>
 
                 {/* drawer sidebar */}
-                <div className="drawer-side">
+                <div className="drawer-side min-h-full lg:min-h-[100vh]">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <div className="menu p-4 w-[250px] min-h-full bg-main text-white font-medium flex flex-col justify-start items-start gap-5">
+                    <div className="menu p-4 w-[250px] h-full lg:min-h-full bg-main text-white font-medium flex flex-col justify-start items-start gap-5">
 
                         {/* website logo */}
                         <Link to="/" className="w-full flex justify-center items-center">
