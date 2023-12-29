@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import useAllProducts from "../../../../Hooks/useAllProducts/useAllProducts";
 import { useReactTable, flexRender, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
+import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
 
@@ -9,6 +11,7 @@ const AdminAllProducts = () => {
 
     // hooks and custom hooks
     const { allProductsPending, allProducts, refetch } = useAllProducts();
+    const axiosSecure = useAxiosSecure();
 
 
     const columns = [
@@ -35,15 +38,13 @@ const AdminAllProducts = () => {
         {
             accessorKey: "",
             header: "Update",
-            cell: row => <button className="bg-main px-2 py-1 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium"
-                onClick={() => console.log(row.row.original._id)}
-            >Update</button>
+            cell: row => <Link to={`updateProduct/${row.row.original._id}`}><button className="bg-main px-2 py-1 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium">Update</button></Link>
         },
         {
             accessorKey: "",
             header: "Delete",
             cell: row => <button className="bg-sub px-2 py-1 hover:bg-main duration-300 text-[14px] rounded-[2px] text-white font-medium"
-                onClick={() => console.log(row.row.original._id)}
+                onClick={() => handleProductDelete(row.row.original._id)}
             >Delete</button>
         },
     ]
@@ -64,16 +65,32 @@ const AdminAllProducts = () => {
 
 
 
+    // delete a product from all prodcut collection
+    const handleProductDelete = id => {
+        console.log(id)
+        axiosSecure.delete(`/deleteproduct/${id}`)
+            .then(res => {
+                const data = res.data;
+                if (data) {
+                    refetch();
+                }
+            })
+            .catch(err => {
+                console.log(err.code + "||" + err.message)
+            })
+    }
+
+
+
+
+
     // coditional loading
     if (allProductsPending) {
         return <LoadingAnimation />
     }
 
-    // const headerGroups = table.getHeaderGroups()[0];
-    // console.log(headerGroups)
 
-    // const rowsModels = table.getRowModel()
-    // console.log(rowsModels)
+
 
 
     return (

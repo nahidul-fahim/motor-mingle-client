@@ -37,7 +37,6 @@ const MyCart = () => {
                 const data = res.data;
                 if (data.deletedCount > 0) {
                     refetch();
-                    console.log("product deleted from cart")
                 }
             })
             .catch(err => {
