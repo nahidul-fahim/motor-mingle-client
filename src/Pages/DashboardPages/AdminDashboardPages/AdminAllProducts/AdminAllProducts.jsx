@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import useAllProducts from "../../../../Hooks/useAllProducts/useAllProducts";
-import { useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
+import { useReactTable, flexRender, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
 
 
 
@@ -13,12 +13,17 @@ const AdminAllProducts = () => {
 
     const columns = [
         {
+            accessorKey: "",
+            header: "#",
+            cell: row => <p>{row.row.index + 1}</p>
+        },
+        {
             accessorKey: "_id",
             header: "ID"
         },
         {
             accessorKey: "productName",
-            header: "Product Name"
+            header: "Product"
         },
         {
             accessorKey: "photo",
@@ -54,6 +59,7 @@ const AdminAllProducts = () => {
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
     })
 
 
@@ -105,6 +111,15 @@ const AdminAllProducts = () => {
                         }
                     </tbody>
                 </table>
+
+                {/* pagination buttons */}
+                <div className="w-full flex justify-between items-center gap-10 mt-5 font-body font-semibold">
+                    <button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}
+                        className="hover:text-sub duration-300 disabled:text-gray"
+                    >Previous</button>
+                    <button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}
+                        className="hover:text-sub duration-300 disabled:text-gray">Next</button>
+                </div>
             </div>
         </div>
     );
