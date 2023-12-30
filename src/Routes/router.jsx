@@ -14,6 +14,9 @@ import AllProducts from "../Pages/ProductPage/AllProducts";
 import Dashboard from "../Root/Dashboard/Dashboard";
 import Statistics from "../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics";
 import AdminAllProducts from "../Pages/DashboardPages/AdminDashboardPages/AdminAllProducts/AdminAllProducts";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import SellYourCar from "../Pages/DashboardPages/UserDashboardPages/SellYourCar/SellYourCar";
+import UserProfile from "../Pages/DashboardPages/UserDashboardPages/UserProfile/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -58,21 +61,31 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
+      // admin dashboard router
       {
         path: "statistics",
-        element: <Statistics />
+        element: <AdminRoute><Statistics /></AdminRoute>
       },
       {
         path: "adminallproducts",
-        element: <AdminAllProducts />
+        element: <AdminRoute><AdminAllProducts /></AdminRoute>
       },
       {
         path: "addProduct",
-        element: <AddProduct />
+        element: <AdminRoute><AddProduct /></AdminRoute>
       },
       {
         path: "adminallproducts/updateProduct/:id",
-        element: <UpdateProduct />,
+        element: <AdminRoute><UpdateProduct />,</AdminRoute>
+      },
+      // user dashboard router
+      {
+        path: "sellyourcar",
+        element: <SellYourCar />
+      },
+      {
+        path: "profile",
+        element: <UserProfile />
       }
     ]
   }

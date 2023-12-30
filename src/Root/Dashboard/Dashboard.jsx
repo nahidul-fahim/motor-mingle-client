@@ -15,7 +15,7 @@ const Dashboard = () => {
 
 
     // hooks and custom hooks
-    const { signOutUser } = useAuthContext();
+    const { signOutUser, authLoading } = useAuthContext();
     const { isAdminPending, isAdmin } = useIsAdmin();
     const navigate = useNavigate();
 
@@ -24,14 +24,18 @@ const Dashboard = () => {
     // redirect the user to different route as per user type
     useEffect(() => {
         const adminRedirect = () => {
-            if (isAdmin === "admin") {
+            if (isAdmin) {
                 navigate("/dashboard/statistics")
             }
         }
-        if (!isAdminPending) {
-            adminRedirect()
+        const userRedirect = () => {
+            navigate("/dashboard/profile")
         }
-    }, [isAdmin, isAdminPending, navigate])
+        if (!isAdminPending || !authLoading) {
+            adminRedirect();
+            userRedirect();
+        }
+    }, [isAdmin, isAdminPending, navigate, authLoading])
 
 
 
@@ -76,6 +80,27 @@ const Dashboard = () => {
 
 
 
+    // user dashboard links
+    const userLinks = <>
+        {/* user profile */}
+        <NavLink to="/dashboard/profile"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            Profile
+        </NavLink>
+
+        {/* sell post */}
+        <NavLink to="/dashboard/sellyourcar"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            Sell Your Car
+        </NavLink>
+    </>
+
+
+
 
     return (
         <div className="font-heading">
@@ -104,7 +129,9 @@ const Dashboard = () => {
                         <div className="w-full flex-grow flex flex-col content-between justify-between">
                             {/* user links */}
                             <div className="w-full flex flex-col justify-start items-start gap-2">
-                                {adminLinks}
+                                {
+                                    isAdmin ? adminLinks : userLinks
+                                }
                             </div>
 
                             {/* navbarLinks links */}
