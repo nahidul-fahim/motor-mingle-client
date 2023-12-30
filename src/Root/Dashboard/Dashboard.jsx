@@ -5,6 +5,8 @@ import { MdHome } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import useIsAdmin from "../../Hooks/useIsAdmin/useIsAdmin";
 import { useEffect } from "react";
+import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
+import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 
 
 // website logo
@@ -18,22 +20,22 @@ const Dashboard = () => {
     const { signOutUser, authLoading } = useAuthContext();
     const { isAdminPending, isAdmin } = useIsAdmin();
     const navigate = useNavigate();
+    const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
 
 
 
     // redirect the user to different route as per user type
     useEffect(() => {
-        const adminRedirect = () => {
+        const redirectUser = () => {
             if (isAdmin) {
                 navigate("/dashboard/statistics")
             }
-        }
-        const userRedirect = () => {
-            navigate("/dashboard/profile")
+            else {
+                navigate("/dashboard/profile")
+            }
         }
         if (!isAdminPending || !authLoading) {
-            adminRedirect();
-            userRedirect();
+            redirectUser();
         }
     }, [isAdmin, isAdminPending, navigate, authLoading])
 
@@ -100,6 +102,9 @@ const Dashboard = () => {
     </>
 
 
+    if (dbCurrentUserPending) {
+        return <LoadingAnimation />
+    }
 
 
     return (
@@ -127,8 +132,20 @@ const Dashboard = () => {
 
                         {/* Sidebar links here */}
                         <div className="w-full flex-grow flex flex-col content-between justify-between">
-                            {/* user links */}
+
+                            {/* admin - user links */}
                             <div className="w-full flex flex-col justify-start items-start gap-2">
+
+                                <div className="flex justify-center items-center mb-5 gap-4">
+                                    <div>
+                                        <img src={dbCurrentUser?.photo} alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
+                                    </div>
+                                    <div>
+                                        <p>{dbCurrentUser?.name}</p>
+                                        <p className="text-gray capitalize">{dbCurrentUser?.userType}</p>
+                                    </div>
+                                </div>
+
                                 {
                                     isAdmin ? adminLinks : userLinks
                                 }
