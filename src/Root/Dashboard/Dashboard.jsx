@@ -1,8 +1,10 @@
 import { FaBars } from "react-icons/fa";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext/useAuthContext";
 import { MdHome } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import useIsAdmin from "../../Hooks/useIsAdmin/useIsAdmin";
+import { useEffect } from "react";
 
 
 // website logo
@@ -14,6 +16,23 @@ const Dashboard = () => {
 
     // hooks and custom hooks
     const { signOutUser } = useAuthContext();
+    const { isAdminPending, isAdmin } = useIsAdmin();
+    const navigate = useNavigate();
+
+
+
+    // redirect the user to different route as per user type
+    useEffect(() => {
+        const adminRedirect = () => {
+            if (isAdmin === "admin") {
+                navigate("/dashboard/statistics")
+            }
+        }
+        if (!isAdminPending) {
+            adminRedirect()
+        }
+    }, [isAdmin, isAdminPending, navigate])
+
 
 
 

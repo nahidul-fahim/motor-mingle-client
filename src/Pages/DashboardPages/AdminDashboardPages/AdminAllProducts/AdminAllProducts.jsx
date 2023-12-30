@@ -82,17 +82,13 @@ const AdminAllProducts = () => {
 
 
 
-
-
     // coditional loading
     if (allProductsPending) {
         return <LoadingAnimation />
     }
 
 
-
-
-
+    
     return (
         <div className="lg:min-h-[100vh] p-5 flex flex-col container mx-auto gap-8 justify-start items-center">
             <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">All products</h2>
