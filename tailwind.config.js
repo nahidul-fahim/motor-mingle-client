@@ -12,7 +12,8 @@ export default {
       sub: '#DE2262',
       second: 'var(--second_color)',
       gray: '#d1d1d1',
-      lightMain: '#c0a5f0'
+      lightMain: '#c0a5f0',
+      lightBlack: '#6b6b6b'
     },
     extend: {
       fontFamily: {

@@ -30,9 +30,7 @@ const Dashboard = () => {
             if (isAdmin) {
                 navigate("/dashboard/statistics")
             }
-            else {
-                navigate("/dashboard/profile")
-            }
+            navigate("/dashboard/profile")
         }
         if (!isAdminPending || !authLoading) {
             redirectUser();
@@ -138,7 +136,7 @@ const Dashboard = () => {
 
                                 <div className="flex justify-center items-center mb-5 gap-4">
                                     <div>
-                                        <img src={dbCurrentUser?.photo} alt="" className="w-[40px] h-[40px] rounded-[50%]"/>
+                                        <img src={dbCurrentUser?.photo} alt="" className="w-[40px] h-[40px] rounded-[50%]" />
                                     </div>
                                     <div>
                                         <p>{dbCurrentUser?.name}</p>
