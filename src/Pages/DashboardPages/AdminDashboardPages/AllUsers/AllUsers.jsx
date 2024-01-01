@@ -38,7 +38,7 @@ const AllUsers = () => {
 
 
         // update verification status in the product listing database
-        axiosSecure.put(`/updateverificationinproductlist/${id}`, updateStatus)
+        axiosSecure.put(`/updatesellerverification/${id}`, updateStatus)
             .then(res => {
                 console.log(res.data)
             })
