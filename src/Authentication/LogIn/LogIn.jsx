@@ -65,7 +65,8 @@ const LogIn = () => {
                     const photo = data?.photoURL;
                     const userCreationDate = todayDate;
                     const userType = "user";
-                    const newUserInfo = { name, email, userName, photo, userCreationDate, userType }
+                    const verifyStatus = "not verified";
+                    const newUserInfo = { name, email, userName, photo, userCreationDate, userType, verifyStatus }
 
 
                     // post the new user data to database

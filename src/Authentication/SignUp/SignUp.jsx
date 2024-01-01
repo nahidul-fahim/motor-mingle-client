@@ -72,9 +72,10 @@ const SignUp = () => {
                         const photo = res.data.data.display_url;
                         const userCreationDate = todayDate;
                         const userType = "user";
+                        const verifyStatus = "not verified";
 
                         // insert the form data into an object
-                        const newUserInfo = { name, email, userName, photo, userCreationDate, userType }
+                        const newUserInfo = { name, email, userName, photo, userCreationDate, userType, verifyStatus }
 
 
                         // regular expression for password
