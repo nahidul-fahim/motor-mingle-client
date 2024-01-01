@@ -18,6 +18,7 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import SellYourCar from "../Pages/DashboardPages/UserDashboardPages/SellYourCar/SellYourCar";
 import UserProfile from "../Pages/DashboardPages/UserDashboardPages/UserProfile/UserProfile";
 import MyAds from "../Pages/DashboardPages/UserDashboardPages/MyAds/MyAds";
+import AllUsers from "../Pages/DashboardPages/AdminDashboardPages/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "statistics",
         element: <AdminRoute><Statistics /></AdminRoute>
+      },
+      {
+        path: "allusers",
+        element: <AdminRoute><AllUsers /></AdminRoute>
       },
       {
         path: "adminallproducts",

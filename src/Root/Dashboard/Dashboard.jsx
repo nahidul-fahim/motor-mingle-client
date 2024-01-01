@@ -7,8 +7,6 @@ import useIsAdmin from "../../Hooks/useIsAdmin/useIsAdmin";
 import { useEffect } from "react";
 import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
-
-
 // website logo
 const invertedLogo = "https://i.ibb.co/YWqCqyx/logo-inverted.png";
 
@@ -26,13 +24,18 @@ const Dashboard = () => {
 
     // redirect the user to different route as per user type
     useEffect(() => {
-        const redirectUser = () => {
+        const redirectAdmin = () => {
             if (isAdmin) {
                 navigate("/dashboard/statistics")
             }
-            navigate("/dashboard/profile")
+        }
+        const redirectUser = () => {
+            if (!isAdmin) {
+                navigate("/dashboard/profile")
+            }
         }
         if (!isAdminPending || !authLoading) {
+            redirectAdmin();
             redirectUser();
         }
     }, [isAdmin, isAdminPending, navigate, authLoading])
@@ -58,6 +61,13 @@ const Dashboard = () => {
             Statiscs
         </NavLink>
 
+        {/* all users */}
+        <NavLink to="/dashboard/allusers"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            All Users
+        </NavLink>
 
         {/* all products */}
         <NavLink to="/dashboard/adminallproducts"
@@ -108,7 +118,7 @@ const Dashboard = () => {
     </>
 
 
-    if (dbCurrentUserPending) {
+    if (dbCurrentUserPending || authLoading) {
         return <LoadingAnimation />
     }
 

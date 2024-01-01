@@ -39,10 +39,6 @@ const UserProfile = () => {
     }
 
 
-    console.log(dbCurrentUser);
-
-
-
     // Successful product adding message
     const successNotify = (successMessage) => toast.success(`${successMessage}`, {
         position: "top-center",
@@ -69,17 +65,6 @@ const UserProfile = () => {
         theme: "colored",
         transition: Flip,
     });
-
-
-
-
-
-
-
-
-
-
-
 
 
 

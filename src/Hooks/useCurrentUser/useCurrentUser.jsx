@@ -7,12 +7,13 @@ const useCurrentUser = () => {
 
     // hooks
     const axiosPublic = useAxiosPublic();
-    const { currentUser } = useAuthContext();
+    const { currentUser, authLoading } = useAuthContext();
     const userEmail = currentUser?.email;
 
 
     const { isPending: dbCurrentUserPending, data: dbCurrentUser, refetch: dbCurrentUserRefetch } = useQuery({
         queryKey: ["current-user", userEmail],
+        enabled: !authLoading,
         queryFn: async () => {
             const res = await axiosPublic.get(`/currentuser?email=${userEmail}`)
             return res.data;
