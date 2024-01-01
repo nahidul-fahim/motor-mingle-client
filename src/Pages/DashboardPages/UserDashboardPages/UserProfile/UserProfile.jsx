@@ -24,7 +24,6 @@ const UserProfile = () => {
     const handleVerificationRequest = () => {
 
         const requestUpdate = "requested";
-
         const verificationRequest = { requestUpdate };
 
         axiosSecure.put(`/verificationrequest/${dbCurrentUser._id}`, verificationRequest)
@@ -77,21 +76,24 @@ const UserProfile = () => {
                 <h3 className="text-2xl font-semibold">Welcome, {dbCurrentUser?.name}</h3>
                 <p className="text-lightBlack text-[16px] font-medium">{dbCurrentUser?.email}</p>
                 <ToastContainer closeButton={false} />
+
+
                 {
-                    dbCurrentUser?.verifyStatus === "not verified" ?
+                    dbCurrentUser?.verifyStatus === "not verified" || dbCurrentUser?.verifyStatus === "declined" ?
                         <div className="flex flex-col justify-center items-center gap-3">
-                            <p className="flex justify-center items-center gap-1 text-[18px] text-[red] font-medium"><CgDanger /> Not verified</p>
+                            <p className="flex justify-center items-center gap-1 text-[18px] text-[red] font-medium capitalize"><CgDanger /> {dbCurrentUser?.verifyStatus}</p>
                             {
-                                dbCurrentUser?.verifyStatus === "not verified" && dbCurrentUser?.verificationRequest === "requested" ?
-                                    <p className="font-medium text-[orange]">Verification request pending</p>
-                                    :
+                                dbCurrentUser?.verificationRequest !== "requested" ?
                                     <button onClick={handleVerificationRequest}
                                         className="bg-main px-5 py-2 rounded-[5px] text-white font-medium hover:bg-sub duration-300">Request verification
                                     </button>
+                                    :
+                                    <p className="font-medium text-[orange]">Verification request pending</p>
                             }
                         </div>
                         :
-                        <p className="flex justify-center items-center gap-1 text-[18px] text-[#0da50d] font-medium"><CgCheckO /> Not verified</p>
+                        <p className="flex justify-center items-center gap-1 text-[18px] text-[#0da50d] font-medium"><CgCheckO />Verified</p>
+
                 }
             </div>
         </div>

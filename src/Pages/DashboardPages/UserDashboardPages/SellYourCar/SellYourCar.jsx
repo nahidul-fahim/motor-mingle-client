@@ -109,6 +109,7 @@ const SellYourCar = () => {
                         const sellerId = dbCurrentUser?._id;
                         const sellerName = dbCurrentUser?.name;
                         const sellerEmail = dbCurrentUser?.email;
+                        const sellerVerificationStatus = dbCurrentUser?.verifyStatus;
                         const price = parseInt(priceInString);
                         const sellerPhone = form.sellerPhone.value;
                         const approvalStatus = "pending";
@@ -119,7 +120,7 @@ const SellYourCar = () => {
 
 
                         //getting the form info into an object
-                        const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone }
+                        const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus }
 
                         // Send the data to the server and databse
 
