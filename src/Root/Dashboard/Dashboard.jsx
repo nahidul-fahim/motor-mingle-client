@@ -97,6 +97,14 @@ const Dashboard = () => {
             }}>
             Sell Your Car
         </NavLink>
+
+        {/* my ads */}
+        <NavLink to="/dashboard/myads"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            My Ads
+        </NavLink>
     </>
 
 

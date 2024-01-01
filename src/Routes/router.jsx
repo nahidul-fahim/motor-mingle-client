@@ -17,6 +17,7 @@ import AdminAllProducts from "../Pages/DashboardPages/AdminDashboardPages/AdminA
 import AdminRoute from "./AdminRoute/AdminRoute";
 import SellYourCar from "../Pages/DashboardPages/UserDashboardPages/SellYourCar/SellYourCar";
 import UserProfile from "../Pages/DashboardPages/UserDashboardPages/UserProfile/UserProfile";
+import MyAds from "../Pages/DashboardPages/UserDashboardPages/MyAds/MyAds";
 
 const router = createBrowserRouter([
   {
@@ -86,7 +87,11 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <UserProfile />
-      }
+      },
+      {
+        path: "myads",
+        element: <MyAds />
+      },
     ]
   }
 ]);
