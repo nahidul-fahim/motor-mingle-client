@@ -109,11 +109,11 @@ const Dashboard = () => {
         </NavLink>
 
         {/* my ads */}
-        <NavLink to="/dashboard/myads"
+        <NavLink to="/dashboard/mylistings"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
-            My Ads
+            My Listings
         </NavLink>
     </>
 
