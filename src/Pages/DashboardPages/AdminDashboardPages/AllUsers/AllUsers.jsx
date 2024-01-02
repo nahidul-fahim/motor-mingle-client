@@ -26,7 +26,7 @@ const AllUsers = () => {
         const updateStatus = { updatedVerifyStatus, requestUpdate };
 
         // update verification status in the userlist database
-        axiosSecure.put(`/verificationrequest/${id}`, updateStatus)
+        axiosSecure.put(`/updateuserdetails/${id}`, updateStatus)
             .then(res => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {
@@ -39,8 +39,8 @@ const AllUsers = () => {
 
         // update verification status in the product listing database
         axiosSecure.put(`/updatesellerverification/${id}`, updateStatus)
-            .then(res => {
-                console.log(res.data)
+            .then(() => {
+                //
             })
             .catch(err => console.log(err.code + "||" + err.message))
     }
@@ -64,7 +64,7 @@ const AllUsers = () => {
                 <table className="table font-body text-center">
                     {/* head */}
                     <thead>
-                        <tr className="text-[15px] text-black">
+                        <tr className="text-[15px] text-white bg-main">
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
