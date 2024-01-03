@@ -33,7 +33,7 @@ const Header = () => {
     // navigation bar links
     const links = <>
         <NavLink to="/" className="hover:text-sub duration-200">Home</NavLink>
-        <NavLink to="/myCart" className="hover:text-sub duration-200">My Cart</NavLink>
+        <NavLink to="/alllistings" className="hover:text-sub duration-200">All Listings</NavLink>
     </>
 
 

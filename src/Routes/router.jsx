@@ -5,12 +5,10 @@ import Home from "../Pages/Home/Home";
 import AddProduct from "../Pages/DashboardPages/AdminDashboardPages/AddProduct/AddProduct";
 import MyCart from "../Pages/MyCart/MyCart";
 import ProductPage from "../Pages/ProductPage/ProductPage";
-import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import SignUp from "../Authentication/SignUp/SignUp";
 import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import UpdateProduct from "../Pages/DashboardPages/AdminDashboardPages/UpdateProduct/UpdateProduct";
-import AllProducts from "../Pages/ProductPage/AllProducts";
 import Dashboard from "../Root/Dashboard/Dashboard";
 import Statistics from "../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics";
 import AdminAllProducts from "../Pages/DashboardPages/AdminDashboardPages/AdminAllProducts/AdminAllProducts";
@@ -19,6 +17,8 @@ import SellYourCar from "../Pages/DashboardPages/UserDashboardPages/SellYourCar/
 import UserProfile from "../Pages/DashboardPages/UserDashboardPages/UserProfile/UserProfile";
 import AllUsers from "../Pages/DashboardPages/AdminDashboardPages/AllUsers/AllUsers";
 import MyListings from "../Pages/DashboardPages/UserDashboardPages/MyListings/MyListings";
+import AllListings from "../Pages/AllListings/AllListings";
+import ListingDetails from "../Pages/ListingDetails/ListingDetails";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +31,14 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
+        path: "/alllistings",
+        element: <AllListings />
+      },
+      {
+        path: "/details/:id",
+        element: <ListingDetails />
+      },
+      {
         path: "/myCart",
         element: <PrivateRoute><MyCart /></PrivateRoute>,
       },
@@ -38,14 +46,6 @@ const router = createBrowserRouter([
         path: "/products/:brandName",
         element: <ProductPage />,
       },
-      {
-        path: "/allProducts",
-        element: <AllProducts />,
-      },
-      {
-        path: "/productDetails/:_id",
-        element: <PrivateRoute><ProductDetails /></PrivateRoute>,
-      }
     ]
   },
   // sign up and login route

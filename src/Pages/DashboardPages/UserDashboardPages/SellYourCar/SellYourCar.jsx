@@ -109,6 +109,7 @@ const SellYourCar = () => {
                         const sellerId = dbCurrentUser?._id;
                         const sellerName = dbCurrentUser?.name;
                         const sellerEmail = dbCurrentUser?.email;
+                        const sellerPhoto = dbCurrentUser?.photo;
                         const sellerVerificationStatus = dbCurrentUser?.verifyStatus;
                         const price = parseInt(priceInString);
                         const sellerPhone = form.sellerPhone.value;
@@ -120,7 +121,7 @@ const SellYourCar = () => {
 
 
                         //getting the form info into an object
-                        const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus }
+                        const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus, sellerPhoto }
 
                         // Send the data to the server and databse
 
@@ -179,9 +180,11 @@ const SellYourCar = () => {
         delay: 50,
     });
 
+
+
     return (
         <div className="flex flex-col justify-center items-center w-full h-full">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase"
+            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase"
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"
