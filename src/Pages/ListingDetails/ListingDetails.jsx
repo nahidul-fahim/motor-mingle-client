@@ -6,7 +6,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaUser, FaPhone } from "react-icons/fa";
 import { SiAdguard } from "react-icons/si";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 
 
 
@@ -16,6 +17,15 @@ const ListingDetails = () => {
     const axiosPublic = useAxiosPublic();
     const { id } = useParams();
     const [showNumber, setShowNumber] = useState(false);
+    const scrollToTop = useScrollToTop()
+
+
+
+    // scroll to top at inital loading
+    useEffect(() => {
+        scrollToTop();
+    }, [scrollToTop])
+
 
     // data fetching
     const { isPending, data: singleListing } = useQuery({
@@ -34,7 +44,7 @@ const ListingDetails = () => {
 
     console.log(singleListing)
 
-    const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType } = singleListing;
+    const { addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType } = singleListing;
 
 
 
@@ -101,16 +111,21 @@ const ListingDetails = () => {
                     <img src={sellerPhoto} alt={`${sellerName}'s image`} className="w-[70px] h-[70px] rounded-[50%]" />
                     <p className="text-lightBlack font-medium flex justify-start items-center gap-2 mt-3"><FaUser /> For sale by: <span className="font-semibold text-black">{sellerName}</span></p>
 
+                    {/* conditionally show button or phone number */}
                     <p className="text-lightBlack font-medium flex justify-start items-center gap-2"><FaPhone /> Call seller:
                         <span>
                             {
                                 showNumber === false ?
-                                    <button onClick={() => { setShowNumber(true) }} className="bg-[#17bbec] text-white px-2 py-1 rounded">Show number</button>
+                                    <button onClick={() => {
+                                        setShowNumber(true)
+                                    }}
+                                        className="bg-[#17bbec] text-white px-2 py-1 rounded">Show number</button>
                                     :
                                     <span className="font-semibold text-black">{sellerPhone}</span>
                             }
                         </span> </p>
 
+                    {/* member verification status */}
                     <p className={`${sellerVerificationStatus !== "verified" ? "text-[red] bg-[#ffd6d6]" : "text-[green] bg-[#daffda]"} px-4 py-1 rounded-md font-medium flex justify-start items-center gap-2 capitalize`}>{sellerVerificationStatus} member</p>
                 </div>
 
