@@ -17,7 +17,7 @@ const MyListings = () => {
 
 
     // data fetching
-    const { isPending: userListingsPending, data: userListings, refetch: userListingsRefetch } = useQuery({
+    const { isPending: userListingsPending, data: userListings, refetch: listingsRefetch } = useQuery({
         queryKey: ["user-listing", userEmail],
         enabled: !dbCurrentUserPending,
         queryFn: async () => {
@@ -57,7 +57,7 @@ const MyListings = () => {
             <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-10 mt-[80px]'>
                 {
                     userListings?.map((singleList, index) =>
-                        <SingleListing key={index} singleList={singleList}>
+                        <SingleListing key={index} singleList={singleList} listingsRefetch={listingsRefetch}>
                         </SingleListing>
                     )
                 }

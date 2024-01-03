@@ -2,19 +2,57 @@ import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
 import useCurrentUser from "../../../Hooks/useCurrentUser/useCurrentUser";
+import Swal from 'sweetalert2'
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
-const SingleListing = ({ singleList }) => {
+const SingleListing = ({ singleList, listingsRefetch }) => {
 
     const { _id, carName, carBrand, photo, price, totalRun, sellerVerificationStatus, sellerEmail } = singleList;
 
 
     // hooks
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
+    const axiosSecure = useAxiosSecure();
 
 
     // delete a listing
-    
+    const handleDeleteListing = id => {
+        Swal.fire({
+            title: "Are you sure to delete?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e60017",
+            cancelButtonColor: "#383838",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/allcarslisting/${id}`)
+                    .then(res => {
+                        const data = res.data;
+                        if (data.deletedCount) {
+                            listingsRefetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "error",
+                            title: `${err.code}`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+            }
+        });
+    }
 
 
 
@@ -44,8 +82,11 @@ const SingleListing = ({ singleList }) => {
                         {
                             dbCurrentUser?.email === sellerEmail ?
                                 <div className="bg-black px-3 py-2 rounded-b-[10px] flex justify-center items-center gap-3">
-                                    <button className="text-white text-xl"><RiEdit2Fill /> </button>
-                                    <button className="text-white text-xl"><RiDeleteBin2Fill /> </button>
+                                    <Link to={`/dashboard/updatelisting/${_id}`}><button className="text-white text-xl"><RiEdit2Fill /> </button></Link>
+                                    <button onClick={() => handleDeleteListing(_id)}
+                                        className="text-white text-xl">
+                                        <RiDeleteBin2Fill />
+                                    </button>
                                 </div>
                                 :
                                 ""

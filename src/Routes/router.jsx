@@ -19,6 +19,7 @@ import AllUsers from "../Pages/DashboardPages/AdminDashboardPages/AllUsers/AllUs
 import MyListings from "../Pages/DashboardPages/UserDashboardPages/MyListings/MyListings";
 import AllListings from "../Pages/AllListings/AllListings";
 import ListingDetails from "../Pages/ListingDetails/ListingDetails";
+import UpdateListing from "../Pages/DashboardPages/UserDashboardPages/UpdateListing/UpdateListing";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
         path: "mylistings",
         element: <MyListings />
       },
+      {
+        path: "updatelisting/:id",
+        element: <UpdateListing />
+      }
     ]
   }
 ]);

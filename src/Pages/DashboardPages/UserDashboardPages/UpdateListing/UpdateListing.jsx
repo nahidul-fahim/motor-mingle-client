@@ -1,32 +1,26 @@
+import { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useRef, useState } from 'react';
-import { FaUpload } from 'react-icons/fa';
-import useAxiosPublic from '../../../../Hooks/useAxiosPublic/useAxiosPublic';
-import useAxiosSecure from '../../../../Hooks/useAxiosSecure/useAxiosSecure';
-import useCurrentUser from '../../../../Hooks/useCurrentUser/useCurrentUser';
-import LoadingAnimation from '../../../../Components/Shared/LoadingAnimation/LoadingAnimation';
+import useCurrentUser from "../../../../Hooks/useCurrentUser/useCurrentUser";
+import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
+import { FaUpload } from "react-icons/fa";
 
 
-
-// image hosting (imgBB) key and url
-const imgHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY
-const imgUploadUrl = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`
+const UpdateListing = () => {
 
 
-
-const SellYourCar = () => {
-
-
-    //hooks and custom hooks
+    // get the id
+    const { id } = useParams();
+    const updatingForm = useRef(null)
+    const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
     const [selectedImageName, setSelectedImageName] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
-    const addingForm = useRef(null);
-    const axiosPublic = useAxiosPublic();
-    const axiosSecure = useAxiosSecure();
-    const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
+
+
+    // get today's date
+    const todayDate = new Date().toISOString().split('T')[0]
+
+
 
     // getting the form select field options in an array
     // car brands
@@ -42,19 +36,6 @@ const SellYourCar = () => {
     // transmission types
     let allTransmissionTypes = ["Automatic", "Manual", "Semi-Automatic", "Continuously Variable Transmission (CVT)", "Dual-Clutch Transmission (DCT)"]
 
-
-
-
-
-    // conditional loading
-    if (dbCurrentUserPending) {
-        return <LoadingAnimation />
-    }
-
-
-
-    // get today's date
-    const todayDate = new Date().toISOString().split('T')[0]
 
 
     // image input and get the file name
@@ -74,122 +55,21 @@ const SellYourCar = () => {
 
 
 
-    // handle old car product upload for sale by user
-    const handleAddOldProduct = e => {
-        e.preventDefault();
-        const form = e.target;
-
-        // if selected image file is availble, upload the image to imgbb
-        if (selectedImage) {
-            axiosPublic.post(imgUploadUrl, selectedImage, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            })
-                .then(res => {
-                    // if the image is uploaded succesfully proceed further
-                    const data = res.data;
-                    if (data) {
-                        const carName = form.carName.value;
-                        const carBrand = form.carBrand.value;
-                        const carType = form.carType.value;
-                        const priceInString = form.price.value;
-                        const carCondition = form.carCondition.value;
-                        const purchasingDate = form.purchasingDate.value;
-                        const manufactureYearInString = form.manufactureYear.value;
-                        const engineCapacityInString = form.engineCapacity.value;
-                        const totalRunInString = form.totalRun.value;
-                        const fuelType = form.fuelType.value;
-                        const transmissionType = form.transmissionType.value;
-                        const registeredYearInString = form.registeredYear.value;
-                        const description = form.description.value;
-                        const photo = res.data.data.display_url;
-                        const addingDate = todayDate;
-                        const sellerId = dbCurrentUser?._id;
-                        const sellerName = dbCurrentUser?.name;
-                        const sellerEmail = dbCurrentUser?.email;
-                        const sellerPhoto = dbCurrentUser?.photo;
-                        const sellerVerificationStatus = dbCurrentUser?.verifyStatus;
-                        const price = parseInt(priceInString);
-                        const sellerPhone = form.sellerPhone.value;
-                        const approvalStatus = "pending";
-                        const registeredYear = parseInt(registeredYearInString);
-                        const manufactureYear = parseInt(manufactureYearInString);
-                        const engineCapacity = parseInt(engineCapacityInString);
-                        const totalRun = parseInt(totalRunInString);
-
-
-                        //getting the form info into an object
-                        const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus, sellerPhoto }
-
-                        // Send the data to the server and databse
-
-                        axiosSecure.post("/oldproduct", formInfo)
-                            .then(res => {
-                                const data = res.data;
-                                if (data.insertedId) {
-                                    successNotify();
-                                    addingForm.current.reset();
-                                }
-                            })
-                            // db product posting failure
-                            .catch(err => {
-                                failureNotify(err.code + "|" + err.message)
-                            })
-                    }
-                })
-                // imgbb file upload error
-                .catch(err => failureNotify(err.code + "|" + err.message))
-        }
+    // conditional loading
+    if (dbCurrentUserPending) {
+        return <LoadingAnimation />
     }
-
-
-    // Successful product adding message
-    const successNotify = () => toast.success('New product added successfully!', {
-        position: "top-center",
-        autoClose: 1800,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-        transition: Flip,
-    });
-
-
-    // Failed product adding message
-    const failureNotify = (errorMessage) => toast.error(`${errorMessage}`, {
-        position: "top-center",
-        autoClose: 1800,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-        transition: Flip,
-    });
-
-
-    // animation
-    AOS.init({
-        offset: 120,
-        duration: 1500,
-        easing: 'ease',
-        delay: 50,
-    });
 
 
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full">
             <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase pt-[50px]"
-                data-aos="slide-right"
+                data-aos="fade-down"
                 data-aos-mirror="true"
                 data-aos-once="false"
-                data-aos-anchor-placement="top-bottom">Sell Your Old Car</h2>
-            <form ref={addingForm} onSubmit={handleAddOldProduct}
+                data-aos-anchor-placement="top-bottom">Update Your Listing</h2>
+            <form ref={updatingForm}
                 className="flex flex-col justify-center items-center gap-10 mt-[70px] md:mt-[80px] text-[18px] font-medium w-full lg:w-[90%]">
 
                 {/* car name, car brand, car type */}
@@ -367,4 +247,4 @@ const SellYourCar = () => {
     );
 };
 
-export default SellYourCar;
+export default UpdateListing;

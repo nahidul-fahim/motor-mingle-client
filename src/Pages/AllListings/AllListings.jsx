@@ -12,7 +12,7 @@ const AllListings = () => {
     const axiosPublic = useAxiosPublic();
 
 
-    const { isPending, data: allListings } = useQuery({
+    const { isPending, data: allListings, refetch: listingsRefetch } = useQuery({
         queryKey: ["all-listings"],
         queryFn: async () => {
             const res = await axiosPublic.get("/alllistings")
@@ -49,7 +49,7 @@ const AllListings = () => {
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 mt-[80px]">
                 {
                     allListings.map((singleList, index) =>
-                        <SingleListing key={index} singleList={singleList}
+                        <SingleListing key={index} singleList={singleList} listingsRefetch={listingsRefetch}
                         ></SingleListing>
                     )
                 }
