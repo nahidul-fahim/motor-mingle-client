@@ -154,7 +154,7 @@ const UpdateListing = () => {
                     successNotify();
                 }
             })
-            // db listing updating failure
+
             .catch(err => {
                 failureNotify(err.code)
             })
@@ -366,7 +366,7 @@ const UpdateListing = () => {
                                 type="file"
                                 name="image"
                                 id="image"
-
+                                required
                                 accept="image/*"
                                 onChange={handleImageInput}
                                 className="cursor-pointer opacity-0 absolute top-0 left-0 w-full" />
