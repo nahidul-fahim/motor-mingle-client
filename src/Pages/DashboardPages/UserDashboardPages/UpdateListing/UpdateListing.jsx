@@ -1,9 +1,21 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import useCurrentUser from "../../../../Hooks/useCurrentUser/useCurrentUser";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import { FaUpload } from "react-icons/fa";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic/useAxiosPublic";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+
+
+// image hosting (imgBB) key and url
+const imgHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY
+const imgUploadUrl = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`
+
 
 
 const UpdateListing = () => {
@@ -11,10 +23,13 @@ const UpdateListing = () => {
 
     // get the id
     const { id } = useParams();
-    const updatingForm = useRef(null)
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
     const [selectedImageName, setSelectedImageName] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
+    const [newSelectedPhoto, setNewSelectedPhoto] = useState(null);
+    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+
 
 
     // get today's date
@@ -23,6 +38,7 @@ const UpdateListing = () => {
 
 
     // getting the form select field options in an array
+
     // car brands
     let allCarBrands = ["Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Bugatti", "Buick", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Lotus", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Pagani", "Peugeot", "Porsche", "Ram", "Rolls-Royce", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"];
 
@@ -55,21 +71,145 @@ const UpdateListing = () => {
 
 
 
+    // data fetching
+    const { isPending, data: singleListing } = useQuery({
+        queryKey: ["single-listing", id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/singlelisting/${id}`);
+            return res.data;
+        }
+    })
+
     // conditional loading
-    if (dbCurrentUserPending) {
+    if (dbCurrentUserPending || isPending) {
         return <LoadingAnimation />
     }
+
+
+    // get the product details
+    const { _id, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo: initialPhoto, price, purchasingDate, registeredYear, sellerPhone, totalRun, transmissionType } = singleListing;
+
+
+
+    // send the updated data to database
+    const handleUpdateListing = e => {
+        e.preventDefault();
+        const form = e.target;
+
+        if (selectedImage) {
+            axiosPublic.post(imgUploadUrl, selectedImage, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            })
+                .then(res => {
+                    const uploadedPhoto = res.data.data.display_url;
+                    setNewSelectedPhoto(uploadedPhoto)
+                })
+                .catch(err => {
+                    failureNotify(err.code)
+                    setNewSelectedPhoto(initialPhoto)
+                })
+        }
+        else {
+            setNewSelectedPhoto(initialPhoto)
+        }
+
+
+        const carName = form.carName.value;
+        const carBrand = form.carBrand.value;
+        const carType = form.carType.value;
+        const priceInString = form.price.value;
+        const carCondition = form.carCondition.value;
+        const purchasingDate = form.purchasingDate.value;
+        const manufactureYearInString = form.manufactureYear.value;
+        const engineCapacityInString = form.engineCapacity.value;
+        const totalRunInString = form.totalRun.value;
+        const fuelType = form.fuelType.value;
+        const transmissionType = form.transmissionType.value;
+        const registeredYearInString = form.registeredYear.value;
+        const description = form.description.value;
+        const photo = newSelectedPhoto;
+        const addingDate = todayDate;
+        const price = parseInt(priceInString);
+        const sellerPhone = form.sellerPhone.value;
+        const approvalStatus = "pending";
+        const registeredYear = parseInt(registeredYearInString);
+        const manufactureYear = parseInt(manufactureYearInString);
+        const engineCapacity = parseInt(engineCapacityInString);
+        const totalRun = parseInt(totalRunInString);
+
+
+
+        //getting the form info into an object
+        const updatedInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerPhone }
+
+
+
+        // Send the data to the server and databse
+        axiosSecure.put(`/updatelisting/${_id}`, updatedInfo)
+            .then(res => {
+                const data = res.data;
+                if (data.modifiedCount) {
+                    successNotify();
+                }
+            })
+            // db listing updating failure
+            .catch(err => {
+                failureNotify(err.code)
+            })
+    }
+
+
+
+    // Successful message
+    const successNotify = () => toast.success('Listing updated successfully!', {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+    });
+
+
+    // Failed message
+    const failureNotify = (errorMessage) => toast.error(`${errorMessage}`, {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+    });
+
+
+    // animation
+    AOS.init({
+        offset: 120,
+        duration: 1500,
+        easing: 'ease',
+        delay: 50,
+    });
+
+
 
 
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full">
             <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase pt-[50px]"
-                data-aos="fade-down"
+                data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"
                 data-aos-anchor-placement="top-bottom">Update Your Listing</h2>
-            <form ref={updatingForm}
+            <form onSubmit={handleUpdateListing}
                 className="flex flex-col justify-center items-center gap-10 mt-[70px] md:mt-[80px] text-[18px] font-medium w-full lg:w-[90%]">
 
                 {/* car name, car brand, car type */}
@@ -78,13 +218,13 @@ const UpdateListing = () => {
                     {/* car model */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Car model <span className='text-[red]'>*</span></label>
-                        <input required type="text" id='carName' name='carName' placeholder='Enter car model' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="text" id='carName' name='carName' defaultValue={carName} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
 
                     {/* brand name */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Choose car brand <span className='text-[red]'>*</span></label>
-                        <select required id='carBrand' name='carBrand' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
+                        <select required id='carBrand' defaultValue={carBrand} name='carBrand' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
                             {
                                 allCarBrands.map((carBrand, index) =>
                                     <option key={index} value={carBrand} className='capitalize'>{carBrand}</option>)
@@ -95,7 +235,7 @@ const UpdateListing = () => {
                     {/* car type */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Choose car type <span className='text-[red]'>*</span></label>
-                        <select required id='carType' name='carType' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
+                        <select required id='carType' name='carType' defaultValue={carType} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
                             {
                                 allCarTypes.map((carType, index) =>
                                     <option key={index} value={carType} className='capitalize'>{carType}</option>)
@@ -110,13 +250,13 @@ const UpdateListing = () => {
                     {/* car price */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Car price ($) <span className='text-[red]'>*</span></label>
-                        <input required type="number" id='price' name='price' min="1000" step="1" placeholder='Enter car price' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="number" id='price' name='price' min="1000" step="1" defaultValue={price} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
 
                     {/* car condition */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Car condition <span className='text-[red]'>*</span></label>
-                        <select required id='carCondition' defaultValue={"Choose car condition"} name='carCondition' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
+                        <select required id='carCondition' defaultValue={carCondition} name='carCondition' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
                             <option disabled>Choose car condition</option>
                             <option value="super fresh">Super Fresh</option>
                             <option value="fresh">Fresh</option>
@@ -127,7 +267,7 @@ const UpdateListing = () => {
                     {/* car purchasing date */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Purchased on <span className='text-[red]'>*</span></label>
-                        <input required type="date" max={todayDate} id='purchasingDate' name='purchasingDate' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="date" max={todayDate} id='purchasingDate' name='purchasingDate' defaultValue={purchasingDate} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
                 </div>
 
@@ -137,19 +277,19 @@ const UpdateListing = () => {
                     {/* Year of manufacture */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Manufacture year <span className='text-[red]'>*</span></label>
-                        <input required type="number" id='manufactureYear' name='manufactureYear' min="1925" step="1" placeholder='Enter manufacture year' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="number" id='manufactureYear' name='manufactureYear' min="1925" step="1" defaultValue={manufactureYear} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
 
                     {/* Engine capacity */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Engine capacity <span className='text-[red]'>*</span></label>
-                        <input required type="number" id='engineCapacity' name='engineCapacity' min="100" step="1" placeholder='Enter engine capacity' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="number" id='engineCapacity' name='engineCapacity' min="100" step="1" defaultValue={engineCapacity} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
 
                     {/* total kilometers run  */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Total run (km) <span className='text-[red]'>*</span></label>
-                        <input required type="number" id='totalRun' name='totalRun' min="1" step="1" placeholder='Enter total run' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="number" id='totalRun' name='totalRun' min="1" step="1" defaultValue={totalRun} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
                 </div>
 
@@ -159,7 +299,7 @@ const UpdateListing = () => {
                     {/* Fuel type */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Choose fuel type <span className='text-[red]'>*</span></label>
-                        <select required id='fuelType' name='fuelType' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
+                        <select required id='fuelType' name='fuelType' defaultValue={fuelType} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
                             {
                                 allFuelTypes.map((fuelType, index) =>
                                     <option key={index} value={fuelType} className='capitalize'>{fuelType}</option>)
@@ -170,7 +310,7 @@ const UpdateListing = () => {
                     {/* transmission type */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Choose trnasmission type <span className='text-[red]'>*</span></label>
-                        <select required id='transmissionType' name='transmissionType' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
+                        <select required id='transmissionType' name='transmissionType' defaultValue={transmissionType} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain'>
                             {
                                 allTransmissionTypes.map((transMissionType, index) =>
                                     <option key={index} value={transMissionType} className='capitalize'>{transMissionType}</option>)
@@ -181,7 +321,7 @@ const UpdateListing = () => {
                     {/* registered year  */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/3'>
                         <label>Registered year <span className='text-[#7a7a7a]'>(opt)</span></label>
-                        <input type="number" id='registeredYear' name='registeredYear' min="1980" step="1" placeholder='Enter registered year' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input type="number" id='registeredYear' name='registeredYear' min="1980" step="1" defaultValue={registeredYear} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
                 </div>
 
@@ -190,7 +330,7 @@ const UpdateListing = () => {
                 <div className='w-full flex justify-center items-center gap-8'>
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full'>
                         <label>Car description <span className='text-[red]'>*</span></label>
-                        <textarea required id='description' name='description' placeholder='Enter details about your car' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <textarea required id='description' name='description' defaultValue={description} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
                 </div>
 
@@ -207,7 +347,7 @@ const UpdateListing = () => {
                     {/* phone number */}
                     <div className='font-body flex flex-col justify-start items-start gap-3 w-full lg:w-1/2'>
                         <label>Enter phone number <span className='text-[red]'>*</span></label>
-                        <input required type="tel" id='sellerPhone' name='sellerPhone' placeholder='Enter your phone number' className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
+                        <input required type="tel" id='sellerPhone' name='sellerPhone' defaultValue={sellerPhone} className='w-full border-[1px] border-gray px-4 py-2 rounded-[3px] focus:outline-none focus:border-lightMain' />
                     </div>
 
                 </div>
@@ -223,10 +363,10 @@ const UpdateListing = () => {
                         >
                             <FaUpload /> {selectedImageName.length > 25 ? selectedImageName.slice(0, 25) + "..." : selectedImageName || "Choose product image"}
                             <input
-                                required
                                 type="file"
                                 name="image"
                                 id="image"
+
                                 accept="image/*"
                                 onChange={handleImageInput}
                                 className="cursor-pointer opacity-0 absolute top-0 left-0 w-full" />
@@ -236,7 +376,7 @@ const UpdateListing = () => {
 
 
                 {/* submit button */}
-                <input type="submit" value="Publish Ad" className="w-full lg:w-2/3 px-5 py-3 bg-sub mt-5 rounded-md text-white hover:bg-main duration-300  font-semibold text-xl  cursor-pointer" />
+                <input type="submit" value="Update Listing" className="w-full lg:w-2/3 px-5 py-3 bg-sub mt-5 rounded-md text-white hover:bg-main duration-300  font-semibold text-xl  cursor-pointer" />
 
 
             </form>

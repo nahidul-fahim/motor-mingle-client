@@ -29,14 +29,14 @@ const Dashboard = () => {
                 navigate("/dashboard/statistics")
             }
         }
-        const redirectUser = () => {
-            if (!isAdmin && !authLoading) {
-                navigate("/dashboard/profile")
-            }
-        }
+        // const redirectUser = () => {
+        //     if (!isAdmin && !authLoading) {
+        //         navigate("/dashboard/profile")
+        //     }
+        // }
         if (!isAdminPending || !authLoading) {
             redirectAdmin();
-            redirectUser();
+            // redirectUser();
         }
     }, [isAdmin, isAdminPending, navigate, authLoading])
 

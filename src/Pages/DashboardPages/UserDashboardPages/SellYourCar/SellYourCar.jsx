@@ -123,7 +123,6 @@ const SellYourCar = () => {
                         const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus, sellerPhoto }
 
                         // Send the data to the server and databse
-
                         axiosSecure.post("/oldproduct", formInfo)
                             .then(res => {
                                 const data = res.data;
@@ -134,7 +133,7 @@ const SellYourCar = () => {
                             })
                             // db product posting failure
                             .catch(err => {
-                                failureNotify(err.code + "|" + err.message)
+                                failureNotify(err.code)
                             })
                     }
                 })
