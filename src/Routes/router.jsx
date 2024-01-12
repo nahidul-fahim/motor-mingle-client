@@ -2,13 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../Root/Root";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import AddProduct from "../Pages/DashboardPages/AdminDashboardPages/AddProduct/AddProduct";
 import MyCart from "../Pages/MyCart/MyCart";
 import ProductPage from "../Pages/ProductPage/ProductPage";
 import SignUp from "../Authentication/SignUp/SignUp";
 import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
-import UpdateProduct from "../Pages/DashboardPages/AdminDashboardPages/UpdateProduct/UpdateProduct";
 import Dashboard from "../Root/Dashboard/Dashboard";
 import Statistics from "../Pages/DashboardPages/AdminDashboardPages/Statistics/Statistics";
 import AdminAllProducts from "../Pages/DashboardPages/AdminDashboardPages/AdminAllProducts/AdminAllProducts";
@@ -76,14 +74,6 @@ const router = createBrowserRouter([
       {
         path: "adminallproducts",
         element: <AdminRoute><AdminAllProducts /></AdminRoute>
-      },
-      {
-        path: "addProduct",
-        element: <AdminRoute><AddProduct /></AdminRoute>
-      },
-      {
-        path: "adminallproducts/updateProduct/:id",
-        element: <AdminRoute><UpdateProduct />,</AdminRoute>
       },
       // user dashboard router
       {

@@ -76,16 +76,6 @@ const Dashboard = () => {
             }}>
             All Products
         </NavLink>
-
-
-        {/* add new product */}
-        <NavLink to="/dashboard/addProduct"
-            className={({ isActive }) => {
-                return isActive ? "active-link-style" : "link-style"
-            }}
-        >
-            Add new product
-        </NavLink>
     </>
 
 
