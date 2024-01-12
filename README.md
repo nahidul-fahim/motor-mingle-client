@@ -1,5 +1,9 @@
 # Live Site Link : https://motor-mingle.web.app/
 
+### Admin login
+email: admin@admin.com
+password: Asdf$$
+
 # About the project
 
  1. This website has user access feature.
