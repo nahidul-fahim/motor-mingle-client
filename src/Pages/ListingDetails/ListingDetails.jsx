@@ -31,7 +31,7 @@ const ListingDetails = () => {
         scrollToTop();
 
         // check if the post is saved
-        axiosSecure.get(`/getSingleSavedAd/${id}`)
+        axiosSecure.get(`/getSingleSavedAd/${id}?email=${dbCurrentUser?.email}`)
             .then(res => {
                 const data = res.data;
                 if (data) {
@@ -41,8 +41,7 @@ const ListingDetails = () => {
                     setPostSaved(false)
                 }
             })
-
-    }, [scrollToTop, axiosSecure, id])
+    }, [scrollToTop, axiosSecure, id, dbCurrentUser?.email])
 
 
     // data fetching
@@ -60,10 +59,8 @@ const ListingDetails = () => {
     const todayDate = new Date().toISOString().split('T')[0];
 
 
-
     // save the data of saved ad to the database
-    const handleSaveAd = (id) => {
-        console.log(id + " " + dbCurrentUser?.email);
+    const handleSaveAd = () => {
         const userEmail = dbCurrentUser?.email;
         const userName = dbCurrentUser?.name;
 
@@ -87,15 +84,33 @@ const ListingDetails = () => {
     }
 
 
-
     // conditional loading
     if (isPending || dbCurrentUserPending) {
         return <LoadingAnimation />
     }
 
 
+
     // getting every details of singleListing
     const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType } = singleListing;
+
+
+
+    // remove saved item from database
+    const handleRemoveSaved = (_id) => {
+        axiosSecure.delete(`/removedSavedAd/${_id}?email=${dbCurrentUser?.email}`)
+            .then(res => {
+                const data = res.data;
+                if (data) {
+                    setPostSaved(false)
+                }
+            })
+            .catch(err => {
+                if (err.code) {
+                    setPostSaved(true)
+                }
+            })
+    }
 
 
 
@@ -106,7 +121,6 @@ const ListingDetails = () => {
         easing: 'ease',
         delay: 50,
     });
-
 
 
 
@@ -156,17 +170,15 @@ const ListingDetails = () => {
                         {/* save ad button */}
                         {
                             !postSaved ?
-                                <button onClick={() => handleSaveAd(_id)} className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-main hover:text-main duration-300"><FaRegStar />Save ad</button>
+                                <button onClick={handleSaveAd} className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-main hover:text-main duration-300"><FaRegStar />Save ad</button>
                                 :
-                                <button onClick={() => handleSaveAd(_id)} className="flex justify-center items-center gap-2 text-main font-medium border-[1px] border-main rounded px-3 py-1 hover:border-lightBlack hover:text-lightBlack duration-300"><FaStar />Saved</button>
+                                <button onClick={() => handleRemoveSaved(_id)} className="flex justify-center items-center gap-2 text-main font-medium border-[1px] border-main rounded px-3 py-1 hover:border-lightBlack hover:text-lightBlack duration-300"><FaStar />Saved</button>
                         }
 
                         {/* report ad button */}
                         <button className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-sub hover:text-sub duration-300"><FaBan /> Report ad</button>
 
                     </div>
-
-
                 </div>
 
             </div>
