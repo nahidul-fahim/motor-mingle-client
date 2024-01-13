@@ -1,6 +1,6 @@
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
+import { RiDeleteBin2Fill, RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
 import useCurrentUser from "../../../Hooks/useCurrentUser/useCurrentUser";
 import Swal from 'sweetalert2'
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
@@ -8,7 +8,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 const SingleListing = ({ singleList, listingsRefetch }) => {
 
-    const { _id, carName, carBrand, photo, price, totalRun, sellerVerificationStatus, sellerEmail } = singleList;
+    const { _id, carName, carBrand, photo, price, totalRun, sellerVerificationStatus, sellerEmail, sellStatus } = singleList;
 
 
     // hooks
@@ -56,6 +56,50 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
 
 
 
+    // update sell status of a listing
+    const handleSold = id => {
+
+        const sellStatus = "sold";
+        const updateSellInfo = { sellStatus };
+
+        Swal.fire({
+            title: "Is it sold?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e60017",
+            cancelButtonColor: "#383838",
+            confirmButtonText: "Yes, sold!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.put(`/updateSellStatus/${id}`, updateSellInfo)
+                    .then(res => {
+                        const data = res.data;
+                        if (data.modifiedCount) {
+                            listingsRefetch();
+                            Swal.fire({
+                                title: "Sold!",
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "error",
+                            title: `${err.code}`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+            }
+        });
+
+
+    }
+
+
+
 
     return (
         <div className="w-full flex flex-col justify-center items-center">
@@ -65,12 +109,20 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                         <img src={photo} alt="" className="w-full" />
                         <p className="bg-white text-black px-2 py-1 rounded absolute top-0 left-0 font-medium">{carBrand}</p>
                     </div>
-                    <div className="w-3/6 md:w-3/5 flex flex-col justify-center items-start gap-1 py-1">
+                    <div className="w-3/6 md:w-3/5 flex flex-col justify-center items-start gap-1 py-1 relative">
                         <p className={`capitalize w-fit px-2 py-[2px] rounded-sm text-[12px] ${sellerVerificationStatus === "verified" ? 'bg-[#c5ffc5] text-[green]' : 'bg-[#ffd6d6] text-[red]'} flex justify-center items-center gap-2 font-medium mb-1`}><FaUser /> {sellerVerificationStatus}</p>
                         <h3 className="text-[18px] md:text-xl font-semibold">{carName}</h3>
                         <p>{totalRun} km</p>
                         <p className="font-medium">$ {price}</p>
                         <Link to={`/details/${_id}`}><button className="mt-1 text-[14px] bg-main text-white px-3 py-1 rounded hover:bg-sub duration-500 font-medium">See Details</button></Link>
+                        {
+                            sellStatus === "sold" ?
+                                <div className="bg-[#e70a0a] p-5 text-2xl font-semibold text-white rounded-[100%] w-[80px] h-[80px] flex justify-center items-center absolute top-0 right-0 -rotate-[40deg] shadow-[0_0_50px_#e70a0a63]">
+                                    Sold
+                                </div>
+                                :
+                                ""
+                        }
                     </div>
                 </div>
             </div>
@@ -81,13 +133,22 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                     <>
                         {
                             dbCurrentUser?.email === sellerEmail ?
-                                <div className="bg-black px-3 py-2 rounded-b-[10px] flex justify-center items-center gap-3">
+                                <div className="bg-black px-3 py-1 rounded-b-[10px] flex justify-center items-center gap-3">
                                     <Link to={`/dashboard/updatelisting/${_id}`}
-                                    ><button className="text-white text-xl"><RiEdit2Fill /> </button></Link>
+                                    ><button className="text-white text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
                                     <button onClick={() => handleDeleteListing(_id)}
                                         className="text-white text-xl">
                                         <RiDeleteBin2Fill />
                                     </button>
+                                    {
+                                        !sellStatus ?
+                                            <button onClick={() => handleSold(_id)}
+                                                className="text-white text-[15px] font-medium flex gap-2 justify-center items-center bg-[#c70000] px-2 py-1 rounded hover:bg-black duration-500">
+                                                <RiCheckboxCircleFill />Mark As Sold
+                                            </button>
+                                            :
+                                            ""
+                                    }
                                 </div>
                                 :
                                 ""

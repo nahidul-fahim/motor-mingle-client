@@ -92,7 +92,7 @@ const ListingDetails = () => {
 
 
     // getting every details of singleListing
-    const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType } = singleListing;
+    const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, sellStatus } = singleListing;
 
 
 
@@ -147,7 +147,7 @@ const ListingDetails = () => {
                 </div>
 
                 {/* product description */}
-                <div className="w-fit flex flex-col justify-start items-start gap-1"
+                <div className="w-fit flex flex-col justify-start items-start gap-1 relative"
                     data-aos="slide-left"
                     data-aos-mirror="true"
                     data-aos-once="false"
@@ -179,6 +179,16 @@ const ListingDetails = () => {
                         <button className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-sub hover:text-sub duration-300"><FaBan /> Report ad</button>
 
                     </div>
+
+                    {/* show sell status if the product is sold */}
+                    {
+                        sellStatus === "sold" ?
+                            <div className="bg-[#e70a0a] p-5 text-2xl font-semibold text-white rounded-[100%] w-[80px] h-[80px] flex justify-center items-center absolute top-[-50px] md:top-[-100px] right-[-100px] md:left-0 -rotate-[20deg] shadow-[0_0_50px_#e70a0a63]">
+                                Sold
+                            </div>
+                            :
+                            ""
+                    }
                 </div>
 
             </div>
