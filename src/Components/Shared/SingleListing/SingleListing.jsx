@@ -117,7 +117,7 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                         <Link to={`/details/${_id}`}><button className="mt-1 text-[14px] bg-main text-white px-3 py-1 rounded hover:bg-sub duration-500 font-medium">See Details</button></Link>
                         {
                             sellStatus === "sold" ?
-                                <div className="bg-[#e70a0a] p-5 text-2xl font-semibold text-white rounded-[100%] w-[80px] h-[80px] flex justify-center items-center absolute top-0 right-0 -rotate-[40deg] shadow-[0_0_50px_#e70a0a63]">
+                                <div className="bg-[#e70a0a] p-5 text-xl font-semibold text-white rounded-[100%] w-[70px] h-[70px] flex justify-center items-center absolute top-0 right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
                                     Sold
                                 </div>
                                 :
