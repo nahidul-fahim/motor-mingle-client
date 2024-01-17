@@ -1,28 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
+import useAllListings from "../../Hooks/useAllListings/useAllListings";
 
 
 const AllListings = () => {
 
     // hooks and custom hooks
-    const axiosPublic = useAxiosPublic();
-
-
-    const { isPending, data: allListings, refetch: listingsRefetch } = useQuery({
-        queryKey: ["all-listings"],
-        queryFn: async () => {
-            const res = await axiosPublic.get("/alllistings")
-            return res.data;
-        }
-    })
+    const { allListingsPending, allListings, listingsRefetch } = useAllListings()
 
 
     // conditional loading
-    if (isPending) {
+    if (allListingsPending) {
         return <LoadingAnimation />
     }
 
