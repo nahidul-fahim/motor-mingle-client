@@ -1,22 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
+import useAllUsers from "../../../../Hooks/useAllUsers/useAllUsers";
 
 
 const AllUsers = () => {
 
     // hooks and custom hooks
+    const { allUsersPending, allUsers, allUsersRefetch } = useAllUsers();
     const axiosSecure = useAxiosSecure();
-
-
-    // fetch all user data
-    const { isPending, data: allUsers, refetch } = useQuery({
-        queryKey: ["all-users"],
-        queryFn: async () => {
-            const res = await axiosSecure.get("allusers")
-            return res.data
-        }
-    })
 
 
     // update user verification status
@@ -25,12 +16,12 @@ const AllUsers = () => {
         const requestUpdate = "responded";
         const updateStatus = { updatedVerifyStatus, requestUpdate };
 
-        // update verification status in the userlist database
+        // update verification status in the userList database
         axiosSecure.put(`/updateuserdetails/${id}`, updateStatus)
             .then(res => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {
-                    refetch();
+                    allUsersRefetch();
                     console.log("status updated")
                 }
             })
@@ -47,7 +38,7 @@ const AllUsers = () => {
 
 
 
-    if (isPending) {
+    if (allUsersPending) {
         return <LoadingAnimation />
     }
 

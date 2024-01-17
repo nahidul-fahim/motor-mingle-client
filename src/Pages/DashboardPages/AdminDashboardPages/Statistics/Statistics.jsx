@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import useAllListings from "../../../../Hooks/useAllListings/useAllListings";
+import useAllUsers from "../../../../Hooks/useAllUsers/useAllUsers";
 
 
 
@@ -9,7 +10,8 @@ const Statistics = () => {
 
 
     // hooks and custom hooks
-    const { allListingsPending, allListings, listingsRefetch } = useAllListings();
+    const { allListingsPending, allListings } = useAllListings();
+    const { allUsersPending, allUsers } = useAllUsers();
 
 
     //line chart
@@ -96,9 +98,6 @@ const Statistics = () => {
             });
 
             const totalListingForEachDay = Object.values(listingCounts)
-            console.log(totalListingForEachDay)
-
-
             // set line chart data
             setState({
                 series: [{
@@ -134,15 +133,51 @@ const Statistics = () => {
                     }
                 }
             })
+        }
 
+        // get verify status
+        if (!allUsersPending) {
 
+            const checkVerificationStatus = allUsers.map(singleUserData => singleUserData.verifyStatus)
 
-            // set pie chart data
-            console.log(allListings)
+            // get the data of verification
+            const verificationCount = {};
+            checkVerificationStatus.forEach(verificationStatus => {
+                verificationCount[verificationStatus] = (verificationCount[verificationStatus] || 0) + 1;
+            })
+
+            // get the final results in an array
+            const verificationResult = Object.values(verificationCount)
+
+            console.log(verificationResult)
+
+            // set the data to pie chart
+            setVerifyState({
+                series: verificationResult,
+                options: {
+                    chart: {
+                        width: 380,
+                        type: 'pie',
+                    },
+                    labels: ['Verified', 'Not-verified'],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                },
+            })
 
 
         }
-    }, [allListingsPending, allListings])
+
+    }, [allListingsPending, allListings, allUsers, allUsersPending])
 
 
 
