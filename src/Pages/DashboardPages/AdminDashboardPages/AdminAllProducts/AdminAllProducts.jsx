@@ -4,6 +4,7 @@ import useAllProducts from "../../../../Hooks/useAllProducts/useAllProducts";
 import { useReactTable, flexRender, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
+import useAllListings from "../../../../Hooks/useAllListings/useAllListings";
 
 
 
@@ -11,6 +12,7 @@ const AdminAllProducts = () => {
 
     // hooks and custom hooks
     const { allProductsPending, allProducts, refetch } = useAllProducts();
+    const { allListingsPending, allListings, listingsRefetch } = useAllListings();
     const axiosSecure = useAxiosSecure();
 
 
@@ -21,37 +23,54 @@ const AdminAllProducts = () => {
             cell: row => <p>{row.row.index + 1}</p>
         },
         {
-            accessorKey: "_id",
-            header: "ID"
+            accessorKey: "carName",
+            header: "Car name"
         },
         {
-            accessorKey: "productName",
-            header: "Product"
+            accessorKey: "addingDate",
+            header: "Added on"
         },
         {
-            accessorKey: "photo",
-            header: "Image",
+            accessorKey: "sellerName",
+            header: "Seller Name"
+        },
+        {
+            accessorKey: "sellerEmail",
+            header: "Seller Email"
+        },
+        {
+            accessorKey: "sellerPhoto",
+            header: "Seller",
             cell: row => <div className="flex max-w-fit justify-center items-center">
-                <img src={row.row.original.photo} alt="product image" className="w-full lg:w-2/6" />
+                <img src={row.row.original.sellerPhoto} alt="product image" className="w-[70px] h-[70px] rounded-[50%]" />
             </div>
         },
         {
-            accessorKey: "",
-            header: "Update",
-            cell: row => <Link to={`updateProduct/${row.row.original._id}`}><button className="bg-main px-2 py-1 hover:bg-sub duration-300 text-[14px] rounded-[2px] text-white font-medium">Update</button></Link>
+            accessorKey: "sellStatus",
+            header: "Sell status",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <p className="text-[18px] font-semibold text-[#ff4141] capitalize px-2 py-1 rounded-md bg-[#dddddd] text-center">{row.row.original.sellStatus}</p>
+            </div>
         },
         {
-            accessorKey: "",
-            header: "Delete",
-            cell: row => <button className="bg-sub px-2 py-1 hover:bg-main duration-300 text-[14px] rounded-[2px] text-white font-medium"
-                onClick={() => handleProductDelete(row.row.original._id)}
-            >Delete</button>
+            accessorKey: "price",
+            header: "Price",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <p className="font-semibold text-[#0f0f0f] capitalize rounded-md text-center">${row.row.original.price}</p>
+            </div>
+        },
+        {
+            accessorKey: "totalRun",
+            header: "Total run",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <p className="font-medium text-[#0f0f0f] capitalize rounded-md text-center">{row.row.original.totalRun} <br /> <span className="text-lightBlack font-normal">km</span> </p>
+            </div>
         },
     ]
 
 
     // get the data
-    const data = useMemo(() => allProducts ?? [], [allProducts]); // '??' - this is called a coalescing operator. Where, if allProducts is null or undefined then the default value will be []. And if allProducts is availbe the value will be it. I can use ternary opeator also insteady of coalescing operator.
+    const data = useMemo(() => allListings ?? [], [allListings]); // '??' - this is called a coalescing operator. Where, if allListings is null or undefined then the default value will be []. And if allListings is availbe the value will be it. I can use ternary opeator also insteady of coalescing operator.
 
 
 
@@ -72,7 +91,7 @@ const AdminAllProducts = () => {
             .then(res => {
                 const data = res.data;
                 if (data) {
-                    refetch();
+                    listingsRefetch();
                 }
             })
             .catch(err => {
@@ -83,12 +102,12 @@ const AdminAllProducts = () => {
 
 
     // coditional loading
-    if (allProductsPending) {
+    if (allListingsPending) {
         return <LoadingAnimation />
     }
 
 
-    
+
     return (
         <div className="lg:min-h-[100vh] p-5 flex flex-col container mx-auto gap-8 justify-start items-center">
             <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">All products</h2>

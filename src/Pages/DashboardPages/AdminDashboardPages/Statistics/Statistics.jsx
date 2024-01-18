@@ -59,7 +59,7 @@ const Statistics = () => {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Verified', 'Not-verified'],
+            labels: ['Verified', 'Not-verified', 'Pending'],
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -178,11 +178,6 @@ const Statistics = () => {
         }
 
     }, [allListingsPending, allListings, allUsers, allUsersPending])
-
-
-
-
-
 
 
 
