@@ -25,7 +25,7 @@ const Dashboard = () => {
     // redirect the user to different route as per user type
     useEffect(() => {
         const redirectAdmin = () => {
-            if (isAdmin && !authLoading &&!isAdminPending) {
+            if (isAdmin && !authLoading && !isAdminPending) {
                 navigate("/dashboard/statistics")
             }
         }
@@ -104,6 +104,14 @@ const Dashboard = () => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
             My Listings
+        </NavLink>
+
+        {/* saved listings */}
+        <NavLink to="/dashboard/savedListings"
+            className={({ isActive }) => {
+                return isActive ? "active-link-style" : "link-style"
+            }}>
+            Saved Listings
         </NavLink>
     </>
 
