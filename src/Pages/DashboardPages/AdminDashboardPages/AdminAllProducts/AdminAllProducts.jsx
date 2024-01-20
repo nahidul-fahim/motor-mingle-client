@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
-import useAllProducts from "../../../../Hooks/useAllProducts/useAllProducts";
 import { useReactTable, flexRender, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
-import { Link } from "react-router-dom";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
 import useAllListings from "../../../../Hooks/useAllListings/useAllListings";
 
 
@@ -11,9 +8,7 @@ import useAllListings from "../../../../Hooks/useAllListings/useAllListings";
 const AdminAllProducts = () => {
 
     // hooks and custom hooks
-    const { allProductsPending, allProducts, refetch } = useAllProducts();
-    const { allListingsPending, allListings, listingsRefetch } = useAllListings();
-    const axiosSecure = useAxiosSecure();
+    const { allListingsPending, allListings } = useAllListings();
 
 
     const columns = [
@@ -84,24 +79,7 @@ const AdminAllProducts = () => {
 
 
 
-    // delete a product from all prodcut collection
-    const handleProductDelete = id => {
-        console.log(id)
-        axiosSecure.delete(`/deleteproduct/${id}`)
-            .then(res => {
-                const data = res.data;
-                if (data) {
-                    listingsRefetch();
-                }
-            })
-            .catch(err => {
-                console.log(err.code + "||" + err.message)
-            })
-    }
-
-
-
-    // coditional loading
+    // conditional loading
     if (allListingsPending) {
         return <LoadingAnimation />
     }
