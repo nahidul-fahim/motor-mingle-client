@@ -1,7 +1,6 @@
 import AboutSection from "./AboutSection";
 import Banner from "./Banner";
-import CarBrands from "./CarBrands";
-import Logos from "./Logos";
+import FeaturedCar from "./FeaturedCar";
 
 
 
@@ -11,9 +10,8 @@ const Home = () => {
     return (
         <div>
             <Banner />
-            <CarBrands />
             <AboutSection />
-            <Logos />
+            <FeaturedCar />
         </div>
     );
 };

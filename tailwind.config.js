@@ -8,12 +8,13 @@ export default {
     colors: {
       white: '#fff',
       black: '#000',
-      main: '#271d42',
-      sub: '#DE2262',
+      main: '#1b2a4f',
+      sub: '#3b75ff',
       second: 'var(--second_color)',
       gray: '#d1d1d1',
       lightMain: '#c0a5f0',
-      lightBlack: '#6b6b6b'
+      lightBlack: '#6b6b6b',
+      third: '#4d5eff'
     },
     extend: {
       fontFamily: {
