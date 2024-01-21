@@ -3,12 +3,20 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
 import useAllListings from "../../Hooks/useAllListings/useAllListings";
+import { useEffect } from "react";
+import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 
 
 const AllListings = () => {
 
     // hooks and custom hooks
-    const { allListingsPending, allListings, listingsRefetch } = useAllListings()
+    const { allListingsPending, allListings, listingsRefetch } = useAllListings();
+    const scrollToTop = useScrollToTop();
+
+
+    useEffect(() => {
+        scrollToTop();
+    }, [scrollToTop])
 
 
     // conditional loading

@@ -183,7 +183,7 @@ const ListingDetails = () => {
                     {/* show sell status if the product is sold */}
                     {
                         sellStatus === "sold" ?
-                            <div className="bg-[#e70a0a] p-5 text-xl font-semibold text-white rounded-[100%] w-[70px] h-[70px] flex justify-center items-center absolute top-[-50px] md:top-[-100px] right-[-100px] md:left-0 -rotate-[20deg] shadow-[0_0_50px_#e70a0a63]">
+                            <div className="bg-[#e70a0a] p-5 text-[18px] font-semibold text-white rounded-[100%] w-[60px] h-[60px] flex justify-center items-center absolute top-[-50px] md:top-[-100px] right-[-100px] md:left-0 -rotate-[20deg] shadow-[0_0_50px_#e70a0a63]">
                                 Sold
                             </div>
                             :

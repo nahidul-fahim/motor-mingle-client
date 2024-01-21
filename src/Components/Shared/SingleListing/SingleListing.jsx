@@ -104,18 +104,18 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
             <div className="flex justify-center items-center w-full px-3 py-5 rounded-lg shadow-[0_10px_10px_#e6e6e6b3]">
                 <div className="flex justify-between items-center gap-6 w-full">
                     <div className="w-3/6 md:w-2/5 relative">
-                        <img src={photo} alt="" className="w-full" />
+                        <img src={photo} alt="" className="w-[213px] h-[120px]" />
                         <p className="bg-white text-black px-2 py-1 rounded absolute top-0 left-0 font-medium">{carBrand}</p>
                     </div>
                     <div className="w-3/6 md:w-3/5 flex flex-col justify-center items-start gap-1 py-1 relative">
-                        <p className={`capitalize w-fit px-2 py-[2px] rounded-sm text-[12px] ${sellerVerificationStatus === "verified" ? 'bg-[#c5ffc5] text-[green]' : 'bg-[#ffd6d6] text-[red]'} flex justify-center items-center gap-2 font-medium mb-1`}><FaUser /> {sellerVerificationStatus}</p>
+                        <p className={`capitalize w-fit px-2 py-[2px] rounded-sm text-[12px] ${sellerVerificationStatus === "verified" ? 'bg-[#c5ffc5] text-[green]' : 'bg-[#ffd6d6] text-[red]'} flex justify-center items-center gap-2 font-medium mb-1`}><FaUser /> {sellerVerificationStatus} seller</p>
                         <h3 className="text-[18px] md:text-xl font-semibold">{carName}</h3>
                         <p>{totalRun} km</p>
-                        <p className="font-medium">$ {price}</p>
+                        <p className="font-medium">${price}</p>
                         <Link to={`/details/${_id}`}><button className="mt-1 text-[14px] bg-main text-white px-3 py-1 rounded hover:bg-sub duration-500 font-medium">See Details</button></Link>
                         {
                             sellStatus === "sold" ?
-                                <div className="bg-[#e70a0a] p-5 text-xl font-semibold text-white rounded-[100%] w-[70px] h-[70px] flex justify-center items-center absolute top-0 right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
+                                <div className="bg-[#e70a0a] p-5 text-[18px] font-semibold text-white rounded-[100%] w-[60px] h-[60px] flex justify-center items-center absolute top-0 right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
                                     Sold
                                 </div>
                                 :
