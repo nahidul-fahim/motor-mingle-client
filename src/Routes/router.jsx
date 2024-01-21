@@ -90,7 +90,7 @@ const router = createBrowserRouter([
         element: <MyListings />
       },
       {
-        path: "updatelisting/:id",
+        path: "updateListing/:id",
         element: <UpdateListing />
       },
       {

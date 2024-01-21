@@ -75,7 +75,7 @@ const UpdateListing = () => {
     const { isPending, data: singleListing } = useQuery({
         queryKey: ["single-listing", id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/singlelisting/${id}`);
+            const res = await axiosPublic.get(`/singleListing/${id}`);
             return res.data;
         }
     })
@@ -147,7 +147,7 @@ const UpdateListing = () => {
 
 
         // Send the data to the server and databse
-        axiosSecure.put(`/updatelisting/${_id}`, updatedInfo)
+        axiosSecure.put(`/updateListing/${_id}`, updatedInfo)
             .then(res => {
                 const data = res.data;
                 if (data.modifiedCount) {

@@ -28,7 +28,7 @@ const UserProfile = () => {
         const requestUpdate = "requested";
         const verificationRequest = { requestUpdate };
 
-        axiosSecure.put(`/updateuserdetails/${dbCurrentUser._id}`, verificationRequest)
+        axiosSecure.put(`/updateUserDetails/${dbCurrentUser._id}`, verificationRequest)
             .then(res => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {
@@ -52,7 +52,7 @@ const UserProfile = () => {
         const userDetails = { phone, address };
 
         // send the updated details to server and db
-        axiosSecure.put(`/updateuserdetails/${dbCurrentUser._id}`, userDetails)
+        axiosSecure.put(`/updateUserDetails/${dbCurrentUser._id}`, userDetails)
             .then(res => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {

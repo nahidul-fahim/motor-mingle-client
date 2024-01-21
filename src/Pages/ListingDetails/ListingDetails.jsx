@@ -48,7 +48,7 @@ const ListingDetails = () => {
     const { isPending, data: singleListing } = useQuery({
         queryKey: ["single-listing", id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/singlelisting/${id}`);
+            const res = await axiosPublic.get(`/singleListing/${id}`);
             return res.data;
         }
     })

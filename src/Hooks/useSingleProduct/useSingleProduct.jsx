@@ -12,7 +12,7 @@ const useSingleProduct = (id) => {
     const { isPending: singleProductPending, data: singleProduct } = useQuery({
         queryKey: ["single-product", id],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/singleproduct?id=${id}`)
+            const res = await axiosSecure.get(`/singleProduct?id=${id}`)
             return res.data
         }
     })

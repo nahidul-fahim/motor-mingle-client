@@ -132,7 +132,7 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                         {
                             dbCurrentUser?.email === sellerEmail ?
                                 <div className="bg-black px-3 py-1 rounded-b-[10px] flex justify-center items-center gap-3">
-                                    <Link to={`/dashboard/updatelisting/${_id}`}
+                                    <Link to={`/dashboard/updateListing/${_id}`}
                                     ><button className="text-white text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
                                     <button onClick={() => handleDeleteListing(_id)}
                                         className="text-white text-xl">
