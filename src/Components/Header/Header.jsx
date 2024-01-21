@@ -6,7 +6,7 @@ import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 
 
 // website logo
-const websiteLogo = 'https://i.ibb.co/7zM3tq9/website-logo.png';
+const websiteLogo = 'https://i.ibb.co/86Wkpvv/website-logo.png';
 
 
 const Header = () => {
@@ -110,7 +110,7 @@ const Header = () => {
                         </ul>
                     </div>
                     <Link to="/">
-                        <img src={websiteLogo} alt="Website Logo" className="w-2/3 hover:scale-125  duration-500" />
+                        <img src={websiteLogo} alt="Website Logo" className="w-3/4 hover:scale-110  duration-500" />
                     </Link>
                 </div>
 

@@ -183,7 +183,6 @@ const Statistics = () => {
 
     return (
         <div className="font-heading w-full min-h-[100vh] flex flex-col justify-start items-start">
-            <h2 className="text-5xl">Statistics page</h2>
 
             <div className="w-full min-h-[100vh] mt-10 flex flex-col justify-start">
                 <ReactApexChart options={state.options} series={state.series} type="line" height={400} />

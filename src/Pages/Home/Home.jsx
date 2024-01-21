@@ -1,5 +1,5 @@
 import AboutSection from "./AboutSection";
-// import BannerCarousel from "./BannerCarousel";
+import Banner from "./Banner";
 import CarBrands from "./CarBrands";
 import Logos from "./Logos";
 
@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <div>
-            {/* <BannerCarousel /> */}
+            <Banner />
             <CarBrands />
             <AboutSection />
             <Logos />

@@ -27,7 +27,7 @@ const AboutSection = () => {
                     data-aos="slide-down"
                     data-aos-mirror="true"
                     data-aos-once="false"
-                    data-aos-anchor-placement="top-bottom">About motor mingle</h2>
+                    data-aos-anchor-placement="top-bottom">What we provide</h2>
                 <p className="md:w-2/3 text-center font-semibold  text-base text-sub"
                     data-aos="slide-up"
                     data-aos-mirror="true"

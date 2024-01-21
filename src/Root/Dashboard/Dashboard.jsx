@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 // website logo
-const invertedLogo = "https://i.ibb.co/YWqCqyx/logo-inverted.png";
+const invertedLogo = "https://i.ibb.co/6JYKgMx/logo-inverted.png";
 
 
 const Dashboard = () => {
@@ -91,7 +91,7 @@ const Dashboard = () => {
         </NavLink>
 
         {/* sell post */}
-        <NavLink to="/dashboard/sellyourcar"
+        <NavLink to="/dashboard/sellCar"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
@@ -140,7 +140,7 @@ const Dashboard = () => {
 
                         {/* website logo */}
                         <Link to="/" className="w-full flex justify-center items-center">
-                            <img src={invertedLogo} alt="Motor mingle logo" className="w-2/4 hover:scale-110 duration-300" />
+                            <img src={invertedLogo} alt="Motor mingle logo" className="w-3/4 hover:scale-110 duration-300" />
                         </Link>
 
 

@@ -78,7 +78,7 @@ const router = createBrowserRouter([
       },
       // user dashboard router
       {
-        path: "sellyourcar",
+        path: "sellCar",
         element: <SellYourCar />
       },
       {

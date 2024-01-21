@@ -94,8 +94,6 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                     })
             }
         });
-
-
     }
 
 
