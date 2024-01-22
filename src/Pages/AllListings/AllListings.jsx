@@ -2,7 +2,7 @@ import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAn
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
@@ -13,16 +13,18 @@ const AllListings = () => {
     // hooks and custom hooks
     const axiosPublic = useAxiosPublic();
     const scrollToTop = useScrollToTop();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pages, setPages] = useState(0);
 
     // fetch data
     const { isPending: allListingsPending, data: allListings, refetch: listingsRefetch } = useQuery({
-        queryKey: ["all-listings"],
+        queryKey: ["all-listings", currentPage],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/paginatedListings`)
-            return res.data;
+            const res = await axiosPublic.get(`/paginatedListings?listingPerPage=10&currentPage=${currentPage}`)
+            setPages(res.data.totalPages)
+            return res.data.paginatedListings;
         }
     })
-
 
     useEffect(() => {
         scrollToTop();
@@ -33,6 +35,13 @@ const AllListings = () => {
     if (allListingsPending) {
         return <LoadingAnimation />
     }
+
+
+    // set total pages
+    const totalPages = [...Array(pages).keys()];
+
+    console.log(currentPage)
+
 
 
     // animation
@@ -60,6 +69,18 @@ const AllListings = () => {
                         <SingleListing key={index} singleList={singleList} listingsRefetch={listingsRefetch}
                         ></SingleListing>
                     )
+                }
+            </div>
+
+            {/* pagination */}
+            <div className="flex justify-center items-center gap-3 mt-10">
+                {
+                    totalPages.map(page =>
+                        <button key={page}
+                            onClick={() => setCurrentPage(page + 1)}
+                            className="bg-white border-[1px] border-sub w-[35px] h-[35px] hover:bg-sub hover:text-white duration-300 font-medium">
+                            {page + 1}
+                        </button>)
                 }
             </div>
         </div>
