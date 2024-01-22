@@ -2,16 +2,26 @@ import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAn
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
-import useAllListings from "../../Hooks/useAllListings/useAllListings";
 import { useEffect } from "react";
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 
 const AllListings = () => {
 
     // hooks and custom hooks
-    const { allListingsPending, allListings, listingsRefetch } = useAllListings();
+    const axiosPublic = useAxiosPublic();
     const scrollToTop = useScrollToTop();
+
+    // fetch data
+    const { isPending: allListingsPending, data: allListings, refetch: listingsRefetch } = useQuery({
+        queryKey: ["all-listings"],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/paginatedListings`)
+            return res.data;
+        }
+    })
 
 
     useEffect(() => {
