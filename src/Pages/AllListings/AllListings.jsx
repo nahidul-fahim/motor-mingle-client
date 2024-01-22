@@ -78,7 +78,7 @@ const AllListings = () => {
                     totalPages.map(page =>
                         <button key={page}
                             onClick={() => setCurrentPage(page + 1)}
-                            className="bg-white border-[1px] border-sub w-[35px] h-[35px] hover:bg-sub hover:text-white duration-300 font-medium">
+                            className={`border-[1px] border-sub w-[35px] h-[35px] hover:bg-sub hover:text-white duration-300 font-medium ${currentPage === page + 1 ? 'bg-sub text-white' : 'bg-white text-sub'}`}>
                             {page + 1}
                         </button>)
                 }
