@@ -95,7 +95,7 @@ const SignUp = () => {
                                 if (result.user) {
                                     const currentUsersInfo = result.user;
                                     // post the new user data to database
-                                    axiosPublic.post("/newuser", newUserInfo)
+                                    axiosPublic.post("/newUserApi", newUserInfo)
                                         .then(res => {
                                             const data = res.data;
                                             if (data.insertedId) {

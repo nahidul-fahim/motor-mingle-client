@@ -23,9 +23,6 @@ const FeaturedCar = () => {
         return <p className='text-center text-lightBlack capitalize'>loading....</p>
     }
 
-    console.log(listings);
-
-
 
     AOS.init({
         offset: 120,
@@ -41,7 +38,7 @@ const FeaturedCar = () => {
                 data-aos="slide-down"
                 data-aos-mirror="true"
                 data-aos-once="false"
-                data-aos-anchor-placement="top-bottom">Find your dream car</h2>
+                data-aos-anchor-placement="top-bottom">Latest Cars</h2>
             <p className='text-center text-lightBlack'>
                 A friendly collection for you. You can have a look and choose the best for you.
             </p>

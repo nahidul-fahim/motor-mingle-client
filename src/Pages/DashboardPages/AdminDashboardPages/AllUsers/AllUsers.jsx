@@ -47,7 +47,7 @@ const AllUsers = () => {
 
     return (
         <div className="lg:min-h-[100vh] flex flex-col justify-start items-center gap-5 w-full">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">All User List</h2>
+            <h2 className="text-center text-4xl md:text-5xl font-bold text-main  capitalize">All User List</h2>
 
 
             {/* all user list table */}

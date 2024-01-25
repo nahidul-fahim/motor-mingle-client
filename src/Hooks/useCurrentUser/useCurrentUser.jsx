@@ -15,7 +15,7 @@ const useCurrentUser = () => {
         queryKey: ["current-user", userEmail],
         enabled: !authLoading,
         queryFn: async () => {
-            const res = await axiosPublic.get(`/currentuser?email=${userEmail}`)
+            const res = await axiosPublic.get(`/currentUser?email=${userEmail}`)
             return res.data;
         }
     })

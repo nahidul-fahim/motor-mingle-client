@@ -61,7 +61,7 @@ const MyCart = () => {
 
     return (
         <div className="container mx-auto p-5 mt-[4rem]">
-            <h2 className="text-5xl font-extrabold  text-center uppercase text-main"
+            <h2 className="text-5xl font-bold  text-center capitalize text-main"
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"
@@ -71,7 +71,7 @@ const MyCart = () => {
                 {
                     cartData.length === 0 ?
                         <div className="flex justify-center items-center mt-[5rem] h-[200px] lg:h-[350px]">
-                            <h2 className="text-base uppercase font-bold  text-center text-sub">{'Cart\'s'} empty. {'Let\'s'} fill it up!</h2>
+                            <h2 className="text-base capitalize font-bold  text-center text-sub">{'Cart\'s'} empty. {'Let\'s'} fill it up!</h2>
                         </div>
                         :
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 mt-[6rem]">

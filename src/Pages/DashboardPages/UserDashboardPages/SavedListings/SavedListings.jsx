@@ -49,7 +49,7 @@ const SavedListings = () => {
     return (
 
         <div className="flex flex-col justify-start items-center w-full h-full">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase"
+            <h2 className="text-center text-4xl md:text-5xl font-bold text-main  capitalize"
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"

@@ -88,7 +88,7 @@ const AdminAllProducts = () => {
 
     return (
         <div className="lg:min-h-[100vh] p-5 flex flex-col container mx-auto gap-8 justify-start items-center">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase">All products</h2>
+            <h2 className="text-center text-4xl md:text-5xl font-bold text-main capitalize">All products</h2>
 
             {/* table to show all the products */}
             <div className="w-full mt-10">

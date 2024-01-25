@@ -70,7 +70,7 @@ const LogIn = () => {
 
 
                     // post the new user data to database
-                    axiosPublic.post("/newuser", newUserInfo)
+                    axiosPublic.post("/newUserApi", newUserInfo)
                         .then(() => {
                             //
                         })

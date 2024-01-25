@@ -123,7 +123,7 @@ const SellYourCar = () => {
                         const formInfo = { carName, carBrand, carType, price, carCondition, purchasingDate, description, photo, approvalStatus, addingDate, manufactureYear, engineCapacity, totalRun, fuelType, transmissionType, registeredYear, sellerId, sellerName, sellerEmail, sellerPhone, sellerVerificationStatus, sellerPhoto }
 
                         // Send the data to the server and databse
-                        axiosSecure.post("/oldproduct", formInfo)
+                        axiosSecure.post("/newCarSellByUser", formInfo)
                             .then(res => {
                                 const data = res.data;
                                 if (data.insertedId) {
@@ -183,7 +183,7 @@ const SellYourCar = () => {
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase pt-[50px]"
+            <h2 className="text-center text-4xl md:text-5xl font-bold text-main capitalize pt-[50px]"
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
-const SingleListing = ({ singleList, listingsRefetch }) => {
+const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
     const { _id, carName, carBrand, photo, price, totalRun, sellerVerificationStatus, sellerEmail, sellStatus } = singleList;
 
@@ -29,11 +29,11 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/allcarslisting/${id}`)
+                axiosSecure.delete(`/allCarsListing/${id}`)
                     .then(res => {
                         const data = res.data;
                         if (data.deletedCount) {
-                            listingsRefetch();
+                            filteredListingRefetch();
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
@@ -76,7 +76,7 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                     .then(res => {
                         const data = res.data;
                         if (data.modifiedCount) {
-                            listingsRefetch();
+                            filteredListingRefetch();
                             Swal.fire({
                                 title: "Sold!",
                                 icon: "success"

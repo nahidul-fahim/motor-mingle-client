@@ -3,7 +3,6 @@ import Root from "../Root/Root";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import MyCart from "../Pages/MyCart/MyCart";
-import ProductPage from "../Pages/ProductPage/ProductPage";
 import SignUp from "../Authentication/SignUp/SignUp";
 import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       {
         path: "/myCart",
         element: <PrivateRoute><MyCart /></PrivateRoute>,
-      },
-      {
-        path: "/products/:brandName",
-        element: <ProductPage />,
       },
     ]
   },

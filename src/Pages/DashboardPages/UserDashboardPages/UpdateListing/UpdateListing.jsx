@@ -204,7 +204,7 @@ const UpdateListing = () => {
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-full">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase pt-[50px]"
+            <h2 className="text-center text-4xl md:text-5xl font-bold text-main capitalize pt-[50px]"
                 data-aos="slide-right"
                 data-aos-mirror="true"
                 data-aos-once="false"

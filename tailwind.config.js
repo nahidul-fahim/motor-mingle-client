@@ -8,8 +8,8 @@ export default {
     colors: {
       white: '#fff',
       black: '#000',
-      main: '#1b2a4f',
-      sub: '#3b75ff',
+      main: '#000',
+      sub: '#4E6CFB',
       second: 'var(--second_color)',
       gray: '#d1d1d1',
       lightMain: '#c0a5f0',
