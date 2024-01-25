@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: "'Montserrat', sans-serif",
-        body: "'Montserrat', sans-serif",
+        heading: "'Nunito Sans', sans-serif",
+        body: "'Nunito Sans', sans-serif",
       }
     },
   },

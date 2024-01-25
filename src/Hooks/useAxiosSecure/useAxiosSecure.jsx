@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 // create axios instance
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
-    // baseURL: 'https://motor-mingle-server.vercel.app'
+    // baseURL: 'http://localhost:5000'
+    baseURL: 'https://motor-mingle-server.vercel.app'
 })
 
 

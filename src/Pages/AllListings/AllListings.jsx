@@ -56,7 +56,7 @@ const AllListings = () => {
 
     return (
         <div className="container mx-auto flex flex-col justify-center items-center gap-5 p-5">
-            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main  uppercase"
+            <h2 className="text-center text-4xl md:text-5xl font-extrabold text-main uppercase"
                 data-aos="fade-down"
                 data-aos-mirror="true"
                 data-aos-once="false"

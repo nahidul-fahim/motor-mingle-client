@@ -96,9 +96,9 @@ const Header = () => {
 
 
     return (
-        <div className="mx-auto z-50">
+        <div className="container mx-auto z-[99] bg-white">
 
-            <div className="navbar bg-base-100">
+            <div className="navbar">
                 <div className="navbar-start">
 
                     <div className="dropdown">
