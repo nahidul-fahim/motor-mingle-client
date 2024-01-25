@@ -6,7 +6,7 @@ import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 
 
 // website logo
-const websiteLogo = 'https://i.ibb.co/86Wkpvv/website-logo.png';
+const websiteLogo = 'https://i.ibb.co/DLF68G0/website-logo.png';
 
 
 const Header = () => {

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 // website logo
-const invertedLogo = "https://i.ibb.co/6JYKgMx/logo-inverted.png";
+const invertedLogo = "https://i.ibb.co/KwNQzqq/logo-inverted.png";
 
 
 const Dashboard = () => {

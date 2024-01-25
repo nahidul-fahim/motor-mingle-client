@@ -5,6 +5,7 @@ import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
 import { useEffect, useState } from "react";
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 import useFilteredListings from "../../Hooks/useFilteredListings/useFilteredListings";
+import { useLocation } from "react-router-dom";
 
 
 const AllListings = () => {
@@ -12,21 +13,16 @@ const AllListings = () => {
     // hooks and custom hooks
     const scrollToTop = useScrollToTop();
     const [currentPage, setCurrentPage] = useState(1);
-    // const [pages, setPages] = useState(0);
-
-    const { filteredListingPending, filteredListing, filteredListingRefetch, pages } = useFilteredListings(currentPage)
-
+    const { filteredListingPending, filteredListing, filteredListingRefetch, pages } = useFilteredListings(currentPage);
+    const location = useLocation();
 
 
-    // fetch data
-    // const { isPending: allListingsPending, data: allListings, refetch: listingsRefetch } = useQuery({
-    //     queryKey: ["all-listings", currentPage],
-    //     queryFn: async () => {
-    //         const res = await axiosPublic.get(`/filteredListings?listingPerPage=10&currentPage=${currentPage}`)
-    //         setPages(res.data.totalPages)
-    //         return res.data.paginatedListings;
-    //     }
-    // })
+    const { carCondition, carBrand, carPrice } = location.state || {};
+
+    console.log(carCondition, carBrand, carPrice)
+
+
+
 
     useEffect(() => {
         scrollToTop();
@@ -41,9 +37,6 @@ const AllListings = () => {
 
     // set total pages
     const totalPages = [...Array(pages).keys()];
-
-    console.log(currentPage)
-
 
 
     // animation
