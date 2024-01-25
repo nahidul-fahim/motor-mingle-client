@@ -62,7 +62,7 @@ const Dashboard = () => {
         </NavLink>
 
         {/* all users */}
-        <NavLink to="/dashboard/allusers"
+        <NavLink to="/dashboard/allUsers"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
@@ -70,7 +70,7 @@ const Dashboard = () => {
         </NavLink>
 
         {/* all products */}
-        <NavLink to="/dashboard/adminallproducts"
+        <NavLink to="/dashboard/adminAllProducts"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>
@@ -99,7 +99,7 @@ const Dashboard = () => {
         </NavLink>
 
         {/* my ads */}
-        <NavLink to="/dashboard/mylistings"
+        <NavLink to="/dashboard/myListings"
             className={({ isActive }) => {
                 return isActive ? "active-link-style" : "link-style"
             }}>

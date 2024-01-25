@@ -4,13 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --second_color: #060045;
-}
 
-[data-theme="dark"] {
-  --second_color: cyan;
-}
 
 * {
   margin: 0;
@@ -37,7 +31,7 @@ body {
 
 .link-style:hover {
   background-color: white;
-  color: #2c0b87;
+  color: #000;
   border-radius: 3px;
 }
 
@@ -47,7 +41,7 @@ body {
   font-size: 14px;
   padding: 4px 16px;
   background-color: white;
-  color: #2c0b87;
+  color: #000;
   border-radius: 3px;
 }
 
@@ -72,4 +66,15 @@ body {
 
 .table-row:hover {
   background-color: #ebebeb;
+}
+
+
+
+
+/* the ":root" and [data-theme="dark"] - are not being used in the website, but this will be helpful for the future use in any project. So, I'm keeping it. */
+:root {
+  --second_color: #060045;
+}
+[data-theme="dark"] {
+  --second_color: cyan;
 }

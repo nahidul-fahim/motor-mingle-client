@@ -158,7 +158,7 @@ const LogIn = () => {
                     <button onClick={handleGoogleSignIn} className="bg-[#1fb3f8] px-4 py-2 rounded text-white  font-semibold hover:bg-sub duration-300 flex justify-center items-center gap-2"><BsGoogle /> Sign in using Google</button>
                     <div className="mt-5 flex justify-center items-center gap-1">
                         <p className="text-center  font-medium">{'Dont\'t'} have an account?</p>
-                        <Link to="/signup" className="font-bold  border-t-2 border-t-[#ffffff00] border-b-2 border-main hover:text-white hover:bg-main px-2 py-1 hover:border-t-2 duration-300">Sign up</Link>
+                        <Link to="/signUp" className="font-bold  border-t-2 border-t-[#ffffff00] border-b-2 border-main hover:text-white hover:bg-main px-2 py-1 hover:border-t-2 duration-300">Sign up</Link>
                     </div>
                 </div>
 

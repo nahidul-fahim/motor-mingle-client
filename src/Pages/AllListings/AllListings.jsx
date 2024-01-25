@@ -5,7 +5,6 @@ import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
 import { useEffect, useState } from "react";
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 import useFilteredListings from "../../Hooks/useFilteredListings/useFilteredListings";
-import { useLocation } from "react-router-dom";
 
 
 const AllListings = () => {
@@ -14,12 +13,6 @@ const AllListings = () => {
     const scrollToTop = useScrollToTop();
     const [currentPage, setCurrentPage] = useState(1);
     const { filteredListingPending, filteredListing, filteredListingRefetch, pages } = useFilteredListings(currentPage);
-    const location = useLocation();
-
-
-    const { carCondition, carBrand, carPrice } = location.state || {};
-
-    console.log(carCondition, carBrand, carPrice)
 
 
 

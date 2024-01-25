@@ -34,7 +34,7 @@ const Banner = () => {
             // setCarCondition(carCondition);
             // setCarBrand(carBrand);
             // setCarPrice(carPrice);
-            navigate("/allListings")
+            navigate("/allListings?key=10")
         }
     }
 

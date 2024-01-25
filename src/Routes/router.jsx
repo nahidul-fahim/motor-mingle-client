@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../Root/Root";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import MyCart from "../Pages/MyCart/MyCart";
 import SignUp from "../Authentication/SignUp/SignUp";
 import LogIn from "../Authentication/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -37,15 +36,11 @@ const router = createBrowserRouter([
         path: "/details/:id",
         element: <PrivateRoute><ListingDetails /></PrivateRoute>,
       },
-      {
-        path: "/myCart",
-        element: <PrivateRoute><MyCart /></PrivateRoute>,
-      },
     ]
   },
   // sign up and login route
   {
-    path: "/signup",
+    path: "/signUp",
     element: <SignUp />,
   },
   {
@@ -64,11 +59,11 @@ const router = createBrowserRouter([
         element: <AdminRoute><Statistics /></AdminRoute>
       },
       {
-        path: "allusers",
+        path: "allUsers",
         element: <AdminRoute><AllUsers /></AdminRoute>
       },
       {
-        path: "adminallproducts",
+        path: "adminAllProducts",
         element: <AdminRoute><AdminAllProducts /></AdminRoute>
       },
       // user dashboard router
@@ -81,7 +76,7 @@ const router = createBrowserRouter([
         element: <UserProfile />
       },
       {
-        path: "mylistings",
+        path: "myListings",
         element: <MyListings />
       },
       {
