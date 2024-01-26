@@ -4,6 +4,8 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import SingleListing from '../../Components/Shared/SingleListing/SingleListing';
+import { FaArrowRightLong } from "react-icons/fa6";
+
 
 
 
@@ -56,7 +58,12 @@ const FeaturedCar = () => {
                 }
             </div>
 
-            <Link to={"/allListings"}><button className='bg-main px-4 py-3 rounded text-white font-semibold hover:bg-sub duration-500 mt-10'>See More</button></Link>
+            <Link to={"/allListings"}>
+                <button className='group bg-main px-4 py-3 rounded text-white font-semibold hover:bg-sub duration-500 mt-10 flex justify-center items-center gap-2'>
+                    <span>See More</span>
+                    <FaArrowRightLong className="hidden group-hover:flex transition-opacity duration-500" />
+                </button>
+            </Link>
         </div>
     );
 };

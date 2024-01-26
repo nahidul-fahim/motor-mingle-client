@@ -64,10 +64,8 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
     // update sell status of a singleList
     const handleSold = id => {
-
         const sellStatus = "sold";
         const updateSellInfo = { sellStatus };
-
         Swal.fire({
             title: "Is it sold?",
             text: "You won't be able to revert this!",
@@ -115,7 +113,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
 
     return (
-        <div key={singleList?._id} className='flex flex-col justify-center items-start relative'
+        <div key={singleList?._id} className='flex flex-col justify-center items-start relative rounded-[20px]'
             data-aos="fade-up"
             data-aos-mirror="true"
             data-aos-once="false"
@@ -123,7 +121,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
             <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px]' />
 
-            <div className='w-full border-x-[1px] bg-white border-b-[1px] border-[#e4e4e4] p-2 rounded-b-[20px]'>
+            <div className='w-full border-x-[1px] bg-lightMain border-b-[1px] border-[#e4e4e4] p-2 rounded-b-[20px]'>
                 <h3 className='mt-3 w-full px-3 text-xl text-black font-semibold border-b-[1px] pb-2 border-[#e4e4e4]'>{singleList?.carName}</h3>
 
                 {/* car details */}

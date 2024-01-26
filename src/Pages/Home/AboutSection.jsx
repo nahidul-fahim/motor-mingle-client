@@ -23,7 +23,7 @@ const AboutSection = () => {
                 <p className="md:w-2/3 text-center font-normal text-base text-lightBlack">We offer you a platform where you can buy and sell your car. A easy, reliable platform for you.</p>
 
                 {/* card container */}
-                <div className='container mx-auto gap-14 flex flex-col md:flex-row justify-center md:justify-around items-center w-full lg:w-[90%] mt-8'>
+                <div className='container mx-auto gap-14 flex flex-col md:flex-row justify-center md:justify-around items-start w-full lg:w-[90%] mt-8'>
                     {/* card 1 */}
                     <div className='flex flex-col gap-3 justify-center items-start'>
                         <AiTwotoneLike className='text-third text-3xl'/>
