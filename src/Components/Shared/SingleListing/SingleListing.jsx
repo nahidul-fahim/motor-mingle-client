@@ -1,5 +1,5 @@
 import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RiDeleteBin2Fill, RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
 import useCurrentUser from "../../../Hooks/useCurrentUser/useCurrentUser";
 import Swal from 'sweetalert2'
@@ -18,6 +18,9 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
     // hooks
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
     const axiosSecure = useAxiosSecure();
+    const location = useLocation();
+
+    const path = location.pathname
 
 
     // delete a singleList
@@ -153,6 +156,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                 </div>
             </div>
 
+            {/* sold status if the product is sold  */}
             {
                 singleList?.sellStatus === "sold" ?
                     <div className="bg-[#e70a0a] p-5 text-[18px] font-semibold text-white rounded-[100%] w-[70px] h-[70px] flex justify-center items-center absolute bottom-[65%] left-[40%] right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
@@ -161,6 +165,51 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                     :
                     ""
             }
+
+
+
+            {/* seller button when seller is logged in */}
+            <div className="w-full flex justify-center items-center">
+                {
+                    path === "/dashboard/myListings" ?
+                        <div className="w-fit flex justify-center items-center">
+                            {
+                                !dbCurrentUserPending ?
+                                    <>
+                                        {
+                                            dbCurrentUser?.email === singleList?.sellerEmail ?
+                                                <div className="bg-black px-3 py-1 rounded-b-[10px] flex justify-center items-center gap-3">
+                                                    <Link to={`/dashboard/updateListing/${singleList?._id}`}
+                                                    ><button className="text-white text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
+                                                    <button onClick={() => handleDeleteListing(singleList?._id)}
+                                                        className="text-white text-xl">
+                                                        <RiDeleteBin2Fill />
+                                                    </button>
+                                                    {
+                                                        !singleList?.sellStatus ?
+                                                            <button onClick={() => handleSold(singleList?._id)}
+                                                                className="text-white text-[15px] font-medium flex gap-2 justify-center items-center bg-[#c70000] px-2 py-1 rounded hover:bg-black duration-500">
+                                                                <RiCheckboxCircleFill />Mark As Sold
+                                                            </button>
+                                                            :
+                                                            ""
+                                                    }
+                                                </div>
+                                                :
+                                                ""
+                                        }
+                                    </>
+                                    :
+                                    ""
+                            }
+                        </div>
+                        :
+                        ""
+                }
+            </div>
+
+
+
         </div>
     );
 };
