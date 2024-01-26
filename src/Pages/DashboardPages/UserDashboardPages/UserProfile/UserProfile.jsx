@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
 import useCurrentUser from "../../../../Hooks/useCurrentUser/useCurrentUser";
@@ -17,12 +17,13 @@ const UserProfile = () => {
     const detailsUpdateForm = useRef(null);
     const feedbackForm = useRef(null);
     const axiosSecure = useAxiosSecure();
+    const [feedbackRecorded, setFeedbackRecorded] = useState(false);
     const { dbCurrentUserPending, dbCurrentUser, dbCurrentUserRefetch } = useCurrentUser();
 
 
     // get feedback by the user
-    const { isPending: feedbackPending, data: singleFeedback } = useQuery({
-        queryKey: ["user-feedback", dbCurrentUser._id],
+    const { isPending: feedbackPending, data: singleFeedback, refetch: feedbackRefetch } = useQuery({
+        queryKey: ["user-feedback", dbCurrentUser._id, feedbackRecorded],
         queryFn: async () => {
             const res = await axiosSecure.get(`/singleFeedback/${dbCurrentUser._id}`)
             return res.data;
@@ -104,9 +105,10 @@ const UserProfile = () => {
             .then(res => {
                 const data = res.data;
                 if (data.insertedId) {
+                    setFeedbackRecorded(!feedbackRecorded);
                     successNotify("Feedback recorded");
-                    dbCurrentUserRefetch();
                     feedbackForm.current.reset();
+                    feedbackRefetch();
                 }
             })
             .catch(err => failureNotify(err.code))
@@ -116,7 +118,7 @@ const UserProfile = () => {
 
     // Successful message
     const successNotify = (successMessage) => toast.success(`${successMessage}`, {
-        position: "top-center",
+        position: "bottom-right",
         autoClose: 1800,
         hideProgressBar: true,
         closeOnClick: false,
@@ -130,7 +132,7 @@ const UserProfile = () => {
 
     // Failed message
     const failureNotify = (errorMessage) => toast.error(`${errorMessage}`, {
-        position: "top-center",
+        position: "bottom-right",
         autoClose: 1800,
         hideProgressBar: true,
         closeOnClick: false,
