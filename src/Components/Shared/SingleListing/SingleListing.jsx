@@ -1,4 +1,3 @@
-import { FaUser } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { RiDeleteBin2Fill, RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
 import useCurrentUser from "../../../Hooks/useCurrentUser/useCurrentUser";
@@ -124,7 +123,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
             <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px]' />
 
-            <div className='w-full border-x-[1px] border-b-[1px] border-[#e4e4e4] p-2 rounded-[20px]'>
+            <div className='w-full border-x-[1px] bg-white border-b-[1px] border-[#e4e4e4] p-2 rounded-b-[20px]'>
                 <h3 className='mt-3 w-full px-3 text-xl text-black font-semibold border-b-[1px] pb-2 border-[#e4e4e4]'>{singleList?.carName}</h3>
 
                 {/* car details */}

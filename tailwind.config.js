@@ -14,7 +14,8 @@ export default {
       gray: '#d1d1d1',
       lightMain: '#6590d6',
       lightBlack: '#6b6b6b',
-      third: '#52a1eb'
+      third: '#52a1eb',
+      fourth: '#050B20'
     },
     extend: {
       fontFamily: {

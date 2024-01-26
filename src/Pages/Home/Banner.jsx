@@ -38,9 +38,7 @@ const Banner = () => {
         }
     }
 
-
-
-
+    
     // animation
     AOS.init({
         offset: 120,
@@ -51,23 +49,15 @@ const Banner = () => {
 
 
 
-
-
     return (
-        <div className="min-h-calc-100vh-70 bg-contain"
-            style={{
-                backgroundImage: `linear-gradient(to bottom, #EEF1FB, #FFFFFF00), url(${bannerImg})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '',
-                backgroundPosition: 'bottom'
-            }}
+        <div className="min-h-[100vh] bg-[#EEF1FB] relative"
             data-aos="fade-up"
             data-aos-mirror="true"
             data-aos-once="false"
             data-aos-anchor-placement="top-bottom">
             <div className="container mx-auto p-5 h-full flex flex-col justify-start items-center font-body gap-4">
                 <p className="text-main text-[18px] mt-[0px] md:mt-[50px]">The dream place for car buy and sell</p>
-                <h1 className="text-black text-6xl lg:text-7xl font-bold text-center"
+                <h1 className="text-black text-4xl lg:text-7xl font-bold text-center"
                     data-aos="zoom-in"
                     data-aos-mirror="true"
                     data-aos-once="false"
@@ -75,7 +65,7 @@ const Banner = () => {
 
                 {/* filtered car search */}
                 <form onSubmit={handleHomeSearch}
-                    className='w-[90%] md:w-[98%] lg:w-[80%] flex flex-col md:flex-row justify-center md:justify-between items-center mt-3 md:mt-12 bg-white p-2 md:p-4 shadow-[0_0_70px_#cfcfcf] rounded-lg md:rounded-[80px] gap-4 md:gap-0 text-[16px] lg:text-[18px]'>
+                    className='w-[90%] md:w-[98%] lg:w-[80%] flex flex-col md:flex-row justify-center md:justify-between items-center mt-3 md:mt-5 bg-white p-2 md:p-4 shadow-[0_0_70px_#cfcfcf] rounded-lg md:rounded-[80px] gap-4 md:gap-0 text-[16px] lg:text-[18px]'>
 
                     {/* car condition */}
                     <select required id='carCondition' defaultValue={""} name='carCondition' className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit flex justify-between items-center rounded-[3px] focus:outline-none'>
@@ -109,6 +99,8 @@ const Banner = () => {
                         <FaSearch className='text-xl' />
                     </button>
                 </form>
+
+                <img src={bannerImg} alt="" className='absolute bottom-[-80px]' />
             </div>
 
         </div >
