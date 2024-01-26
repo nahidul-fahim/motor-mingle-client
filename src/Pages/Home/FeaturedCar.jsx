@@ -61,7 +61,7 @@ const FeaturedCar = () => {
             <Link to={"/allListings"}>
                 <button className='group bg-main px-4 py-3 rounded text-white font-semibold hover:bg-sub duration-500 mt-10 flex justify-center items-center gap-2'>
                     <span>See More</span>
-                    <FaArrowRightLong className="hidden group-hover:flex transition-opacity duration-500" />
+                    <FaArrowRightLong className="hidden group-hover:flex duration-500" />
                 </button>
             </Link>
         </div>

@@ -4,7 +4,9 @@ import useCurrentUser from "../../../../Hooks/useCurrentUser/useCurrentUser";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Link } from "react-router-dom";
+import SingleListing from "../../../../Components/Shared/SingleListing/SingleListing";
+import Lottie from "lottie-react";
+import carLottie from "../../../../../public/carLottie.json"
 
 
 const SavedListings = () => {
@@ -34,8 +36,6 @@ const SavedListings = () => {
     }
 
 
-    console.log(savedListings);
-
 
     // animation
     AOS.init({
@@ -50,24 +50,28 @@ const SavedListings = () => {
 
         <div className="flex flex-col justify-start items-center w-full h-full">
             <h2 className="text-center text-4xl md:text-5xl font-bold text-main  capitalize"
-                data-aos="slide-right"
+                data-aos="fade-up"
                 data-aos-mirror="true"
                 data-aos-once="false"
                 data-aos-anchor-placement="top-bottom">Saved Listings</h2>
 
+
             {/* show the listings */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-10 mt-[80px] w-full">
-                {
-                    savedListings.map(listing =>
-                        <Link key={listing?._id} to={`/details/${listing?.singleAdId}`}>
-                            <div className="flex flex-col justify-center items-center gap-4">
-                                <img src={listing?.photo} alt="" className="w-[200px] h-[114px] bg-cover" />
-                                <h3 className="text-lightBlack text-xl font-semibold">{listing?.carName}</h3>
-                            </div>
-                        </Link>
-                    )
-                }
-            </div>
+            {
+                savedListings.length === 0 ?
+                    <div className="w-full h-full flex flex-col justify-center items-center">
+                        <Lottie animationData={carLottie} />
+                        <h3 className="text-4xl font-bold text-lightBlack text-center">No data found!</h3>
+                    </div>
+                    :
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-10 mt-[80px] w-full">
+                        {
+                            savedListings.map(singleList => <SingleListing key={singleList?._id} singleList={singleList}></SingleListing>
+                            )
+                        }
+                    </div>
+            }
+
         </div>
     );
 };

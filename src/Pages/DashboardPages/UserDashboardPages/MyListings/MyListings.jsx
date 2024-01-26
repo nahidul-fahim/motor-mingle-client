@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import useCurrentUser from '../../../../Hooks/useCurrentUser/useCurrentUser';
 import LoadingAnimation from '../../../../Components/Shared/LoadingAnimation/LoadingAnimation';
 import SingleListing from '../../../../Components/Shared/SingleListing/SingleListing';
+import Lottie from "lottie-react";
+import carLottie from "../../../../../public/carLottie.json"
 
 
 const MyListings = () => {
@@ -53,15 +55,24 @@ const MyListings = () => {
                 data-aos-once="false"
                 data-aos-anchor-placement="top-bottom">My Listings</h2>
 
+
             {/* show user listings */}
-            <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-[80px]'>
-                {
-                    userListings?.map((singleList, index) =>
-                        <SingleListing key={index} singleList={singleList} listingsRefetch={listingsRefetch}>
-                        </SingleListing>
-                    )
-                }
-            </div>
+            {
+                userListings.length === 0 ?
+                    <div className="w-full h-full flex flex-col justify-center items-center">
+                        <Lottie animationData={carLottie} />
+                        <h3 className="text-4xl font-bold text-lightBlack text-center">No data found!</h3>
+                    </div>
+                    :
+                    <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-[80px]'>
+                        {
+                            userListings?.map((singleList, index) =>
+                                <SingleListing key={index} singleList={singleList} listingsRefetch={listingsRefetch}>
+                                </SingleListing>
+                            )
+                        }
+                    </div>
+            }
         </div>
     );
 };
