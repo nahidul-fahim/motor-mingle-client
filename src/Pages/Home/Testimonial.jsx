@@ -2,7 +2,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import useAxiosPublic from '../../Hooks/useAxiosPublic/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
-import LoadingAnimation from '../../Components/Shared/LoadingAnimation/LoadingAnimation';
 import { useState } from 'react';
 import { FaQuoteLeft } from "react-icons/fa";
 import { Rating } from '@smastrom/react-rating'
@@ -33,10 +32,8 @@ const Testimonial = () => {
 
     // conditional loading 
     if (feedbackPending) {
-        return <LoadingAnimation />
+        return <p className='text-center text-lightBlack capitalize'>loading....</p>
     }
-
-    console.log(allFeedbacks)
 
 
 
@@ -61,7 +58,7 @@ const Testimonial = () => {
             </p>
 
             {/* testimonial description */}
-            <div className='w-full md:w-[80%] lg:w-[70%] px-[70px] h-[450px] md:h-[300px] py-[80px] flex flex-col justify-center items-center text-center bg-white shadow-[0_0_100px_#d6d6d6] mt-10 relative'>
+            <div className='w-full md:w-[80%] lg:w-[70%] px-[70px] h-[450px] md:h-[300px] py-[80px] flex flex-col justify-center items-center text-center bg-white shadow-[0_0_100px_#d6d6d6] rounded-[10px] mt-10 relative'>
                 {
                     allFeedbacks.map(singleFeedback =>
                         <div key={singleFeedback?._id} className='text-center w-full'>
