@@ -12,7 +12,7 @@ const useFilteredListings = (currentPage) => {
     const { isPending: filteredListingPending, data: filteredListing, refetch: filteredListingRefetch } = useQuery({
         queryKey: ["filtered-listing", currentPage],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/filteredListings?listingPerPage=10&currentPage=${currentPage}`)
+            const res = await axiosPublic.get(`/filteredListings?listingPerPage=12&currentPage=${currentPage}`)
             setPages(res.data.totalPages)
             return res.data.paginatedListings;
         }

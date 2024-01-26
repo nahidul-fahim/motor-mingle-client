@@ -1,5 +1,5 @@
 // loading animation gif
-const loadingAnimation = "https://i.ibb.co/zQPg0tT/loading-Animation.gif";
+const loadingAnimation = "https://i.ibb.co/F7gnT4D/loading-Animation.gif";
 
 
 const LoadingAnimation = () => {

@@ -4,11 +4,15 @@ import { RiDeleteBin2Fill, RiEdit2Fill, RiCheckboxCircleFill } from "react-icons
 import useCurrentUser from "../../../Hooks/useCurrentUser/useCurrentUser";
 import Swal from 'sweetalert2'
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
+import { IoSpeedometerOutline } from "react-icons/io5";
+import { BsFuelPumpDiesel } from "react-icons/bs";
+import { TbManualGearbox } from "react-icons/tb";
+import { GoArrowUpRight } from "react-icons/go";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const SingleListing = ({ singleList, filteredListingRefetch }) => {
-
-    const { _id, carName, carBrand, photo, price, totalRun, sellerVerificationStatus, sellerEmail, sellStatus } = singleList;
 
 
     // hooks
@@ -16,7 +20,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
     const axiosSecure = useAxiosSecure();
 
 
-    // delete a listing
+    // delete a singleList
     const handleDeleteListing = id => {
         Swal.fire({
             title: "Are you sure to delete?",
@@ -56,7 +60,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
 
 
-    // update sell status of a listing
+    // update sell status of a singleList
     const handleSold = id => {
 
         const sellStatus = "sold";
@@ -97,65 +101,67 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
     }
 
 
+    // animation
+    AOS.init({
+        offset: 120,
+        duration: 1500,
+        easing: 'ease',
+        delay: 50,
+    });
+
+
 
 
     return (
-        <div className="w-full flex flex-col justify-center items-center">
-            <div className="flex justify-center items-center w-full px-3 py-5 rounded-lg shadow-[0_10px_10px_#e6e6e6b3]">
-                <div className="flex justify-between items-center gap-6 w-full">
-                    <div className="w-3/6 md:w-2/5 relative">
-                        <img src={photo} alt="" className="w-[213px] h-[120px]" />
-                        <p className="bg-white text-black px-2 py-1 rounded absolute top-0 left-0 font-medium">{carBrand}</p>
+        <div key={singleList?._id} className='flex flex-col justify-center items-start relative'
+            data-aos="fade-up"
+            data-aos-mirror="true"
+            data-aos-once="false"
+            data-aos-anchor-placement="top-bottom">
+
+            <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px]' />
+
+            <div className='w-full border-x-[1px] border-b-[1px] border-[#e4e4e4] p-2 rounded-[20px]'>
+                <h3 className='mt-3 w-full px-3 text-xl text-black font-semibold border-b-[1px] pb-2 border-[#e4e4e4]'>{singleList?.carName}</h3>
+
+                {/* car details */}
+                <div className='p-3 w-full flex justify-between items-center border-b-[1px] border-[#e4e4e4]'>
+
+                    {/* total km */}
+                    <div className='flex flex-col justify-center items-center gap-1'>
+                        <IoSpeedometerOutline className='text-xl text-lightBlack' />
+                        <p className='text-lightBlack font-medium text-[14px]'>{singleList?.totalRun} km</p>
                     </div>
-                    <div className="w-3/6 md:w-3/5 flex flex-col justify-center items-start gap-1 py-1 relative">
-                        <p className={`capitalize w-fit px-2 py-[2px] rounded-sm text-[12px] ${sellerVerificationStatus === "verified" ? 'bg-[#c5ffc5] text-[green]' : 'bg-[#ffd6d6] text-[red]'} flex justify-center items-center gap-2 font-medium mb-1`}><FaUser /> {sellerVerificationStatus} seller</p>
-                        <h3 className="text-[18px] md:text-xl font-semibold">{carName}</h3>
-                        <p>{totalRun} km</p>
-                        <p className="font-medium">${price}</p>
-                        <Link to={`/details/${_id}`}><button className="mt-1 text-[14px] bg-main text-white px-3 py-1 rounded hover:bg-sub duration-500 font-medium">See Details</button></Link>
-                        {
-                            sellStatus === "sold" ?
-                                <div className="bg-[#e70a0a] p-5 text-[18px] font-semibold text-white rounded-[100%] w-[60px] h-[60px] flex justify-center items-center absolute top-0 right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
-                                    Sold
-                                </div>
-                                :
-                                ""
-                        }
+
+                    {/* fuel */}
+                    <div className='flex flex-col justify-center items-center gap-2'>
+                        <BsFuelPumpDiesel className='text-xl text-lightBlack' />
+                        <p className='text-lightBlack capitalize font-medium text-[14px]'>{singleList?.fuelType}</p>
                     </div>
+
+                    {/* transmission type */}
+                    <div className='flex flex-col justify-center items-center gap-1'>
+                        <TbManualGearbox className='text-xl text-lightBlack' />
+                        <p className='text-lightBlack font-medium text-[14px]'>{singleList?.transmissionType}</p>
+                    </div>
+                </div>
+
+                {/* price and detail button */}
+                <div className='p-3 w-full flex justify-between items-center'>
+                    <p className='text-xl font-bold text-black'>${singleList?.price}</p>
+                    <Link to={`/details/${singleList?._id}`}><button className='text-sub font-semibold text-[18px] hover:text-black duration-500 flex justify-center items-center gap-1'>See Details <GoArrowUpRight /> </button></Link>
                 </div>
             </div>
 
-            {/* seller button when seller is logged in */}
             {
-                !dbCurrentUserPending ?
-                    <>
-                        {
-                            dbCurrentUser?.email === sellerEmail ?
-                                <div className="bg-black px-3 py-1 rounded-b-[10px] flex justify-center items-center gap-3">
-                                    <Link to={`/dashboard/updateListing/${_id}`}
-                                    ><button className="text-white text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
-                                    <button onClick={() => handleDeleteListing(_id)}
-                                        className="text-white text-xl">
-                                        <RiDeleteBin2Fill />
-                                    </button>
-                                    {
-                                        !sellStatus ?
-                                            <button onClick={() => handleSold(_id)}
-                                                className="text-white text-[15px] font-medium flex gap-2 justify-center items-center bg-[#c70000] px-2 py-1 rounded hover:bg-black duration-500">
-                                                <RiCheckboxCircleFill />Mark As Sold
-                                            </button>
-                                            :
-                                            ""
-                                    }
-                                </div>
-                                :
-                                ""
-                        }
-                    </>
+                singleList?.sellStatus === "sold" ?
+                    <div className="bg-[#e70a0a] p-5 text-[18px] font-semibold text-white rounded-[100%] w-[70px] h-[70px] flex justify-center items-center absolute bottom-[65%] left-[40%] right-0 -rotate-[30deg] shadow-[0_0_50px_#e70a0a63]">
+                        Sold
+                    </div>
                     :
                     ""
             }
-        </div >
+        </div>
     );
 };
 

@@ -51,7 +51,7 @@ const AllListings = () => {
                 data-aos-anchor-placement="top-bottom">All Listings</h2>
 
             {/* show all the listings */}
-            <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 mt-[80px]">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-[50px]">
                 {
                     filteredListing.map((singleList, index) =>
                         <SingleListing key={index} singleList={singleList} filteredListingRefetch={filteredListingRefetch}
