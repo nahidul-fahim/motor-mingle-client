@@ -1,6 +1,5 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
@@ -14,9 +13,6 @@ const Banner = () => {
 
 
     // hooks and custom hooks
-    // const [carCondition, setCarCondition] = useState(null);
-    // const [carBrand, setCarBrand] = useState(null);
-    // const [carPrice, setCarPrice] = useState(null);
     const navigate = useNavigate();
 
 
@@ -26,15 +22,17 @@ const Banner = () => {
         e.preventDefault();
         const form = e.target;
         // get data from the form
-        const carCondition = form.carCondition.value;
-        const carBrand = form.carBrand.value;
-        const carPrice = form.carPrice.value;
+        const carCondition = form.carCondition.value || 'all';
+        const carBrand = form.carBrand.value || 'all';
+        const carPrice = form.carPrice.value || 'all';
+
+        console.log(carCondition, carBrand, carPrice);
 
         if (carCondition, carBrand, carPrice) {
-            // setCarCondition(carCondition);
-            // setCarBrand(carBrand);
-            // setCarPrice(carPrice);
-            navigate("/allListings?key=10")
+            sessionStorage.setItem("carCondition", carCondition)
+            sessionStorage.setItem("carBrand", carBrand)
+            sessionStorage.setItem("carPrice", carPrice)
+            navigate("/allListings")
         }
     }
 
@@ -68,7 +66,7 @@ const Banner = () => {
                     className='w-[90%] md:w-[98%] lg:w-[80%] flex flex-col md:flex-row justify-center md:justify-between items-center mt-3 md:mt-5 bg-white p-2 md:p-4 shadow-[0_0_70px_#cfcfcf] rounded-lg md:rounded-[80px] gap-4 md:gap-0 text-[16px] lg:text-[18px]'>
 
                     {/* car condition */}
-                    <select required id='carCondition' defaultValue={""} name='carCondition' className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit flex justify-between items-center rounded-[3px] focus:outline-none'>
+                    <select id='carCondition' defaultValue={""} name='carCondition' className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit flex justify-between items-center rounded-[3px] focus:outline-none'>
                         <option disabled value="">Choose car condition</option>
                         <option value="super fresh">Super Fresh</option>
                         <option value="fresh">Fresh</option>
@@ -76,7 +74,7 @@ const Banner = () => {
                     </select>
 
                     {/* car brand */}
-                    <select required id='carBrand' name='carBrand' defaultValue={""} className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit rounded-[3px] focus:outline-none'>
+                    <select id='carBrand' name='carBrand' defaultValue={""} className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit rounded-[3px] focus:outline-none'>
                         <option disabled value="">Choose car brand</option>
                         {
                             allCarBrands.map((carBrand, index) =>
@@ -85,12 +83,12 @@ const Banner = () => {
                     </select>
 
                     {/* price range */}
-                    <select required id='carPrice' defaultValue={""} name='carPrice' className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit rounded-[3px] focus:outline-none'>
+                    <select id='carPrice' defaultValue={""} name='carPrice' className='px-4 py-3 md:py-2 border-[1px] md:border-none border-gray w-full md:w-fit rounded-[3px] focus:outline-none'>
                         <option disabled value={""}>Select price range</option>
                         <option value="1000-1999">$1000 - $1999</option>
                         <option value="2000-3999">$2000 - $3999</option>
                         <option value="4000-5999">$4000 - $5999</option>
-                        <option value="6000-8000">$6000 - $7999</option>
+                        <option value="6000-7999">$6000 - $7999</option>
                         <option value="8000+">$8000 - above</option>
                     </select>
 

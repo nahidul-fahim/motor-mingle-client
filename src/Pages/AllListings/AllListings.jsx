@@ -12,13 +12,16 @@ const AllListings = () => {
     // hooks and custom hooks
     const scrollToTop = useScrollToTop();
     const [currentPage, setCurrentPage] = useState(1);
-    const { filteredListingPending, filteredListing, filteredListingRefetch, pages } = useFilteredListings(currentPage);
-
+    const [carCondition, setCarCondition] = useState(sessionStorage.getItem("carCondition") || "all");
+    const [carBrand, setCarBrand] = useState(sessionStorage.getItem("carBrand") || "all");
+    const [carPrice, setCarPrice] = useState(sessionStorage.getItem("carPrice") || "all");
+    const { filteredListingPending, filteredListing, filteredListingRefetch, pages } = useFilteredListings(currentPage, carCondition, carBrand, carPrice);
 
 
 
     useEffect(() => {
         scrollToTop();
+        sessionStorage.clear();
     }, [scrollToTop])
 
 
