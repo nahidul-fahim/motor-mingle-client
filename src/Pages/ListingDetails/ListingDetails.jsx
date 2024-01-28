@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingAnimation from "../../Components/Shared/LoadingAnimation/LoadingAnimation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { FaUser, FaPhone, FaStar, FaBan, FaRegStar } from "react-icons/fa";
+import { FaUser, FaPhone, FaStar, FaRegStar } from "react-icons/fa";
 import { SiAdguard } from "react-icons/si";
 import { useEffect, useState } from "react";
 import useScrollToTop from "../../Hooks/useScrollToTop/useScrollToTop";
 import useCurrentUser from "../../Hooks/useCurrentUser/useCurrentUser";
 import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import { AiTwotoneLike } from "react-icons/ai";
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -115,6 +118,68 @@ const ListingDetails = () => {
 
 
 
+    // place a bid
+    const handlePlaceBid = e => {
+        e.preventDefault();
+        const form = e.target;
+        const bidderPhone = form.bidderPhone.value;
+        const proposedPrice = form.proposedPrice.value;
+        const bidderMessage = form.bidderMessage.value;
+        const bidderName = dbCurrentUser?.name;
+        const bidderEmail = dbCurrentUser?.email;
+        const bidderId = dbCurrentUser?._id;
+        const bidPlacedOn = todayDate;
+        const productId = _id;
+
+        const bidDetails = { bidderName, bidderEmail, bidderPhone, proposedPrice, bidderMessage, bidPlacedOn, productId, bidderId }
+
+        axiosSecure.post("/newBid", bidDetails)
+            .then(res => {
+                const data = res.data;
+                if (data.insertedId) {
+                    successNotify("Placed your bid successfully!")
+                    const modal = document.getElementById('biddingModal');
+                    modal.close();
+                }
+            })
+            .catch(err => {
+                failedNotify(err.code)
+            })
+    }
+
+
+
+    // Success message for successful login
+    const successNotify = (message) => toast.success(`${message}`, {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+    });
+
+
+    // Failed notification for failed login (email-password)
+    const failedNotify = (errorMessage) => toast.error(`${errorMessage}`, {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+    });
+
+
+
+
+
     // animation
     AOS.init({
         offset: 120,
@@ -177,7 +242,14 @@ const ListingDetails = () => {
                         }
 
                         {/* report ad button */}
-                        <button className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-sub hover:text-sub duration-300"><FaBan /> Report ad</button>
+
+                        {
+                            sellStatus === "sold" ?
+                                <button disabled className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 disabled:opacity-40 cursor-not-allowed"><AiTwotoneLike /> Place a bid</button>
+                                :
+                                <button onClick={() => document.getElementById('biddingModal').showModal()}
+                                    className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 hover:border-sub hover:text-sub duration-300"><AiTwotoneLike /> Place a bid</button>
+                        }
 
                     </div>
 
@@ -232,8 +304,43 @@ const ListingDetails = () => {
                     </ul>
                 </div>
 
-
             </div>
+
+
+            {/* modal to bid on a listing */}
+            <dialog id="biddingModal" className="modal modal-bottom sm:modal-middle font-heading">
+                <div className="modal-box w-full flex flex-col justify-center items-center">
+                    <h3 className="font-bold text-2xl text-black">Place your bid!</h3>
+                    <div className="modal-action w-full">
+                        <form onSubmit={handlePlaceBid} method="dialog" className="w-full flex flex-col justify-start items-start p-5 gap-2">
+
+                            {/* name */}
+                            <label className="text-lightBlack">Your name</label>
+                            <input readOnly type="text" name="bidderName" id="bidderName" value={dbCurrentUser?.name} className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
+
+                            {/* email */}
+                            <label className="text-lightBlack mt-3">Your email</label>
+                            <input readOnly type="email" name="bidderEmail" id="bidderEmail" value={dbCurrentUser?.email} className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
+
+                            {/* phone */}
+                            <label className="text-lightBlack mt-3">Your phone *</label>
+                            <input required type="tel" name="bidderPhone" id="bidderPhone" placeholder="Your phone" className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
+
+                            {/* proposed price */}
+                            <label className="text-lightBlack mt-3">Proposed price ($) *</label>
+                            <input type="number" min={1000} step={10} name="proposedPrice" id="proposedPrice" defaultValue={price} className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
+
+                            {/* message */}
+                            <label className="text-lightBlack mt-3">Message</label>
+                            <textarea name="bidderMessage" placeholder="Enter message" id="bidderMessage" className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black"></textarea>
+
+                            <input type="submit" value="Submit bid" className="bg-black text-white font-medium hover:bg-sub duration-500 px-4 py-2 mt-3 rounded-lg cursor-pointer" />
+                        </form>
+
+                        <ToastContainer closeButton={false} />
+                    </div>
+                </div>
+            </dialog>
 
 
         </div>
