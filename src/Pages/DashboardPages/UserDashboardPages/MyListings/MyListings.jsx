@@ -6,7 +6,7 @@ import useCurrentUser from '../../../../Hooks/useCurrentUser/useCurrentUser';
 import LoadingAnimation from '../../../../Components/Shared/LoadingAnimation/LoadingAnimation';
 import SingleListing from '../../../../Components/Shared/SingleListing/SingleListing';
 import Lottie from "lottie-react";
-import carLottie from "../../../../../public/carLottie.json"
+import carLottie from "../../../../assets/carLottie.json"
 
 
 const MyListings = () => {

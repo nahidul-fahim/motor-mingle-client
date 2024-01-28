@@ -24,6 +24,18 @@ const ListingDetails = () => {
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
     const [postSaved, setPostSaved] = useState(false);
 
+    console.log(id);
+
+
+    // data fetching
+    const { isPending, data: singleListing } = useQuery({
+        queryKey: ["single-listing", id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/singleListing/${id}`);
+            return res.data;
+        }
+    })
+
 
 
     // scroll to top at initial loading
@@ -44,15 +56,6 @@ const ListingDetails = () => {
     }, [scrollToTop, axiosSecure, id, dbCurrentUser?.email])
 
 
-    // data fetching
-    const { isPending, data: singleListing } = useQuery({
-        queryKey: ["single-listing", id],
-        queryFn: async () => {
-            const res = await axiosPublic.get(`/singleListing/${id}`);
-            return res.data;
-        }
-    })
-
 
 
     // get todays date
@@ -65,10 +68,10 @@ const ListingDetails = () => {
         const userName = dbCurrentUser?.name;
 
         // getting current post info
-        const { _id: singleAdId, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType } = singleListing;
+        const { _id: singleAdId, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, sellStatus } = singleListing;
 
         // data to send to the database
-        const savedAdInfo = { singleAdId, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, userName, userEmail, todayDate }
+        const savedAdInfo = { singleAdId, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, userName, userEmail, todayDate, sellStatus }
 
         // send to the server
         axiosSecure.post("/newSavedAd", savedAdInfo)
@@ -101,7 +104,7 @@ const ListingDetails = () => {
         axiosSecure.delete(`/removedSavedAd/${_id}?email=${dbCurrentUser?.email}`)
             .then(res => {
                 const data = res.data;
-                if (data) {
+                if (data.deletedCount) {
                     setPostSaved(false)
                 }
             })

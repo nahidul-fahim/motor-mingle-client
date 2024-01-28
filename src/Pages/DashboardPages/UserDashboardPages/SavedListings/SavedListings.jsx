@@ -6,7 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SingleListing from "../../../../Components/Shared/SingleListing/SingleListing";
 import Lottie from "lottie-react";
-import carLottie from "../../../../../public/carLottie.json"
+import carLottie from "../../../../assets/carLottie.json"
 
 
 const SavedListings = () => {
@@ -21,8 +21,8 @@ const SavedListings = () => {
     const axiosSecure = useAxiosSecure();
 
     // data fetch using Tan Stack
-    const { isPending: savedListingsPending, data: savedListings } = useQuery({
-        queryKey: ["saved-listings", email],
+    const { isPending: savedListingsPending, data: savedListings, refetch: savedListingsRefetch } = useQuery({
+        queryKey: ["saved-listingsByUser", email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/savedAdsList/${email}`)
             return res.data;
@@ -66,7 +66,7 @@ const SavedListings = () => {
                     :
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-10 mt-[80px] w-full">
                         {
-                            savedListings.map(singleList => <SingleListing key={singleList?._id} singleList={singleList}></SingleListing>
+                            savedListings.map(singleList => <SingleListing key={singleList?._id} singleList={singleList} filteredListingRefetch={savedListingsRefetch}></SingleListing>
                             )
                         }
                     </div>

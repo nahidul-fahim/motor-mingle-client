@@ -38,7 +38,7 @@ const Banner = () => {
         }
     }
 
-    
+
     // animation
     AOS.init({
         offset: 120,
@@ -50,12 +50,12 @@ const Banner = () => {
 
 
     return (
-        <div className="min-h-[100vh] bg-[#EEF1FB] relative"
+        <div className="h-full bg-[#EEF1FB]"
             data-aos="fade-up"
             data-aos-mirror="true"
             data-aos-once="false"
             data-aos-anchor-placement="top-bottom">
-            <div className="container mx-auto p-5 h-full flex flex-col justify-start items-center font-body gap-4">
+            <div className="container mx-auto px-5 pt-[70px] pb-[120px] md:pb-[350px] h-fit flex flex-col justify-start items-center font-body gap-4 relative">
                 <p className="text-main text-[18px] mt-[0px] md:mt-[50px]">The dream place for car buy and sell</p>
                 <h1 className="text-black text-4xl lg:text-7xl font-bold text-center"
                     data-aos="zoom-in"
@@ -100,8 +100,9 @@ const Banner = () => {
                     </button>
                 </form>
 
-                <img src={bannerImg} alt="" className='absolute bottom-[-80px]' />
+                <img src={bannerImg} alt="" className='absolute bottom-[-30px] md:bottom-[-80px]' />
             </div>
+
 
         </div >
     );
