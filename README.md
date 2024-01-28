@@ -1,4 +1,6 @@
-# Live Site Link : https://motor-mingle.web.app/
+# Motor Mingle - A car buy/sell website
+
+![Website's hero section]("./src/assets/heroSection.png)
 
 ### Admin login
 email: admin@admin.com
