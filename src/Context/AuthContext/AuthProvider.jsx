@@ -4,7 +4,7 @@ import app from "../../Firebase/firebase.config";
 import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 
-// create auth export authcontext, and get google provider
+// create auth export authContext, and get google provider
 const auth = getAuth(app);
 export const AuthContext = createContext('');
 const googleProvider = new GoogleAuthProvider();
@@ -33,10 +33,10 @@ const AuthProvider = ({ children }) => {
             displayName: username, photoURL: photo
         })
             .then(() => {
-                console.log("Profile info updated")
+                //
             })
             .catch(() => {
-                console.log("Profile info update failed")
+                //
             })
     }
 

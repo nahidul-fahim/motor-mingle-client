@@ -12,7 +12,7 @@ const useIsAdmin = () => {
     const userEmail = currentUser?.email;
 
 
-    // data fetch using tanstack query
+    // data fetch using tanStack query
     const { isPending: isAdminPending, data: isAdmin } = useQuery({
         queryKey: ["isAdmin", userEmail],
         enabled: !authLoading,
@@ -21,8 +21,6 @@ const useIsAdmin = () => {
             return res.data?.admin;
         }
     })
-
-
 
     return { isAdminPending, isAdmin }
 };

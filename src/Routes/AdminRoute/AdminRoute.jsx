@@ -12,7 +12,7 @@ const AdminRoute = ({ children }) => {
     const { currentUser, authLoading } = useAuthContext();
 
 
-    // waiting for loggedin user and admin check
+    // waiting for logging user and admin check
     if (isAdminPending || authLoading) {
         return <LoadingAnimation />
     }

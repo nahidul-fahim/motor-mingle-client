@@ -9,7 +9,7 @@ const useAllUsers = () => {
 
 
     // fetch all products data using tanStack and axios
-    const { isPending: allUsersPending, data: allUsers, allUsersRefetch } = useQuery({
+    const { isPending: allUsersPending, data: allUsers, refetch: allUsersRefetch } = useQuery({
         queryKey: ["all-users"],
         queryFn: async () => {
             const res = await axiosSecure.get("/allUsers")

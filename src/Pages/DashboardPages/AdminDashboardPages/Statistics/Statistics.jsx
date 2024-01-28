@@ -149,8 +149,6 @@ const Statistics = () => {
             // get the final results in an array
             const verificationResult = Object.values(verificationCount)
 
-            console.log(verificationResult)
-
             // set the data to pie chart
             setVerifyState({
                 series: verificationResult,
@@ -159,7 +157,7 @@ const Statistics = () => {
                         width: 380,
                         type: 'pie',
                     },
-                    labels: ['Verified', 'Not-verified'],
+                    labels: ['Verified', 'Not-verified', 'Pending'],
                     responsive: [{
                         breakpoint: 480,
                         options: {

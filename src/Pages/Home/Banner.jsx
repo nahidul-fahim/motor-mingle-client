@@ -27,8 +27,6 @@ const Banner = () => {
         const carBrand = form.carBrand.value || 'all';
         const carPrice = form.carPrice.value || 'all';
 
-        console.log(carCondition, carBrand, carPrice);
-
         if (carCondition, carBrand, carPrice) {
             sessionStorage.setItem("carCondition", carCondition)
             sessionStorage.setItem("carBrand", carBrand)

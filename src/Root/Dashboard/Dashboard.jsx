@@ -21,29 +21,20 @@ const Dashboard = () => {
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
 
 
-
     // redirect the user to different route as per user type
     useEffect(() => {
-        const redirectAdmin = () => {
-            if (isAdmin && !authLoading && !isAdminPending) {
-                navigate("/dashboard/statistics")
-            }
+        if (!isAdmin || !authLoading ||!isAdminPending) {
+            navigate("/dashboard/profile")
         }
-        // const redirectUser = () => {
-        //     if (!isAdmin && !authLoading) {
-        //         navigate("/dashboard/profile")
-        //     }
-        // }
-        if (!isAdminPending || !authLoading) {
-            redirectAdmin();
-            // redirectUser();
+        if (isAdmin && !isAdminPending && !authLoading) {
+            navigate("/dashboard/statistics")
         }
     }, [isAdmin, isAdminPending, navigate, authLoading])
 
 
 
 
-    // webstie navigation links
+    // website navigation links
     const navbarLinks = <>
         <Link to="/" className="link-style flex justify-start items-center gap-2"><MdHome className="text-xl" /> Home</Link>
         <button onClick={() => signOutUser()} className="link-style flex justify-start items-start gap-2"><BiLogOut className="text-xl" /> Log out</button>

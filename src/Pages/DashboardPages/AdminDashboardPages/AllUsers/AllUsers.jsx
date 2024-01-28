@@ -22,7 +22,6 @@ const AllUsers = () => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {
                     allUsersRefetch();
-                    console.log("status updated")
                 }
             })
             .catch(err => console.log(err.code + "||" + err.message))

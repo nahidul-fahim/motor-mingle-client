@@ -24,8 +24,6 @@ const ListingDetails = () => {
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
     const [postSaved, setPostSaved] = useState(false);
 
-    console.log(id);
-
 
     // data fetching
     const { isPending, data: singleListing } = useQuery({
@@ -128,7 +126,7 @@ const ListingDetails = () => {
 
 
     return (
-        <div className="container mx-auto p-5 flex flex-col justify-center items-center gap-10 font-body">
+        <div className="container mx-auto p-5 flex flex-col justify-center items-center gap-10 font-body overflow-x-hidden">
 
             {/* product details */}
             <div className="flex flex-col md:flex-row justify-center items-start gap-14 w-full lg:w-5/6 mt-[80px]">
