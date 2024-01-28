@@ -130,13 +130,23 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
 
 
     return (
-        <div key={singleList?._id} className='flex flex-col justify-center items-start relative rounded-[20px]'
+        <div key={singleList?._id} className='flex flex-col justify-center items-start relative rounded-[20px] listing-item'
             data-aos="fade-up"
             data-aos-mirror="true"
             data-aos-once="false"
             data-aos-anchor-placement="top-bottom">
 
-            <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px]' />
+            {/* <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px] z-[-1]' /> */}
+
+            <div className='relative'>
+                <img
+                    src={singleList?.photo}
+                    alt=""
+                    className='rounded-t-[20px] w-full lg:w-[330px] lg:h-[198px]'
+                />
+                <div className='absolute top-0 right-0 listing-image rounded-t-[20px]'></div>
+            </div>
+
 
             {/* show delete button if the the route is user's dashboard */}
             {

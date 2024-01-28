@@ -69,12 +69,28 @@ body {
 }
 
 
+.listing-image {
+  width: 100%;
+  height: 0;
+  background: #4e6bfbb4;
+  transition: all .6s ease-in-out;
+}
+
+
+.listing-item:hover .listing-image {
+  /* width: 100%; */
+  height: 100%;
+  opacity: 0.5;
+}
+
+
 
 
 /* the ":root" and [data-theme="dark"] - are not being used in the website, but this will be helpful for the future use in any project. So, I'm keeping it. */
 :root {
   --second_color: #060045;
 }
+
 [data-theme="dark"] {
   --second_color: cyan;
 }
