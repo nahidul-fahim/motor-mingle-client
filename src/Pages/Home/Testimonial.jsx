@@ -58,7 +58,7 @@ const Testimonial = () => {
             </p>
 
             {/* testimonial description */}
-            <div className='w-full md:w-[80%] lg:w-[70%] px-[70px] h-[450px] md:h-[300px] py-[80px] flex flex-col justify-center items-center text-center bg-white shadow-[0_0_70px_#e6e6e6] rounded-[10px] mt-10 relative'>
+            <div className='w-full md:w-[80%] lg:w-[70%] px-[70px] h-[450px] md:h-[300px] py-[80px] flex flex-col justify-center items-center text-center bg-black shadow-[0_0_50px_#e6e6e6] rounded-[10px] mt-10 relative'>
                 {
                     allFeedbacks.map(singleFeedback =>
                         <div key={singleFeedback?._id} className='text-center w-full'>
@@ -70,9 +70,9 @@ const Testimonial = () => {
                                         value={parseInt(singleFeedback?.ratingByUser)}
                                         readOnly
                                     />
-                                    <p className='w-full text-lightBlack font-medium text-[18px]'>{singleFeedback?.feedBack}</p>
-                                    <p className='absolute bottom-[40px] text-black font-semibold text-xl right-[80px]'>- {singleFeedback?.feedbackProvider}</p>
-                                    <FaQuoteLeft className='text-[120px] lg:text-[150px] absolute top-[-50px] left-[-15px] md:left-[-50px] text-[#b3b3b37e]'
+                                    <p className='w-full text-white font-medium text-[18px]'>{singleFeedback?.feedBack}</p>
+                                    <p className='absolute bottom-[40px] text-white font-semibold text-xl right-[80px]'>- {singleFeedback?.feedbackProvider}</p>
+                                    <FaQuoteLeft className='text-[120px] lg:text-[150px] absolute top-[-50px] left-[-15px] md:left-[-50px] text-[#c2c2c27e]'
                                         data-aos="slide-down"
                                         data-aos-mirror="true"
                                         data-aos-once="false"

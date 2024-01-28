@@ -3,6 +3,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import SingleListing from "../../Components/Shared/SingleListing/SingleListing";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const TopBidListings = () => {
@@ -24,6 +26,14 @@ const TopBidListings = () => {
     if (listingPending) {
         return <p className='text-center text-lightBlack capitalize'>loading....</p>
     }
+
+
+    AOS.init({
+        offset: 120,
+        duration: 1200,
+        easing: 'ease',
+        delay: 50,
+    });
 
 
 
