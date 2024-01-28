@@ -32,8 +32,17 @@ const Header = () => {
 
     // navigation bar links
     const links = <>
-        <NavLink to="/" className="hover:text-sub duration-200">Home</NavLink>
-        <NavLink to="/allListings" className="hover:text-sub duration-200">All Listings</NavLink>
+        {/* home */}
+        <NavLink to="/"
+            className={({ isActive }) => {
+                return isActive ? "active-nav-menu" : "single-nav-menu"
+            }}>Home</NavLink>
+
+        {/* all listing */}
+        <NavLink to="/allListings"
+            className={({ isActive }) => {
+                return isActive ? "active-nav-menu" : "single-nav-menu"
+            }}>All listings</NavLink>
     </>
 
 
@@ -53,7 +62,7 @@ const Header = () => {
                         </div>
                         {/* dropdown links */}
                         <div tabIndex={0} className="dropdown-content z-[1] menu py-5 px-2 shadow rounded-box w-52 flex flex-col justify-start items-center gap-4 bg-white">
-                            <p className="text-center text-[14px] font-extralight text-[gray] font-heading">{dbCurrentUser?.userName}</p>
+                            <p className="text-center text-[14px] font-medium capitalize text-[gray] font-heading">{dbCurrentUser?.userName}</p>
                             <Link to="/dashboard" className="hover:text-sub hover:translate-x-2  duration-300">Dashboard</Link>
                             <button onClick={handleLogOut} className="bg-sub text-white px-4 py-2 rounded-md hover:bg-main duration-300 hover:translate-x-2 font-medium">Log out</button>
                         </div>

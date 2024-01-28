@@ -20,6 +20,36 @@ body {
   min-height: calc(100vh - 70px);
 }
 
+
+
+/* Add this style for the underline */
+.active-nav-menu::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background-color: #4E6CFB;
+}
+
+.single-nav-menu::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 3px;
+  background-color: #4E6CFB;
+  transition: all 0.5s linear;
+}
+
+.single-nav-menu:hover::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background-color: #4E6CFB;
+}
+
+
+
 .link-style {
   color: white;
   padding: 4px 16px;
