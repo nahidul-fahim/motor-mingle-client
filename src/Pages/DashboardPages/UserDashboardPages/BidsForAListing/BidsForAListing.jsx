@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import useBids from "../../../../Hooks/useBids/useBids";
 import LoadingAnimation from "../../../../Components/Shared/LoadingAnimation/LoadingAnimation";
+import { useEffect } from "react";
+import useScrollToTop from "../../../../Hooks/useScrollToTop/useScrollToTop";
 
 
 const BidsForAListing = () => {
@@ -9,6 +11,11 @@ const BidsForAListing = () => {
     // hooks and custom hooks
     const { id } = useParams();
     const { bidsPending, allBids } = useBids(id);
+    const scrollToTop = useScrollToTop();
+
+    useEffect(() => {
+        scrollToTop();
+    }, [scrollToTop])
 
 
 
