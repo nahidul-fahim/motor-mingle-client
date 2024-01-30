@@ -17,6 +17,7 @@ import AllListings from "../Pages/AllListings/AllListings";
 import ListingDetails from "../Pages/ListingDetails/ListingDetails";
 import UpdateListing from "../Pages/DashboardPages/UserDashboardPages/UpdateListing/UpdateListing";
 import SavedListings from "../Pages/DashboardPages/UserDashboardPages/savedListings/savedListings";
+import BidsForAListing from "../Pages/DashboardPages/UserDashboardPages/BidsForAListing/BidsForAListing";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "savedListings",
         element: <SavedListings />
+      },
+      {
+        path: "bids/:id",
+        element: <BidsForAListing />
       }
     ]
   }

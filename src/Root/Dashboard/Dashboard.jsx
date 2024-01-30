@@ -23,7 +23,7 @@ const Dashboard = () => {
 
     // redirect the user to different route as per user type
     useEffect(() => {
-        if (!isAdmin || !authLoading ||!isAdminPending) {
+        if (!isAdmin || !authLoading || !isAdminPending) {
             navigate("/dashboard/profile")
         }
         if (isAdmin && !isAdminPending && !authLoading) {

@@ -22,6 +22,13 @@ const AdminAllProducts = () => {
             header: "Car name"
         },
         {
+            accessorKey: "price",
+            header: "Price",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <p className="font-semibold text-[#0f0f0f] capitalize rounded-md text-center">${row.row.original.price}</p>
+            </div>
+        },
+        {
             accessorKey: "addingDate",
             header: "Added on"
         },
@@ -41,26 +48,19 @@ const AdminAllProducts = () => {
             </div>
         },
         {
+            accessorKey: "totalBids",
+            header: "Total bids",
+            cell: row => <div className="flex w-full justify-center items-center">
+                <p className="font-semibold text-xl text-[#000000] capitalize rounded-md text-center">{row.row.original.totalBids || "-"}</p>
+            </div>
+        },
+        {
             accessorKey: "sellStatus",
             header: "Sell status",
             cell: row => <div className="flex w-full justify-center items-center">
                 <p className="text-[18px] font-semibold text-[#ff4141] capitalize px-2 py-1 rounded-md bg-[#dddddd] text-center">{row.row.original.sellStatus}</p>
             </div>
-        },
-        {
-            accessorKey: "price",
-            header: "Price",
-            cell: row => <div className="flex w-full justify-center items-center">
-                <p className="font-semibold text-[#0f0f0f] capitalize rounded-md text-center">${row.row.original.price}</p>
-            </div>
-        },
-        {
-            accessorKey: "totalRun",
-            header: "Total run",
-            cell: row => <div className="flex w-full justify-center items-center">
-                <p className="font-medium text-[#0f0f0f] capitalize rounded-md text-center">{row.row.original.totalRun} <br /> <span className="text-lightBlack font-normal">km</span> </p>
-            </div>
-        },
+        }
     ]
 
 
@@ -69,7 +69,7 @@ const AdminAllProducts = () => {
 
 
 
-    // tanstack table
+    // tanStack table
     const table = useReactTable({
         data,
         columns,

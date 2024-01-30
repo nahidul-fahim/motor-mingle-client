@@ -34,9 +34,6 @@ const MyListings = () => {
         return <LoadingAnimation />
     }
 
-
-
-
     // animation
     AOS.init({
         offset: 120,

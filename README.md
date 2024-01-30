@@ -65,15 +65,29 @@ password: Asdf$$
   ## Admin dashboard:
   * Admin dashboard is secured by admin verifying middleware on the backend and admin verifying route on the frontend.
   * Admin gets automatically redirected to the "Statistics" page. On this page admin can see the amount of listings created in a specific date and status of member verification.
-  * "All Users" - on this route admin can see all the registered members in a tabular form, and can verify or decline a user who has requested for profile verification.
-  * "All products" - Admin can see all the listings in a tabular form. The table is created using Tanstack table.
+  ### All Users
+  * On this route admin can see all the registered members in a tabular form.
+  * can verify or decline a user who has requested for profile verification.
+  ### All products
+  * Admin can see all the listings in a tabular form.
+  * The table is created using TanStack table.
 
   ## User dashboard:
-  * A normal user can visit the user dashboard and the user gets redirected to the "profile" page.
-  * "Profile" - on this route, users can update their phone number and address. Also can provide review and feedback to the platform. Those data are saved to database. And from these, the testimonials on the homepage are shown.
-  * "Sell your car" - user can post new listing here. The car's image is hosted on ImgBB.
-  * "My listings" - here users can see the postings they have made and can manage the listing. Update the listing, delete the listing and can mark the product as "Sold"
-  * "Saved listings" - Here users can those listing that they have bookmarked.
+  A normal user can visit the user dashboard and the user gets redirected to the "profile" page.
+  ### Profile:
+  * Using "Request Verification" button, user can send request to admin to verify their account.
+  * Users can update their phone number and address.
+  * Can provide rating and feedback to the platform.
+  * Those data are saved to database.
+  * These feedbacks are shows as testimonials on the homepage.
+  ### Sell your car
+  * User can post new listing here. The car's image is hosted on ImgBB.
+  ### My listings
+  * Here users can see the postings they have made.
+  * Users Can manage the listing. Update the listing, delete the listing and can mark the product as "Sold".
+  * If anyone has placed bid on a listing a "Bids" button will appear, from where user can see all the bids for that listing.
+  ### Saved listings
+  Here users can those listing that they have bookmarked.
 
 
 # Your visit, a delightful honor! Thank you!

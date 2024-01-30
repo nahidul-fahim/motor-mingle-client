@@ -96,7 +96,7 @@ const ListingDetails = () => {
 
 
     // getting every details of singleListing
-    const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, sellStatus } = singleListing;
+    const { _id, addingDate, carBrand, carCondition, carName, carType, description, engineCapacity, fuelType, manufactureYear, photo, price, purchasingDate, registeredYear, sellerName, sellerPhone, sellerVerificationStatus, sellerPhoto, totalRun, transmissionType, sellStatus, sellerEmail } = singleListing;
 
 
 
@@ -127,11 +127,16 @@ const ListingDetails = () => {
         const bidderMessage = form.bidderMessage.value;
         const bidderName = dbCurrentUser?.name;
         const bidderEmail = dbCurrentUser?.email;
+        const bidderPhoto = dbCurrentUser?.photo;
         const bidderId = dbCurrentUser?._id;
         const bidPlacedOn = todayDate;
         const productId = _id;
+        const productName = carName;
+        const productImage = photo;
+        const productPrice = price;
+        
 
-        const bidDetails = { bidderName, bidderEmail, bidderPhone, proposedPrice, bidderMessage, bidPlacedOn, productId, bidderId }
+        const bidDetails = { bidderName, bidderEmail, bidderPhone, proposedPrice, bidderMessage, bidPlacedOn, productId, bidderId, bidderPhoto, productName, productImage, productPrice }
 
         axiosSecure.post("/newBid", bidDetails)
             .then(res => {
@@ -241,10 +246,10 @@ const ListingDetails = () => {
                                 <button onClick={() => handleRemoveSaved(_id)} className="flex justify-center items-center gap-2 text-main font-medium border-[1px] border-main rounded px-3 py-1 hover:border-lightBlack hover:text-lightBlack duration-300"><FaStar />Saved</button>
                         }
 
-                        {/* report ad button */}
+                        {/* Place a bid button */}
 
                         {
-                            sellStatus === "sold" ?
+                            sellStatus === "sold" || sellerEmail === dbCurrentUser?.email ?
                                 <button disabled className="flex justify-center items-center gap-2 text-lightBlack font-medium border-[1px] border-gray rounded px-3 py-1 disabled:opacity-40 cursor-not-allowed"><AiTwotoneLike /> Place a bid</button>
                                 :
                                 <button onClick={() => document.getElementById('biddingModal').showModal()}
@@ -328,7 +333,7 @@ const ListingDetails = () => {
 
                             {/* proposed price */}
                             <label className="text-lightBlack mt-3">Proposed price ($) *</label>
-                            <input type="number" min={1000} step={10} name="proposedPrice" id="proposedPrice" defaultValue={price} className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
+                            <input required type="number" min={1000} step={10} name="proposedPrice" id="proposedPrice" defaultValue={price} className="w-full border-[1px] border-gray focus:outline-none focus:border-lightBlack px-5 py-2 rounded-lg text-black" />
 
                             {/* message */}
                             <label className="text-lightBlack mt-3">Message</label>

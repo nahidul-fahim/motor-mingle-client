@@ -9,6 +9,7 @@ import { TbManualGearbox } from "react-icons/tb";
 import { GoArrowUpRight } from "react-icons/go";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import useBids from "../../../Hooks/useBids/useBids";
 
 
 const SingleListing = ({ singleList, filteredListingRefetch }) => {
@@ -20,6 +21,9 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
     const location = useLocation();
     const path = location.pathname;
 
+    // get bidding listing
+    const productId = singleList?._id;
+    const { bidsPending, allBids } = useBids(productId)
 
 
     // delete a singleList
@@ -59,7 +63,6 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
             }
         });
     }
-
 
 
     // update sell status of a singleList
@@ -127,6 +130,11 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
     });
 
 
+    if (bidsPending) {
+        return <span className="loading loading-dots loading-xs text-[#ffffff21]"></span>
+    }
+
+
 
 
     return (
@@ -136,8 +144,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
             data-aos-once="false"
             data-aos-anchor-placement="top-bottom">
 
-            {/* <img src={singleList?.photo} alt="" className='w-full lg:w-[330px] lg:h-[198px] rounded-t-[20px] z-[-1]' /> */}
-
+            {/* listing image */}
             <div className='relative'>
                 <img
                     src={singleList?.photo}
@@ -148,7 +155,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
             </div>
 
 
-            {/* show delete button if the the route is user's dashboard */}
+            {/* show delete button for saved listing route only */}
             {
                 path === "/dashboard/savedListings" &&
                 <button onClick={() => handleRemoveSaved(singleList?.singleAdId)}
@@ -158,8 +165,21 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
             }
 
 
-            <div className='w-full border-x-[1px] bg-lightMain border-b-[1px] border-[#e4e4e4] p-2 rounded-b-[20px]'>
+            {/* car details */}
+            <div className='w-full border-x-[1px] bg-lightMain border-b-[1px] border-[#e4e4e4] p-2 rounded-b-[20px] relative'>
                 <h3 className='mt-3 w-full px-3 text-xl text-black font-semibold border-b-[1px] pb-2 border-[#e4e4e4]'>{singleList?.carName}</h3>
+
+                {/* showing all bids button if bids are available */}
+                {
+                    path === "/dashboard/myListings" && allBids.length > 0 ?
+                        <Link to={`/dashboard/bids/${productId}`}>
+                            <button
+                                className="bg-[#ff2e2e] text-white w-[50px] h-[50px] font-semibold rounded-[50%] font-body absolute top-2 right-2 shadow-[0_0_20px_#ff2e2e7e] hover:scale-110 hover:bg-white hover:text-[red] duration-500">Bids</button>
+                        </Link>
+                        :
+                        ""
+
+                }
 
                 {/* car details */}
                 <div className='p-3 w-full flex justify-between items-center border-b-[1px] border-[#e4e4e4]'>
@@ -205,29 +225,32 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                     ""
             }
 
-
-
-            {/* seller button when seller is logged in */}
+            {/* manage options for seller only */}
             <div className="w-full flex justify-center items-center">
                 {
                     path === "/dashboard/myListings" ?
-                        <div className="w-fit flex justify-center items-center">
+                        <div className="w-full flex justify-center items-center">
                             {
                                 !dbCurrentUserPending ?
                                     <>
                                         {
                                             dbCurrentUser?.email === singleList?.sellerEmail ?
-                                                <div className="bg-black px-3 py-1 rounded-b-[10px] flex justify-center items-center gap-3">
-                                                    <Link to={`/dashboard/updateListing/${singleList?._id}`}
-                                                    ><button className="text-white text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
+                                                <div className="bg-lightMain shadow-[0_0_20px_#c9c9c9] px-3 py-1 mt-3 rounded-[20px] w-full flex justify-center items-center gap-3">
+
+                                                    {/* update button */}
+                                                    <Link to={`/dashboard/updateListing/${singleList?._id}`}><button className="text-black text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
+
+                                                    {/* delete button */}
                                                     <button onClick={() => handleDeleteListing(singleList?._id)}
-                                                        className="text-white text-xl">
+                                                        className="text-black text-xl">
                                                         <RiDeleteBin2Fill />
                                                     </button>
+
+                                                    {/* mark as sold button */}
                                                     {
                                                         !singleList?.sellStatus ?
                                                             <button onClick={() => handleSold(singleList?._id)}
-                                                                className="text-white text-[15px] font-medium flex gap-2 justify-center items-center bg-[#c70000] px-2 py-1 rounded hover:bg-black duration-500">
+                                                                className="text-white text-[15px] font-medium flex gap-2 justify-center items-center bg-[#535353] px-2 py-1 rounded-[20px] hover:bg-black duration-500">
                                                                 <RiCheckboxCircleFill />Mark As Sold
                                                             </button>
                                                             :
@@ -246,6 +269,52 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                         ""
                 }
             </div>
+
+
+
+
+
+
+
+
+
+            {/* modal to show all the bids */}
+
+            <dialog id="bidsShowingModal" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box font-body w-full flex flex-col justify-center items-center gap-2">
+                    <h3 className="font-bold text-3xl text-black">All Bids</h3>
+                    {
+                        allBids.map((bid) => {
+                            <div key={bid?._id}>
+                                <h2 className="">hi</h2>
+                            </div>
+                        })
+                    }
+
+
+
+                    {/* modal closing button */}
+                    <button onClick={() => document.getElementById('bidsShowingModal').close()}
+                        className="bg-black text-white hover:bg-sub duration-300 px-4 py-2 rounded-[20px]">Close
+                    </button>
+
+                </div>
+            </dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
