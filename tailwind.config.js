@@ -10,7 +10,7 @@ export default {
       black: '#000',
       main: '#000',
       sub: '#4E6CFB',
-      second: 'var(--second_color)', // this is not being used in the website, but this will be helpful for the future use in any project. So, I'm keeping it.
+      second: 'var(--second_color)',
       gray: '#d1d1d1',
       lightMain: '#ecedf3',
       lightBlack: '#6b6b6b',

@@ -91,7 +91,6 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                         }
                     })
                     .catch(err => {
-                        console.log(err)
                         Swal.fire({
                             position: "top-end",
                             icon: "error",

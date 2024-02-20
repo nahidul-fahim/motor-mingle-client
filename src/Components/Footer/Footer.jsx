@@ -7,6 +7,9 @@ import 'aos/dist/aos.css';
 
 const Footer = () => {
 
+    // get year
+    const currentYear = new Date().getFullYear();
+
 
 
     AOS.init({
@@ -30,7 +33,13 @@ const Footer = () => {
                     <p className="font-bold text-xl text-white mt-5">
                         Motor Mingle
                     </p>
-                    <p className="font-semibold text-[14px] text-white">Copyright © 2023 - All right reserved</p>
+                    <p className="font-semibold text-[14px] text-white">Copyright © {currentYear} - All right reserved</p>
+                    <p className='text-sub font-semibold  mt-5'>Developed by Nahid</p>
+                    <div className='flex justify-center items-center gap-5 text-white'>
+                        <a href='https://nahidul-islam-fahim.web.app' target='_blank' rel="noreferrer" className='single-nav-menu'>Portfolio</a>
+                        <a href='https://www.linkedin.com/in/iamnahidul-islam/' target='_blank' rel="noreferrer" className='single-nav-menu'>LinkedIn</a>
+                        <a href='https://github.com/nahidul-fahim' target='_blank' rel="noreferrer" className='single-nav-menu'>Github</a>
+                    </div>
                 </aside>
             </footer>
         </div>

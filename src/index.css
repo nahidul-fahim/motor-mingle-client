@@ -37,7 +37,7 @@ body {
   width: 0;
   height: 3px;
   background-color: #4E6CFB;
-  transition: all 0.5s linear;
+  transition: all 0.3s linear;
 }
 
 .single-nav-menu:hover::after {
