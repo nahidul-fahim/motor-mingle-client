@@ -1,5 +1,5 @@
 import { FaBars } from "react-icons/fa";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext/useAuthContext";
 import { MdHome } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
@@ -19,17 +19,21 @@ const Dashboard = () => {
     const { isAdminPending, isAdmin } = useIsAdmin();
     const navigate = useNavigate();
     const { dbCurrentUserPending, dbCurrentUser } = useCurrentUser();
+    const location = useLocation();
+
+
+    console.log(dbCurrentUser);
 
 
     // redirect the user to different route as per user type
     useEffect(() => {
-        if (!isAdmin || !authLoading || !isAdminPending) {
-            navigate("/dashboard/profile")
-        }
-        if (isAdmin && !isAdminPending && !authLoading) {
+        if (!dbCurrentUserPending && dbCurrentUser.userType === "admin" && location.pathname.slice(0, 11) !== "/dashboard/") {
             navigate("/dashboard/statistics")
         }
-    }, [isAdmin, isAdminPending, navigate, authLoading])
+        if (!dbCurrentUserPending && !isAdminPending && !authLoading && dbCurrentUser.userType !== "admin" && location.pathname.slice(0, 11) !== "/dashboard/") {
+            navigate("/dashboard/profile")
+        }
+    }, [dbCurrentUserPending, isAdminPending, navigate, authLoading, dbCurrentUser, location])
 
 
 

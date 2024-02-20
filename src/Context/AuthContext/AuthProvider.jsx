@@ -75,12 +75,14 @@ const AuthProvider = ({ children }) => {
                         const token = res.data?.token
                         if (token) {
                             localStorage.setItem('access-token', token);
+                            setAuthLoading(false);
                         }
                     })
             }
             // if user is not available remove the access token
             else {
                 localStorage.removeItem('access-token')
+                setAuthLoading(false);
             }
         });
         return () => {
@@ -89,7 +91,7 @@ const AuthProvider = ({ children }) => {
     }, [axiosPublic])
 
 
-    // send the info to conext
+    // send the info to context
     const authInfo = { createNewUser, createNewUserByGoogle, signOutUser, currentUser, accessExistingUser, updateProfileInfo, authLoading };
 
 
