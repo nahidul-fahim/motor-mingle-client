@@ -12,7 +12,7 @@ import 'aos/dist/aos.css';
 import useBids from "../../../Hooks/useBids/useBids";
 
 
-const SingleListing = ({ singleList, filteredListingRefetch }) => {
+const SingleListing = ({ singleList, listingsRefetch }) => {
 
 
     // hooks
@@ -43,7 +43,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                     .then(res => {
                         const data = res.data;
                         if (data.deletedCount) {
-                            filteredListingRefetch();
+                            listingsRefetch();
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
@@ -82,8 +82,8 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                 axiosSecure.put(`/updateSellStatus/${id}`, updateSellInfo)
                     .then(res => {
                         const data = res.data;
-                        if (data.modifiedCount) {
-                            filteredListingRefetch();
+                        if (data.modifiedCount > 0) {
+                            listingsRefetch();
                             Swal.fire({
                                 title: "Sold!",
                                 icon: "success"
@@ -91,6 +91,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
                         }
                     })
                     .catch(err => {
+                        console.log(err)
                         Swal.fire({
                             position: "top-end",
                             icon: "error",
@@ -110,7 +111,7 @@ const SingleListing = ({ singleList, filteredListingRefetch }) => {
             .then(res => {
                 const data = res.data;
                 if (data.deletedCount) {
-                    filteredListingRefetch();
+                    listingsRefetch();
                 }
             })
             .catch(err => {

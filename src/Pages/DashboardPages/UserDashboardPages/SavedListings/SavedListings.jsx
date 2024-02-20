@@ -66,7 +66,7 @@ const SavedListings = () => {
                     :
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-10 mt-[80px] w-full">
                         {
-                            savedListings.map(singleList => <SingleListing key={singleList?._id} singleList={singleList} filteredListingRefetch={savedListingsRefetch}></SingleListing>
+                            savedListings.map(singleList => <SingleListing key={singleList?._id} singleList={singleList} listingsRefetch={savedListingsRefetch}></SingleListing>
                             )
                         }
                     </div>

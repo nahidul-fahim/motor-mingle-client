@@ -22,9 +22,6 @@ const Dashboard = () => {
     const location = useLocation();
 
 
-    console.log(dbCurrentUser);
-
-
     // redirect the user to different route as per user type
     useEffect(() => {
         if (!dbCurrentUserPending && dbCurrentUser.userType === "admin" && location.pathname.slice(0, 11) !== "/dashboard/") {

@@ -126,7 +126,7 @@ const AllListings = () => {
                         {/* listing cards */}
                         {
                             filteredListing.map((singleList, index) =>
-                                <SingleListing key={index} singleList={singleList} filteredListingRefetch={filteredListingRefetch}
+                                <SingleListing key={index} singleList={singleList} listingsRefetch={filteredListingRefetch}
                                 ></SingleListing>
                             )
                         }
