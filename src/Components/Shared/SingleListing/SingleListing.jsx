@@ -135,6 +135,7 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
     }
 
 
+    console.log(singleList)
 
 
     return (
@@ -145,14 +146,13 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
             data-aos-anchor-placement="top-bottom">
 
             {/* listing image */}
-            <div className='relative'>
-                <img
-                    src={singleList?.photo}
-                    alt=""
-                    className='rounded-t-[20px] w-full lg:w-[330px] lg:h-[198px]'
-                />
-                <div className='absolute top-0 right-0 listing-image rounded-t-[20px]'></div>
-            </div>
+            <img
+                src={singleList?.photo}
+                alt={`${singleList?.carName}'s image`}
+                className='rounded-t-[20px] w-full lg:h-[198px]'
+            />
+            {/* div to show image hover style */}
+            <div className='absolute top-0 right-0 listing-image rounded-t-[20px]'></div>
 
 
             {/* show delete button for saved listing route only */}
