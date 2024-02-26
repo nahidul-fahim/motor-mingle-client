@@ -146,13 +146,14 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
             data-aos-anchor-placement="top-bottom">
 
             {/* listing image */}
-            <img
-                src={singleList?.photo}
-                alt={`${singleList?.carName}'s image`}
-                className='rounded-t-[20px] w-full lg:h-[198px]'
-            />
-            {/* div to show image hover style */}
-            <div className='absolute top-0 right-0 listing-image rounded-t-[20px]'></div>
+            <div className='relative w-full justify-self-stretch'>
+                <img
+                    src={singleList?.photo}
+                    alt={`${singleList?.carName}'s image`}
+                    className='rounded-t-[20px] w-full lg:h-[198px]'
+                />
+                <div className='absolute top-0 right-0 listing-image rounded-t-[20px]'></div>
+            </div>
 
 
             {/* show delete button for saved listing route only */}
@@ -238,7 +239,12 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                                                 <div className="bg-lightMain shadow-[0_0_20px_#c9c9c9] px-3 py-1 mt-3 rounded-[20px] w-full flex justify-center items-center gap-3">
 
                                                     {/* update button */}
-                                                    <Link to={`/dashboard/updateListing/${singleList?._id}`}><button className="text-black text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
+                                                    {
+                                                        !singleList?.sellStatus ?
+                                                            <Link to={`/dashboard/updateListing/${singleList?._id}`}><button className="text-black text-xl mt-[4px]"><RiEdit2Fill /> </button></Link>
+                                                            :
+                                                            ""
+                                                    }
 
                                                     {/* delete button */}
                                                     <button onClick={() => handleDeleteListing(singleList?._id)}
@@ -269,12 +275,6 @@ const SingleListing = ({ singleList, listingsRefetch }) => {
                         ""
                 }
             </div>
-
-
-
-
-
-
 
 
 
